@@ -88,6 +88,7 @@ interface StateProps {
   linkBankAccountEnabled: boolean
   kycStatus: KycStatus | undefined
   mtwAddress: string | null
+  hasLinkedBankAccount: boolean
 }
 
 type OwnProps = StackScreenProps<StackParamList, Screens.Settings>
@@ -116,6 +117,7 @@ const mapStateToProps = (state: RootState): StateProps => {
     linkBankAccountEnabled: state.app.linkBankAccountEnabled,
     kycStatus: state.account.kycStatus,
     mtwAddress: state.web3.mtwAddress,
+    hasLinkedBankAccount: state.account.hasLinkedBankAccount,
   }
 }
 
@@ -389,6 +391,8 @@ export class Account extends React.Component<Props, State> {
       verificationPossible,
       linkBankAccountEnabled,
       mtwAddress,
+      kycStatus,
+      hasLinkedBankAccount,
     } = this.props
     const promptFornoModal = this.props.route.params?.promptFornoModal ?? false
     const promptConfirmRemovalModal = this.props.route.params?.promptConfirmRemovalModal ?? false

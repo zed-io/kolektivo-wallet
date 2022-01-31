@@ -33,6 +33,7 @@ export enum Actions {
   UPDATE_DAILY_LIMIT_REQUEST_STATUS = 'ACCOUNT/UPDATE_DAILY_LIMIT_REQUEST_STATUS',
   UPDATE_KYC_STATUS = 'ACCOUNT/UPDATE_KYC_STATUS',
   SET_REWARDS_ENABLED = 'ACCOUNT/SET_REWARDS_ENABLED',
+  SET_HAS_LINKED_BANK_ACCOUNT = 'ACCOUNT/SET_HAS_LINKED_BANK_ACCOUNT',
 }
 
 export interface ChooseCreateAccountAction {
@@ -178,6 +179,10 @@ export interface UpdateKycStatusAction {
   kycStatus?: KycStatus
 }
 
+export interface SetHasLinkedBankAccount {
+  type: Actions.SET_HAS_LINKED_BANK_ACCOUNT
+}
+
 export type ActionTypes =
   | ChooseCreateAccountAction
   | ChooseRestoreAccountAction
@@ -210,6 +215,7 @@ export type ActionTypes =
   | UpdateDailyLimitAction
   | UpdateDailyLimitRequestStatusAction
   | UpdateKycStatusAction
+  | SetHasLinkedBankAccount
 
 export function chooseCreateAccount(): ChooseCreateAccountAction {
   return {
@@ -382,4 +388,8 @@ export const updateDailyLimitRequestStatus = (status: DailyLimitRequestStatus) =
 export const updateKycStatus = (kycStatus?: KycStatus): UpdateKycStatusAction => ({
   type: Actions.UPDATE_KYC_STATUS,
   kycStatus,
+})
+
+export const setHasLinkedBankAccount = (): SetHasLinkedBankAccount => ({
+  type: Actions.SET_HAS_LINKED_BANK_ACCOUNT,
 })

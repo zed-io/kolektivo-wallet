@@ -35,6 +35,7 @@ export interface State {
   dailyLimitCusd: number
   dailyLimitRequestStatus: DailyLimitRequestStatus | undefined
   kycStatus: KycStatus | undefined
+  hasLinkedBankAccount: boolean
 }
 
 export enum PincodeType {
@@ -96,6 +97,7 @@ export const initialState: State = {
   dailyLimitCusd: DEFAULT_DAILY_PAYMENT_LIMIT_CUSD,
   dailyLimitRequestStatus: undefined,
   kycStatus: undefined,
+  hasLinkedBankAccount: false,
 }
 
 export const reducer = (
@@ -277,6 +279,12 @@ export const reducer = (
       return {
         ...state,
         profileUploaded: true,
+      }
+    }
+    case Actions.SET_HAS_LINKED_BANK_ACCOUNT: {
+      return {
+        ...state,
+        hasLinkedBankAccount: true,
       }
     }
     default:
