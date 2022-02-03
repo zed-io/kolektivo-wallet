@@ -14,6 +14,7 @@ import {
   v21Schema,
   v28Schema,
   v2Schema,
+  v30Schema,
   v7Schema,
   v8Schema,
   vNeg1Schema,
@@ -406,5 +407,10 @@ describe('Redux persist migrations', () => {
 
     expect(migratedSchema.web3.fornoMode).toBe(true)
     expect(migratedSchema.web3.hadFornoDisabled).toBe(true)
+  })
+
+  it('works for 30 to 31', () => {
+    const migratedSchema = migrations[31](v30Schema)
+    expect(migratedSchema.app.linkBankAccountStepTwoEnabled).toBeFalsy()
   })
 })
