@@ -403,6 +403,7 @@ export const migrations = {
       ...state.app,
       biometryEnabled: false,
       supportedBiometryType: null,
+      linkBankAccountStepTwoEnabled: false,
     },
     account: {
       ...state.account,
