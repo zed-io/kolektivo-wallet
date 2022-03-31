@@ -37,18 +37,20 @@ if [[ "$branding" == "valora" ]]; then
   fi
 fi
 
-if [[ "$branding" == "kolektivo" ]]; then
+if [[ "$branding" == "kolektivo"]]; then
   # prevents git from asking credentials
   export GIT_TERMINAL_PROMPT=0
-  if [[ ! -e branding/kolektivo ]] && ! git clone git@github.com:zed.io/kolektivo-branding.git branding/kolektivo ; then
+  if [[ ! -e branding/kolektivo ]] && ! git clone git@github.com:zed.io/kolektivo-branding.git branding/valora ; then
     echo "Couldn't clone private branding. Will use default branding."
     branding=celo
   else
     pushd "branding/$branding"
-    git pull
+    git fetch
+    git checkout "$valora_branding_sha"
     popd
   fi
-fi
+
+echo "Using branding/$branding"
 
 echo "Using branding/$branding"
 echo "Copying all folders from branding/$branding to $mobile_root"
