@@ -5,8 +5,8 @@ import { Provider } from 'react-redux'
 import { PaymentMethod } from 'src/fiatExchanges/FiatExchangeOptions'
 import CashInBottomSheet from 'src/home/CashInBottomSheet'
 import { navigate } from 'src/navigator/NavigationService'
-import { navigateToURI } from 'src/utils/linking'
 import { Screens } from 'src/navigator/Screens'
+import { navigateToURI } from 'src/utils/linking'
 import { createMockStore } from 'test/utils'
 
 const mockRampProvider = {
