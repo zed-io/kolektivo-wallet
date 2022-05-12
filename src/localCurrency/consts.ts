@@ -27,6 +27,7 @@ export enum LocalCurrencyCode {
   XOF = 'XOF',
   XAF = 'XAF',
   ZAR = 'ZAR',
+  ANG = 'ANG',
 }
 
 export enum LocalCurrencySymbol {
@@ -56,6 +57,7 @@ export enum LocalCurrencySymbol {
   XAF = 'FCFA',
   XOF = 'CFA',
   ZAR = 'R',
+  ANG = 'ƒ',
 }
 
 export const LOCAL_CURRENCY_CODES = Object.values(LocalCurrencyCode)
