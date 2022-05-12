@@ -22,7 +22,7 @@ import { refreshAllBalances } from 'src/home/actions'
 import CashInBottomSheet from 'src/home/CashInBottomSheet'
 import NotificationBox from 'src/home/NotificationBox'
 import RecentlyUsedDapps from 'src/home/RecentlyUsedDapps'
-import SendOrRequestBar from 'src/home/SendOrRequestBar'
+import SendOrRequestButtons from 'src/home/SendOrRequestButtons'
 import Logo from 'src/icons/Logo'
 import { importContacts } from 'src/identity/actions'
 import DrawerTopBar from 'src/navigator/DrawerTopBar'
@@ -139,6 +139,11 @@ function WalletHome() {
     renderItem: () => <HomeTokenBalance key={'HomeTokenBalance'} />,
   })
 
+  sections.push({
+    data: [{}],
+    renderItem: () => <SendOrRequestButtons />,
+  })
+
   if (maxNumRecentDapps > 0) {
     sections.push({
       data: [{}],
@@ -164,7 +169,6 @@ function WalletHome() {
         sections={sections}
         keyExtractor={keyExtractor}
       />
-      <SendOrRequestBar />
       {shouldShowCashInBottomSheet() && <CashInBottomSheet />}
       {ConfirmOpenDappBottomSheet}
     </SafeAreaView>
