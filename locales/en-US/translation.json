@@ -1315,5 +1315,6 @@
   },
   "dappNotListed": "This dapp is not listed in {{appName}}. Dapps are third party applications. Use at your own risk.",
   "celoDollarAmount": "<0></0> Celo Dollar",
-  "celoDollarAmount_plural": "<0></0> Celo Dollars"
+  "celoDollarAmount_plural": "<0></0> Celo Dollars",
+  "daysAgo": "{{days}} days ago"
 }
