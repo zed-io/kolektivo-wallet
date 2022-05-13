@@ -141,13 +141,13 @@ function WalletHome() {
 
   sections.push({
     data: [{}],
-    renderItem: () => <SendOrRequestButtons />,
+    renderItem: () => <SendOrRequestButtons key={'SendOrRequestButtons'} />,
   })
 
   if (maxNumRecentDapps > 0) {
     sections.push({
       data: [{}],
-      renderItem: () => <RecentlyUsedDapps key="RecentlyUsedDapps" onSelectDapp={onSelectDapp} />,
+      renderItem: () => <RecentlyUsedDapps key={'RecentlyUsedDapps'} onSelectDapp={onSelectDapp} />,
     })
   }
 
