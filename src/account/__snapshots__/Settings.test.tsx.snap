@@ -1397,7 +1397,7 @@ exports[`Account renders correctly 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -1435,7 +1435,7 @@ exports[`Account renders correctly 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -1650,7 +1650,7 @@ exports[`Account renders correctly 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -1688,7 +1688,7 @@ exports[`Account renders correctly 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -1903,7 +1903,7 @@ exports[`Account renders correctly 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -1941,7 +1941,7 @@ exports[`Account renders correctly 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -3683,7 +3683,7 @@ exports[`Account renders correctly when dev mode active 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -3721,7 +3721,7 @@ exports[`Account renders correctly when dev mode active 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -3936,7 +3936,7 @@ exports[`Account renders correctly when dev mode active 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -3974,7 +3974,7 @@ exports[`Account renders correctly when dev mode active 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -4189,7 +4189,7 @@ exports[`Account renders correctly when dev mode active 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -4227,7 +4227,7 @@ exports[`Account renders correctly when dev mode active 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -5821,7 +5821,7 @@ exports[`Account renders correctly when verification is not possible 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -5859,7 +5859,7 @@ exports[`Account renders correctly when verification is not possible 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -6074,7 +6074,7 @@ exports[`Account renders correctly when verification is not possible 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -6112,7 +6112,7 @@ exports[`Account renders correctly when verification is not possible 1`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -7453,7 +7453,7 @@ exports[`Account renders correctly when verification is not possible 2`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -7491,7 +7491,7 @@ exports[`Account renders correctly when verification is not possible 2`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -7706,7 +7706,7 @@ exports[`Account renders correctly when verification is not possible 2`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -7744,7 +7744,7 @@ exports[`Account renders correctly when verification is not possible 2`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -7959,7 +7959,7 @@ exports[`Account renders correctly when verification is not possible 2`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,
@@ -7997,7 +7997,7 @@ exports[`Account renders correctly when verification is not possible 2`] = `
                     style={
                       Array [
                         Object {
-                          "color": "#1AB775",
+                          "color": "#45ADA8",
                           "fontFamily": "Inter-SemiBold",
                           "fontSize": 16,
                           "lineHeight": 22,

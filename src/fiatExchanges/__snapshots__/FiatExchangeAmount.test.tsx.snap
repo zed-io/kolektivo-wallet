@@ -196,7 +196,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with EUR as app currency 1`
                 style={
                   Array [
                     Object {
-                      "color": "#1AB775",
+                      "color": "#45ADA8",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 16,
                       "lineHeight": 22,
@@ -364,7 +364,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with EUR as app currency 1`
                 <Text
                   style={
                     Object {
-                      "color": "#1AB775",
+                      "color": "#45ADA8",
                     }
                   }
                 />
@@ -409,7 +409,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with EUR as app currency 1`
                 style={
                   Array [
                     Object {
-                      "color": "#1AB775",
+                      "color": "#45ADA8",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 16,
                       "lineHeight": 22,
@@ -447,7 +447,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with EUR as app currency 1`
                 style={
                   Array [
                     Object {
-                      "color": "#1AB775",
+                      "color": "#45ADA8",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 16,
                       "lineHeight": 22,
@@ -520,7 +520,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with EUR as app currency 1`
                 "textAlign": "right",
               },
               Object {
-                "color": "#1AB775",
+                "color": "#45ADA8",
               },
             ]
           }
@@ -676,7 +676,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with EUR as app currency 1`
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "#97DFC1",
+            "backgroundColor": "#F3C6B5",
             "flexGrow": 1,
             "height": 48,
             "justifyContent": "center",
@@ -919,7 +919,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with USD as app currency 1`
                 style={
                   Array [
                     Object {
-                      "color": "#1AB775",
+                      "color": "#45ADA8",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 16,
                       "lineHeight": 22,
@@ -1087,7 +1087,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with USD as app currency 1`
                 <Text
                   style={
                     Object {
-                      "color": "#1AB775",
+                      "color": "#45ADA8",
                     }
                   }
                 />
@@ -1132,7 +1132,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with USD as app currency 1`
                 style={
                   Array [
                     Object {
-                      "color": "#1AB775",
+                      "color": "#45ADA8",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 16,
                       "lineHeight": 22,
@@ -1170,7 +1170,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with USD as app currency 1`
                 style={
                   Array [
                     Object {
-                      "color": "#1AB775",
+                      "color": "#45ADA8",
                       "fontFamily": "Inter-SemiBold",
                       "fontSize": 16,
                       "lineHeight": 22,
@@ -1243,7 +1243,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with USD as app currency 1`
                 "textAlign": "right",
               },
               Object {
-                "color": "#1AB775",
+                "color": "#45ADA8",
               },
             ]
           }
@@ -1399,7 +1399,7 @@ exports[`FiatExchangeAmount cashIn renders correctly with USD as app currency 1`
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "#97DFC1",
+            "backgroundColor": "#F3C6B5",
             "flexGrow": 1,
             "height": 48,
             "justifyContent": "center",
