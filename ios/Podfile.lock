@@ -21,7 +21,6 @@ PODS:
     - AppCenter/Core
   - AppCenterReactNativeShared (4.4.4):
     - AppCenter/Core (= 4.4.2)
-  - Base64 (1.1.2)
   - boost (1.76.0)
   - CleverTap-iOS-SDK (4.0.0):
     - SDWebImage (~> 5.1)
@@ -840,7 +839,6 @@ SPEC REPOS:
     - Analytics
     - AppCenter
     - AppCenterReactNativeShared
-    - Base64
     - CleverTap-iOS-SDK
     - CocoaAsyncSocket
     - CTNotificationService
@@ -1075,7 +1073,6 @@ SPEC CHECKSUMS:
   appcenter-core: 9b90e7b8581598cf4f61d2efe41581cc69631da8
   appcenter-crashes: 02e9432ed23579e258af9742356d74271539fb85
   AppCenterReactNativeShared: 0906af7a6bf95075d6c607189820a2e81fceb6fe
-  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   CleverTap-iOS-SDK: fa4737b7cede85e55d49354ce79ef8d08762ddca
   clevertap-react-native: 97ccd6512b94fe034c126340b8eb677f28e5baa1
@@ -1211,4 +1208,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 15b498550f43d211df783f5f27241f1717498358
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.3
