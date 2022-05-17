@@ -1318,5 +1318,13 @@
     "openExternal": "Open in External Browser"
   },
   "dappNotListed": "This dapp is not listed in {{appName}}. Dapps are third party applications. Use at your own risk.",
-  "daysAgo": "{{days}} days ago"
+  "daysAgo": "{{days}} days ago",
+  "servicesList": {
+    "buy": "Buy cGuilder",
+    "cico": "Cash Out",
+    "swap": "Swap",
+    "invest": "Invest",
+    "bills": "Pay Bills"
+  },
+  "services": "Services"
 }
