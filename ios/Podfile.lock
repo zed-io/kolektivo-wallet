@@ -21,6 +21,7 @@ PODS:
     - AppCenter/Core
   - AppCenterReactNativeShared (4.4.4):
     - AppCenter/Core (= 4.4.2)
+  - Base64 (1.1.2)
   - boost (1.76.0)
   - CleverTap-iOS-SDK (4.0.0):
     - SDWebImage (~> 5.1)
@@ -28,7 +29,12 @@ PODS:
     - CleverTap-iOS-SDK (= 4.0.0)
     - React-Core
   - CocoaAsyncSocket (7.6.5)
-  - CTNotificationService (0.1.4)
+  - CodePush (7.0.4):
+    - Base64 (~> 1.1)
+    - JWT (~> 3.0.0-beta.12)
+    - React-Core
+    - SSZipArchive (~> 2.2.2)
+  - CTNotificationService (0.1.3)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.66.4)
   - FBReactNativeSpec (0.66.4):
@@ -229,7 +235,9 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.7.2)
+  - GTMSessionFetcher/Core (1.7.0)
+  - JWT (3.0.0-beta.14):
+    - Base64 (~> 1.1.2)
   - leveldb-library (1.22.1)
   - libevent (2.1.12)
   - lottie-ios (3.2.3)
@@ -701,9 +709,10 @@ PODS:
     - Firebase (~> 7.7)
     - Firebase/Core (~> 7.7)
     - FirebaseAnalytics (~> 7.7)
-  - Sentry (7.11.0):
-    - Sentry/Core (= 7.11.0)
-  - Sentry/Core (7.11.0)
+  - Sentry (7.5.4):
+    - Sentry/Core (= 7.5.4)
+  - Sentry/Core (7.5.4)
+  - SSZipArchive (2.2.3)
   - Toast (4.0.0)
   - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
@@ -716,6 +725,7 @@ DEPENDENCIES:
   - appcenter-crashes (from `../node_modules/appcenter-crashes/ios`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - clevertap-react-native (from `../node_modules/clevertap-react-native`)
+  - CodePush (from `../node_modules/react-native-code-push`)
   - CTNotificationService
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -830,6 +840,7 @@ SPEC REPOS:
     - Analytics
     - AppCenter
     - AppCenterReactNativeShared
+    - Base64
     - CleverTap-iOS-SDK
     - CocoaAsyncSocket
     - CTNotificationService
@@ -860,6 +871,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - GTMSessionFetcher
+    - JWT
     - leveldb-library
     - libevent
     - nanopb
@@ -872,6 +884,7 @@ SPEC REPOS:
     - Segment-CleverTap
     - Segment-Firebase
     - Sentry
+    - SSZipArchive
     - Toast
     - TOCropViewController
     - YogaKit
@@ -887,6 +900,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   clevertap-react-native:
     :path: "../node_modules/clevertap-react-native"
+  CodePush:
+    :path: "../node_modules/react-native-code-push"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -1060,11 +1075,13 @@ SPEC CHECKSUMS:
   appcenter-core: 9b90e7b8581598cf4f61d2efe41581cc69631da8
   appcenter-crashes: 02e9432ed23579e258af9742356d74271539fb85
   AppCenterReactNativeShared: 0906af7a6bf95075d6c607189820a2e81fceb6fe
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   CleverTap-iOS-SDK: fa4737b7cede85e55d49354ce79ef8d08762ddca
   clevertap-react-native: 97ccd6512b94fe034c126340b8eb677f28e5baa1
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  CTNotificationService: 43d6e66c78bc338bde3db173d615d8cde5f104f7
+  CodePush: b51b7ac64c07d4eacfc8cc5750a1dd28adbf2528
+  CTNotificationService: 910b253821ef6c08158bf8c7dedc421a4df4cd4c
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: e5569e42a1c79ca00521846c223173a57aca1fe1
   FBReactNativeSpec: fe08c1cd7e2e205718d77ad14b34957cce949b58
@@ -1094,8 +1111,9 @@ SPEC CHECKSUMS:
   glog: 5337263514dd6f09803962437687240c5dc39aa4
   GoogleAppMeasurement: fd19169c3034975cb934e865e5667bfdce59df7f
   GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
-  GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
-  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
+  GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
+  GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
@@ -1184,7 +1202,8 @@ SPEC CHECKSUMS:
   Segment-Adjust: 1a12861ab2e9372fc70af949057490858666cd37
   Segment-CleverTap: 33df087116d5a0a76d2fb3003ed8609c979eac10
   Segment-Firebase: 709fff402c50f74c218482603683edd42785cbf9
-  Sentry: 0c5cd63d714187b4a39c331c1f0eb04ba7868341
+  Sentry: 5c5dd4005f3b7b9765d5a8871232cddbd0d888b7
+  SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
@@ -1192,4 +1211,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 15b498550f43d211df783f5f27241f1717498358
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.10.1

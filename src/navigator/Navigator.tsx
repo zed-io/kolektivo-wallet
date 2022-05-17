@@ -167,6 +167,12 @@ const commonScreens = (Navigator: typeof Stack) => {
   )
 }
 
+/**
+ * This function returns a JSX element wrapping the screens
+ * related to onboarding and user verification.
+ * @param Navigator The main stack navigator
+ * @returns The screens related to verification
+ */
 const verificationScreens = (Navigator: typeof Stack) => {
   return (
     <>
@@ -189,6 +195,12 @@ const verificationScreens = (Navigator: typeof Stack) => {
   )
 }
 
+/**
+ * This function returns a JSX element wrapping the screens
+ * related to onboarding.
+ * @param Navigator The main stack navigator
+ * @returns The screens related to the onboarding flow
+ */
 const nuxScreens = (Navigator: typeof Stack) => (
   <>
     <Navigator.Screen
@@ -229,6 +241,12 @@ const nuxScreens = (Navigator: typeof Stack) => (
   </>
 )
 
+/**
+ * This function returns a JSX element wrapping the screens
+ * related to sending and receiving currencies.
+ * @param Navigator The main stack navigator
+ * @returns The screens related to sending and receiving
+ */
 const sendScreens = (Navigator: typeof Stack) => (
   <>
     <Navigator.Screen name={Screens.Send} component={Send} options={Send.navigationOptions} />
@@ -337,6 +355,13 @@ const exchangeReviewScreenOptions = ({
     headerTitle: () => <HeaderTitleWithBalance title={title} token={makerToken} />,
   }
 }
+
+/**
+ * This function returns a JSX element wrapping the screens
+ * related to the exchange flow.
+ * @param Navigator The main stack navigator
+ * @returns The screens related to exchanging celo.
+ */
 const exchangeScreens = (Navigator: typeof Stack) => (
   <>
     <Navigator.Screen
@@ -366,7 +391,12 @@ const exchangeScreens = (Navigator: typeof Stack) => (
     />
   </>
 )
-
+/**
+ * This function returns a JSX element wrapping the screens
+ * related to the cGLD customer incentives.
+ * @param Navigator The main stack navigator
+ * @returns The screens related to the cGLD incentives
+ */
 const consumerIncentivesScreens = (Navigator: typeof Stack) => (
   <>
     <Navigator.Screen
@@ -377,6 +407,11 @@ const consumerIncentivesScreens = (Navigator: typeof Stack) => (
   </>
 )
 
+/**
+ *
+ * @param Navigator The main stack navigator
+ * @returns
+ */
 const backupScreens = (Navigator: typeof Stack) => (
   <>
     <Navigator.Screen
@@ -408,6 +443,12 @@ const backupScreens = (Navigator: typeof Stack) => (
   </>
 )
 
+/**
+ * This function returns a JSX element wrapping the screens
+ * related to the application settings.
+ * @param Navigator The main stack navigator
+ * @returns The screens related to app settings
+ */
 const settingsScreens = (Navigator: typeof Stack) => (
   <>
     <Navigator.Screen
@@ -519,6 +560,12 @@ const settingsScreens = (Navigator: typeof Stack) => (
   </>
 )
 
+/**
+ * This function returns a JSX element wrapping the screens
+ * that do not fall under another specific category.
+ * @param Navigator The main stack navigator
+ * @returns General screens of the app.
+ */
 const generalScreens = (Navigator: typeof Stack) => (
   <>
     <Navigator.Screen
