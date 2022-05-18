@@ -1320,8 +1320,8 @@
   "dappNotListed": "This dapp is not listed in {{appName}}. Dapps are third party applications. Use at your own risk.",
   "daysAgo": "{{days}} days ago",
   "servicesList": {
-    "buy": "Buy cGuilder",
-    "cico": "Cash Out",
+    "buy": "Deposit",
+    "cico": "Withdraw",
     "swap": "Swap",
     "invest": "Invest",
     "bills": "Pay Bills"
