@@ -78,6 +78,7 @@ export enum Screens {
   StoreWipeRecoveryScreen = 'StoreWipeRecoveryScreen',
   Support = 'Support',
   SupportContact = 'SupportContact',
+  Swap = 'Swap',
   Sync = 'Sync',
   SyncBankAccountScreen = 'SyncBankAccountScreen',
   TabNavigation = 'TabNavigator',
