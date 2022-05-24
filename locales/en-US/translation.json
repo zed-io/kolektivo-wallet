@@ -161,7 +161,7 @@
     }
   ],
   "consumerIncentivesTitle": "Get started with Supercharge",
-  "consumerIncentivesSummary": "Supercharge is here! Get 12% annual rewards on your highest stablecoin balance (cUSD, cEUR, or cREAL). Available for a limited time. Here's how it works:",
+  "consumerIncentivesSummary": "Supercharge is here! Get {{percent}}% annual rewards on your highest stablecoin balance (cUSD, cEUR, or cREAL). Available for a limited time. Here's how it works:",
   "earnWeekly": {
     "header": "Connect your phone number",
     "text": "Tap Connect Number if you haven't connected it yet."
@@ -177,7 +177,7 @@
   },
   "conclusion": "It’s that simple. Supercharge your crypto today!",
   "superchargeTitle": "Start Supercharging",
-  "superchargeDescription": "Get 12% annual rewards on your {{token}} balance. Here's how to start:",
+  "superchargeDescription": "Get {{apy}}% annual rewards on your {{token}} balance. Here's how to start:",
   "superchargeConnectNumber": "Connect your phone number",
   "superchargeMinimumBalance": "Add a minimum balance of {{amount}} {{token}}",
   "superchargeDisclaimer": "Max-out rewards by adding up to {{amount}} {{token}}",
@@ -189,7 +189,7 @@
     "dismiss": "Dismiss"
   },
   "superchargingTitle": "Your {{token}} is being Supercharged",
-  "superchargingDescription": "Every week you'll get a notification when your rewards are ready, come back here to claim them.",
+  "superchargingDescription": "You’re getting {{apy}}% annually. Every week you'll get a notification when your rewards are ready, come back here to claim them.",
   "superchargeRewardsAvailable": "You have {{amount}} {{token}} available to claim!",
   "superchargeRewardsAvailableMultipleTokens": "You have {{amounts}} available to claim!",
   "superchargeClaimText": "Claim your rewards to add them to your balance.",
@@ -199,7 +199,7 @@
   "superchargeClaimFailure": "There was an issue claiming your Supercharge rewards.",
   "superchargeNotificationBody": "Your Supercharge rewards are here! Claim them now.",
   "superchargeNotificationStart": "Claim rewards",
-  "superchargingNotificationBody": "You're getting rewards with Supercharge ⚡",
+  "superchargingNotificationBody": "You're getting 25% rewards with Supercharge ⚡",
   "superchargingNotificationBodyV1_33": "You're getting {{apy}}% rewards with Supercharge ⚡",
   "superchargingNotificationStart": "Learn more",
   "startSuperchargingNotificationBody": "Get rewarded with crypto weekly. Start Supercharging!",
@@ -788,9 +788,9 @@
     "codePlaceholder3": "Copy the third message",
     "codePlaceholder3_ios": "Tap or copy the third message",
     "codePlaceholderWithCodeInClipboard": "Great! Paste it here",
-    "resendMessages_all": "Resend all messages",
     "resendMessages": "Resend last message",
-    "resendMessages_plural": "Resend {{count}} messages"
+    "resendMessages_plural": "Resend {{count}} messages",
+    "resendMessages_all": "Resend all messages"
   },
   "verificationInputHelpDialog": {
     "title": "Help",
@@ -847,6 +847,8 @@
   "characterLimitExceeded": "{{max}} Character Limit Exceeded",
   "payRequest": "Pay Request",
   "sendTo": "Send to",
+  "celoDollarAmount": "<0></0> Celo Dollar",
+  "celoDollarAmount_plural": "<0></0> Celo Dollars",
   "addDescription": "Add description",
   "sentTo": "Sent To",
   "withdrawnTo": "Withdrawn to",
@@ -1227,6 +1229,19 @@
   "merchantPaymentSubmitSuccess": "Your payment successfully submitted",
   "merchantWalletUnlockError": "Something went wrong when unlocking your wallet, please try again",
   "noMoreTransactions": "There are no more transactions",
+  "daysAgo": "{{days}} days ago",
+  "servicesList": {
+    "buy": "Deposit",
+    "cico": "Withdraw",
+    "swap": "Swap",
+    "invest": "Invest",
+    "bills": "Pay Bills"
+  },
+  "swap": {
+    "title": "Swap",
+    "select": "Choose"
+  },
+  "services": "Services",
   "selectProviderScreen": {
     "somePaymentsUnavailable": "Some payment methods are unavailable in your region",
     "learnMore": "Learn more.",
@@ -1314,7 +1329,4 @@
     "openExternal": "Open in External Browser"
   },
   "dappNotListed": "This dapp is not listed in {{appName}}. Dapps are third party applications. Use at your own risk.",
-  "celoDollarAmount": "<0></0> Celo Dollar",
-  "celoDollarAmount_plural": "<0></0> Celo Dollars",
-  "daysAgo": "{{days}} days ago"
 }
