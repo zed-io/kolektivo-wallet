@@ -1332,5 +1332,6 @@
   },
   "services": "Services",
   "transactionHistory": "Transaction History",
-  "vendors": "Vendors"
+  "vendors": "Vendors",
+  "payVendor": "Pay Now"
 }
