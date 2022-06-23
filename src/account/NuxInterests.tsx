@@ -25,6 +25,14 @@ import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import TextButton from 'src/components/TextButton'
 import { isE2EEnv } from 'src/config'
 import { setHasSeenVerificationNux } from 'src/identity/actions'
+import {
+  culture,
+  ecosystem,
+  governance,
+  innovation,
+  kolektivoGeneral,
+  leadership,
+} from 'src/images/Images'
 import { HeaderTitleWithSubtitle, nuxNavigationOptions } from 'src/navigator/Headers'
 import { navigate, navigateHome } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
@@ -195,8 +203,8 @@ function NuxInterestsScreen({ route, navigation }: Props) {
         onPress={() => handleUserInterest(item.title)}
       >
         <View style={styles.interestRow}>
-          <View style={[]}>
-            <Image source={{ uri: item.image }} style={styles.interestImage} />
+          <View style={styles.imageRow}>
+            <Image source={item.image} style={styles.interestImage} />
           </View>
           <Text style={[styles.interestTitle, isSelected ? styles.interestedTitle : null]}>
             {item.title}
@@ -316,14 +324,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-end',
   },
+  imageRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexGrow: 1,
+  },
   interestImage: {
-    resizeMode: 'contain',
-    width: 75,
-    height: 75,
+    shadowOpacity: 0.1,
+    shadowColor: '#FFF',
   },
   interestTitle: {
-    ...fontStyles.label,
+    ...fontStyles.small,
     textAlign: 'center',
+    minHeight: '30%',
   },
   interested: {
     backgroundColor: Colors.greenFaint,
@@ -332,26 +346,34 @@ const styles = StyleSheet.create({
   },
   interestedTitle: {
     color: Colors.light,
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.15,
   },
 })
 
 const InterestGridItems = [
   {
-    title: 'Kolektivo',
-    image: 'https://png.monster/wp-content/uploads/2022/02/png.monster-639.png',
+    title: 'Kolektivo General',
+    image: kolektivoGeneral,
   },
   {
-    title: 'Investing',
-    image: 'https://png.monster/wp-content/uploads/2022/02/png.monster-639.png',
+    title: 'Leadership and Human Development',
+    image: leadership,
   },
   {
-    title: 'Buy & Sell',
-    image: 'https://png.monster/wp-content/uploads/2022/02/png.monster-639.png',
+    title: 'Equitable Communities & Governance',
+    image: governance,
   },
   {
-    title: 'Community',
-    image: 'https://png.monster/wp-content/uploads/2022/02/png.monster-639.png',
+    title: 'Healthy Ecosystems & Environment',
+    image: ecosystem,
+  },
+  {
+    title: 'Entrepreneurship & Innovation',
+    image: innovation,
+  },
+  {
+    title: 'Creativity, Culture & Arts',
+    image: culture,
   },
 ]
 
