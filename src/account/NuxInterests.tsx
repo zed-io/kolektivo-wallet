@@ -223,7 +223,7 @@ function NuxInterestsScreen({ route, navigation }: Props) {
           disabled={!allowContinue}
           size={BtnSizes.FULL}
           text={t('continue')}
-          onPress={() => {}}
+          onPress={onPressContinue}
         />
         <TextButton
           testID="InterestLearnMore"
@@ -278,9 +278,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     color: colors.dark,
   },
-  recaptcha: {
-    backgroundColor: 'transparent',
-  },
   scrollContainer: {
     flexGrow: 1,
     paddingHorizontal: 20,
@@ -294,12 +291,6 @@ const styles = StyleSheet.create({
     ...fontStyles.regular,
     marginBottom: Spacing.Thick24,
   },
-  startButton: {
-    marginBottom: Spacing.Thick24,
-  },
-  phoneNumber: {
-    marginBottom: Spacing.Thick24,
-  },
   spacer: {
     flex: 1,
   },
@@ -307,12 +298,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.onboardingBrownLight,
     padding: Spacing.Regular16,
-  },
-  loader: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    backgroundColor: colors.onboardingBackground,
   },
   interestItem: {
     flexDirection: 'row',
