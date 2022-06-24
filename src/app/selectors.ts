@@ -141,6 +141,7 @@ type StoreWipeRecoveryScreens = Extract<
   | Screens.ImportWallet
   | Screens.VerificationEducationScreen
   | Screens.VerificationInputScreen
+  | Screens.NuxInterests
 >
 type CreateAccountScreens = Extract<
   Screens,
@@ -149,6 +150,7 @@ type CreateAccountScreens = Extract<
   | Screens.EnableBiometry
   | Screens.VerificationEducationScreen
   | Screens.VerificationInputScreen
+  | Screens.NuxInterests
 >
 type RestoreAccountScreens = CreateAccountScreens & Screens.ImportWallet
 
@@ -157,6 +159,7 @@ export const storeWipeRecoverySteps: { [key in StoreWipeRecoveryScreens]: number
   [Screens.ImportWallet]: 2,
   [Screens.VerificationEducationScreen]: 3,
   [Screens.VerificationInputScreen]: 3,
+  [Screens.NuxInterests]: 4,
 }
 export const createAccountSteps: { [key in CreateAccountScreens]: number } = {
   [Screens.NameAndPicture]: 1,
@@ -164,6 +167,7 @@ export const createAccountSteps: { [key in CreateAccountScreens]: number } = {
   [Screens.EnableBiometry]: 3,
   [Screens.VerificationEducationScreen]: 4,
   [Screens.VerificationInputScreen]: 4,
+  [Screens.NuxInterests]: 5,
 }
 export const restoreAccountSteps: { [key in RestoreAccountScreens]: number } = {
   [Screens.NameAndPicture]: 1,
@@ -172,8 +176,8 @@ export const restoreAccountSteps: { [key in RestoreAccountScreens]: number } = {
   [Screens.ImportWallet]: 4,
   [Screens.VerificationEducationScreen]: 5,
   [Screens.VerificationInputScreen]: 5,
+  [Screens.NuxInterests]: 6,
 }
-
 // The logic in this selector should be moved to a hook when all registration
 // screens are function components
 export const registrationStepsSelector = createSelector(
@@ -196,15 +200,15 @@ export const registrationStepsSelector = createSelector(
     let step
     if (recoveringFromStoreWipe) {
       steps = storeWipeRecoverySteps
-      totalSteps = 3
+      totalSteps = 4
       step = storeWipeRecoverySteps[activeScreen as StoreWipeRecoveryScreens]
     } else if (chooseRestoreAccount) {
       steps = restoreAccountSteps
-      totalSteps = 5
+      totalSteps = 6
       step = restoreAccountSteps[activeScreen as RestoreAccountScreens]
     } else {
       steps = createAccountSteps
-      totalSteps = 4
+      totalSteps = 5
       step = createAccountSteps[activeScreen as CreateAccountScreens]
     }
 

@@ -186,6 +186,14 @@ export type StackParamList = {
   [Screens.Main]: undefined
   [Screens.MainModal]: undefined
   [Screens.MerchantPayment]: { referenceId: string; apiBase: string }
+  [Screens.NuxInterests]:
+    | {
+        showSkipDialog?: boolean
+        hideOnboardingStep?: boolean
+        selectedCountryCodeAlpha2?: string
+        choseToRestoreAccount?: boolean
+      }
+    | undefined
   [Screens.OutgoingPaymentRequestListScreen]: undefined
   [Screens.PaymentRequestUnavailable]: {
     transactionData: TransactionDataInput | TransactionDataInputLegacy
