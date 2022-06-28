@@ -2,12 +2,12 @@ import { StyleSheet } from 'react-native'
 import colors from 'src/styles/colors'
 
 const Poppins = {
-  SemiBold: 'Poppins-SemiBold',
+  SemiBold: 'Lato-Bold',
 }
 
 const Lato = {
   Regular: 'Lato-Regular',
-  Medium: 'Lato-Medium',
+  SemiBold: 'Lato-Black',
   Bold: 'Lato-Bold',
 }
 
@@ -15,71 +15,73 @@ export const fontFamily = Poppins.SemiBold
 
 const standards = {
   large: {
-    fontSize: 28,
-    lineHeight: 32,
-    fontFamily: Poppins.SemiBold,
+    fontSize: 20,
+    lineHeight: 23,
     color: colors.dark,
   },
   regular: {
-    fontSize: 20,
-    lineHeight: 24,
-    fontFamily: Poppins.SemiBold,
+    fontSize: 18,
+    lineHeight: 21,
     color: colors.dark,
   },
   small: {
-    fontSize: 14,
-    lineHeight: 20,
-    fontFamily: Poppins.SemiBold,
+    fontSize: 16,
+    lineHeight: 22,
     color: colors.dark,
   },
 }
 // Figma Font Styles
 const fontStyles = StyleSheet.create({
   h1: {
-    fontSize: 26,
-    lineHeight: 32,
-    fontFamily: Poppins.SemiBold,
-    color: colors.dark,
-  },
-  h2: {
-    fontSize: 22,
+    fontSize: 24,
     lineHeight: 28,
     fontFamily: Poppins.SemiBold,
     color: colors.dark,
   },
+  h2: {
+    ...standards.regular,
+    fontFamily: Poppins.SemiBold,
+    color: colors.dark,
+  },
   sectionHeader: {
-    fontSize: 14,
-    lineHeight: 16,
-    fontFamily: Lato.Medium,
+    ...standards.small,
+    fontFamily: Lato.Regular,
     color: colors.dark,
   },
   navigationHeader: {
-    fontSize: 16,
-    lineHeight: 20,
+    ...standards.regular,
     fontFamily: Poppins.SemiBold,
     color: colors.dark,
   },
   notificationHeadline: {
-    fontSize: 18,
-    lineHeight: 22,
-    fontFamily: Lato.Medium,
+    ...standards.large,
+    fontFamily: Lato.Regular,
     color: colors.dark,
   },
   displayName: {
-    fontSize: 18,
-    lineHeight: 24,
-    fontFamily: Lato.Medium,
+    fontSize: 24,
+    lineHeight: 30,
+    fontFamily: Lato.Regular,
     color: colors.dark,
   },
   label: {
-    fontSize: 13,
-    lineHeight: 16,
-    fontFamily: Lato.Medium,
+    fontSize: 16,
+    lineHeight: 22,
+    fontFamily: Lato.Regular,
     color: colors.dark,
   },
-  large: standards.large,
-  regular: standards.regular,
-  small: standards.small,
+  large: {
+    ...standards.large,
+    fontFamily: Lato.Regular,
+  },
+  regular: {
+    ...standards.regular,
+    fontFamily: Lato.Regular,
+  },
+  small: {
+    ...standards.small,
+    fontFamily: Lato.Regular,
+  },
   large600: { ...standards.large, fontFamily: Poppins.SemiBold },
   regular600: { ...standards.regular, fontFamily: Poppins.SemiBold },
   small600: { ...standards.small, fontFamily: Poppins.SemiBold },
@@ -127,3 +129,5 @@ export const oldFontsStyles = StyleSheet.create({
   sectionLabelNew: fontStyles.sectionHeader,
   headerTitle: fontStyles.regular600,
 })
+
+// @note buttons on onboarding should use Lato
