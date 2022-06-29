@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Support from 'src/account/Support'
 import Map from 'src/icons/Map'
 import Services from 'src/icons/Services'
-import Wallet from 'src/icons/Wallet'
+import MapScreen from 'src/map/MapScreen'
 import HomeStackNavigator from 'src/navigator/HomeStackNavigator'
 import { Screens } from 'src/navigator/Screens'
 import ServiceStackNavigator from 'src/navigator/ServiceStackNavigator'
@@ -26,9 +26,9 @@ export default function TabNavigator() {
         options={{ title: t('services'), tabBarIcon: Services }}
       />
       <Tabs.Screen
-        name={Screens.Support}
-        component={Support}
-        options={{ title: t('map'), tabBarIcon: Map }}
+        name={Screens.Map}
+        component={MapScreen}
+        options={{ title: t('map.title'), tabBarIcon: Help }}
       />
     </Tabs.Navigator>
   )
