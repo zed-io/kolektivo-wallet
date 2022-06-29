@@ -5,6 +5,7 @@ import Support from 'src/account/Support'
 import { Help } from 'src/icons/navigator/Help'
 import { Home } from 'src/icons/navigator/Home'
 import Services from 'src/icons/Services'
+import MapScreen from 'src/map/MapScreen'
 import HomeStackNavigator from 'src/navigator/HomeStackNavigator'
 import { Screens } from 'src/navigator/Screens'
 import ServiceStackNavigator from 'src/navigator/ServiceStackNavigator'
@@ -26,9 +27,9 @@ export default function TabNavigator() {
         options={{ title: t('services'), tabBarIcon: Services }}
       />
       <Tabs.Screen
-        name={Screens.Support}
-        component={Support}
-        options={{ title: t('help'), tabBarIcon: Help }}
+        name={Screens.Map}
+        component={MapScreen}
+        options={{ title: t('map.title'), tabBarIcon: Help }}
       />
     </Tabs.Navigator>
   )
