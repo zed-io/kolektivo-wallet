@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
@@ -15,7 +16,7 @@ type Props = {
 
 function ExchangeModal({ defaultInputAsset, defaultOutputAsset, type }: Props) {
   const { t } = useTranslation()
-  const isDisabled = !(!!defaultInputAsset && !!defaultOutputAsset)
+  const isDisabled = isEmpty(defaultInputAsset) || isEmpty(defaultOutputAsset)
 
   return (
     <View style={styles.container}>
