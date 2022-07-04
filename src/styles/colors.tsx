@@ -67,11 +67,9 @@ export enum Colors {
   lightGreen = '#E6F7EC',
 
   // Kolektivo Colors
-  // @todo orangeFaint color for disabled primary buttons
   orangeFaint = '#F3C6B5',
   orangeUI = '#E4825F',
   orangeBrand = '#CC6248',
-  // @todo greenFaint color for disabled primary2 buttons
   greenFaint = '#A9D9D7',
   greenUI = '#45ADA8',
   greenBrand = '#45ADA8',

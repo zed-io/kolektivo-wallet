@@ -192,7 +192,7 @@ export default class Education extends React.Component<Props, State> {
                   key={i}
                 >
                   <View style={styles.swipedContentInner}>
-                    {step.isTopTitle && <Logo height={100} />}
+                    {step.isTopTitle && <Logo height={64} />}
                     {step.isTopTitle && <Text style={styles.headingTop}>{step.title}</Text>}
                     {step.image && (
                       <Image source={step.image} style={styles.bodyImage} resizeMode="contain" />
