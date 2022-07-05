@@ -149,7 +149,6 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     borderColor: Colors.gray4,
     borderWidth: StyleSheet.hairlineWidth,
-    backgroundColor: 'white',
   },
   tags: {
     flexDirection: 'row',
