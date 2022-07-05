@@ -4,28 +4,8 @@ import { Screens } from 'src/navigator/Screens'
 
 export const CoreServices = [
   {
-    title: 'servicesList.buy',
-    icon: Logo,
-    screen: Screens.Swap,
-  },
-  {
-    title: 'servicesList.cico',
-    icon: Logo,
-    screen: Screens.Swap,
-  },
-  {
     title: 'servicesList.swap',
     icon: SwapInput,
-    screen: Screens.Swap,
-  },
-  {
-    title: 'servicesList.invest',
-    icon: Logo,
-    screen: Screens.Swap,
-  },
-  {
-    title: 'servicesList.bills',
-    icon: Logo,
     screen: Screens.Swap,
   },
   {
@@ -35,9 +15,6 @@ export const CoreServices = [
   },
 ]
 
-// @note This solution is not scalable to countries
-// since it does not determine which phone provicers
-// and supporting vendors exist in your locale.
 export const BusinessServices = [
   {
     title: 'serviceBills',

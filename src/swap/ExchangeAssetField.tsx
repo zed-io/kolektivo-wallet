@@ -27,7 +27,7 @@ const ExchangeAssetField = ({ asset, direction, style }: ExchangeFieldProps) => 
     if (!Number.isNaN(res)) dispatch(setSwapAssetAmount(res, direction))
     else dispatch(setSwapAssetAmount(0, direction))
   }
-
+  
   return (
     <View style={styles.assetRow} {...style}>
       <View style={styles.inputRow}>

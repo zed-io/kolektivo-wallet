@@ -49,9 +49,8 @@ const TokenListItem = ({ token, direction, onClick }: Props) => {
         actionPress={() => setShowDialog(false)}
         isActionHighlighted={false}
         onBackgroundPress={() => setShowDialog(false)}
-      >
-        <Text>This contract is located at {address}</Text>
-      </Dialog>
+        children={<Text>This contract is located at {address}</Text>}
+      />
     </TouchableOpacity>
   )
 }
@@ -71,6 +70,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.gray2,
     paddingBottom: 5,
     borderBottomWidth: StyleSheet.hairlineWidth,
+    maxWidth: '65%',
   },
   right: {
     paddingHorizontal: 30,
@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   name: {
-    ...fontStyles.displayName,
+    ...fontStyles.regular,
   },
   symbol: {
-    ...fontStyles.small400,
+    ...fontStyles.small,
     color: Colors.gray5,
   },
   tokenIcon: {
