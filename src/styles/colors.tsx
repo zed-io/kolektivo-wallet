@@ -73,6 +73,8 @@ export enum Colors {
   greenFaint = '#A9D9D7',
   greenUI = '#45ADA8',
   greenBrand = '#45ADA8',
+  onboardingGreen = '#45ADA8',
+  onboardingLightGreen = '#FFF',
 }
 
 export default Colors
