@@ -9,6 +9,7 @@ import fontStyles from 'src/styles/fonts'
 import ExchangeAssetField from 'src/swap/ExchangeAssetField'
 import { fetchSelectedSwapAssets } from 'src/swap/reducer'
 import { SwapDirection } from 'src/swap/types'
+import Logger from 'src/utils/Logger'
 
 type Props = {
   defaultInputAsset?: any
@@ -24,8 +25,7 @@ function ExchangeModal({ type }: Props) {
   const { currentAssetIn, currentAssetOut, amountIn, amountOut } = useSelector(
     fetchSelectedSwapAssets
   )
-  const disabled =
-    isEmpty(currentAssetIn) || isEmpty(currentAssetOut) || amountIn == '0' || amountOut == '0'
+  const disabled = isEmpty(currentAssetIn) || isEmpty(currentAssetOut) || !amountIn || !amountOut
 
   return (
     <View style={styles.container}>

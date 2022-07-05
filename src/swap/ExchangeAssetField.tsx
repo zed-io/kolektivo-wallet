@@ -23,7 +23,9 @@ const ExchangeAssetField = ({ asset, direction, style }: ExchangeFieldProps) => 
   const amount = direction === SwapDirection.IN ? amountIn : amountOut
 
   const handleValue = (formatted: any) => {
-    dispatch(setSwapAssetAmount(formatted, direction))
+    const res = Number(formatted)
+    if (!Number.isNaN(res)) dispatch(setSwapAssetAmount(res, direction))
+    else dispatch(setSwapAssetAmount(0, direction))
   }
 
   return (
@@ -31,7 +33,7 @@ const ExchangeAssetField = ({ asset, direction, style }: ExchangeFieldProps) => 
       <View style={styles.inputRow}>
         <View style={styles.inputAmounts}>
           <TextInputMask
-            style={[styles.localInput, amount == '0' ? styles.controlled : null]}
+            style={[styles.localInput, !amount ? styles.controlled : null]}
             onChangeText={handleValue}
             placeholder={'0'}
             placeholderTextColor={Colors.gray4}

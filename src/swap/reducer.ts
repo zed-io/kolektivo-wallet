@@ -11,16 +11,16 @@ export interface State {
   isLoading: boolean
   currentAssetIn: UbeswapExprimentalToken | null
   currentAssetOut: UbeswapExprimentalToken | null
-  amountIn: string
-  amountOut: string
+  amountIn: number
+  amountOut: number
 }
 
 export const initialState: State = {
   isLoading: false,
   currentAssetIn: null,
   currentAssetOut: null,
-  amountIn: '0',
-  amountOut: '0',
+  amountIn: 0,
+  amountOut: 0,
 }
 
 export const amountInSelector = (state: RootState) => state.swap.amountIn

@@ -15,7 +15,7 @@ export interface SetAssetAction {
 export interface SetAssetAmountAction {
   type: Actions.SET_AMOUNT
   direction: SwapDirection
-  amount: string
+  amount: number
 }
 
 export const setSwapAsset = (
@@ -28,7 +28,7 @@ export const setSwapAsset = (
 })
 
 export const setSwapAssetAmount = (
-  amount: string,
+  amount: number,
   direction: SwapDirection
 ): SetAssetAmountAction => ({
   type: Actions.SET_AMOUNT,
