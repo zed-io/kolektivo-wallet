@@ -525,7 +525,7 @@
   "providerRateFetchFailed": "Could not fetch provider rate. You can continue without a prefilled rate.",
   "helpFindAccount": "Help your contact find their Account Address",
   "close": "Close",
-  "home": "Home",
+  "home": "Wallet",
   "accountKey": "Recovery Phrase",
   "addAndWithdraw": "Add & Withdraw",
   "settings": "Settings",
