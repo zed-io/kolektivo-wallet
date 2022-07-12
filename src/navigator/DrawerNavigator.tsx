@@ -20,7 +20,6 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import deviceInfoModule from 'react-native-device-info'
 import { useDispatch } from 'react-redux'
-import FiatExchange from 'src/account/FiatExchange'
 import { defaultCountryCodeSelector, e164NumberSelector, nameSelector } from 'src/account/selectors'
 import SettingsScreen from 'src/account/Settings'
 import Support from 'src/account/Support'
@@ -43,7 +42,6 @@ import DAppsExplorerScreen from 'src/dappsExplorer/DAppsExplorerScreen'
 import { fetchExchangeRate } from 'src/exchange/actions'
 import { features } from 'src/flags'
 import { AccountKey } from 'src/icons/navigator/AccountKey'
-import { AddWithdraw } from 'src/icons/navigator/AddWithdraw'
 import { DappsExplorer } from 'src/icons/navigator/DappsExplorer'
 import { Help } from 'src/icons/navigator/Help'
 import { Invite } from 'src/icons/navigator/Invite'
@@ -246,11 +244,6 @@ export default function DrawerNavigator() {
         name={Screens.BackupIntroduction}
         component={BackupIntroduction}
         options={{ title: t('accountKey'), drawerIcon: AccountKey }}
-      />
-      <Drawer.Screen
-        name={Screens.FiatExchange}
-        component={FiatExchange}
-        options={{ title: t('addAndWithdraw'), drawerIcon: AddWithdraw }}
       />
       {features.SHOW_INVITE_MENU_ITEM && (
         <Drawer.Screen

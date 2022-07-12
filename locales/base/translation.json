@@ -1230,7 +1230,8 @@
     "swap": "Swap",
     "invest": "Invest",
     "bills": "Pay Bills",
-    "vendors": "Vendors"
+    "vendors": "Vendors",
+    "mobileTopUp": "Top Up"
   },
   "swap": {
     "title": "Swap",
