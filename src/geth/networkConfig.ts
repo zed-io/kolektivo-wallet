@@ -48,8 +48,8 @@ interface NetworkConfig {
   fetchExchangesUrl: string
 }
 
-const BLOCKCHAIN_API_TESTNET = 'localhost:8080'
-const BLOCKCHAIN_API_MAINNET = 'localhost:8080'
+const BLOCKCHAIN_API_TESTNET = 'https://kolektivo-backend.uc.r.appspot.com'
+const BLOCKCHAIN_API_MAINNET = 'https://kolektivo-backend.uc.r.appspot.com'
 const KOMENCI_URL_MAINNET = 'https://mainnet-komenci.azurefd.net'
 const KOMENCI_URL_STAGING = 'https://staging-komenci.azurefd.net'
 const CLOUD_FUNCTIONS_STAGING = 'https://us-central1-celo-mobile-alfajores.cloudfunctions.net'
