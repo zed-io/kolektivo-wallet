@@ -1,5 +1,5 @@
 import { map } from 'lodash'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { RefreshControl, RefreshControlProps, StyleSheet } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
@@ -10,6 +10,7 @@ import { Screens } from 'src/navigator/Screens'
 import useSelector from 'src/redux/useSelector'
 import colors from 'src/styles/colors'
 import { fetchVendors } from 'src/vendors/actions'
+import { selectLoading, selectVendors } from 'src/vendors/selectors'
 import { Vendor } from 'src/vendors/types'
 import VendorDetailBottomSheet from 'src/vendors/VendorDetailBottomSheet'
 import VendorListItem from 'src/vendors/VendorListItem'
@@ -18,13 +19,8 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 export default function VendorsScreen() {
   const dispatch = useDispatch()
-  const vendors = useSelector((state) => state.vendors.vendors)
-
-  useEffect(() => {
-    dispatch(fetchVendors())
-  }, [])
-
-  const isLoading = useSelector((state) => state.vendors.loading)
+  const vendors = useSelector(selectVendors)
+  const isLoading = useSelector(selectLoading)
 
   const sections = map(vendors, (vendor: Vendor) => {
     return vendor
@@ -58,7 +54,7 @@ export default function VendorsScreen() {
   const onScroll = Animated.event([{ nativeEvent: { contentOffset: { y: scrollPosition } } }])
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ height: '100%', width: '100%' }}>
       <AnimatedFlatList
         testID={'Vendors/List'}
         scrollEventThrottle={16}
@@ -83,5 +79,7 @@ export default function VendorsScreen() {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+    height: '100%',
+    width: '100%',
   },
 })
