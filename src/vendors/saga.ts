@@ -4,29 +4,18 @@ import Logger from 'src/utils/Logger'
 import { Actions, setLoading, setVendors } from 'src/vendors/actions'
 import { formatVendors } from 'src/vendors/utils'
 
-export function* initializeVendors(): any {
-  try {
-    yield put(setLoading(true))
-    const vendors: any = yield call(fetchAllVendors)
-
-    const formattedVendorObject = formatVendors(vendors)
-    yield put(setVendors(formattedVendorObject))
-    yield put(setLoading(false))
-  } catch (error: any) {
-    yield Logger.error('Vendor Saga: ', 'Failed to initialize vendors', error)
-  }
-}
-
+let vendorsInitialized: boolean = false
 export function* watchFetchVendors(): any {
   while (true) {
     try {
-      yield take(Actions.FETCH_VENDORS)
+      if (vendorsInitialized) yield take(Actions.FETCH_VENDORS)
       yield put(setLoading(true))
       const vendors: any = yield call(fetchAllVendors)
 
       const formattedVendorObject = formatVendors(vendors)
       yield put(setVendors(formattedVendorObject))
       yield put(setLoading(false))
+      vendorsInitialized = true
     } catch (error: any) {
       yield Logger.error('Vendor Saga: ', 'Failed to get vendors', error)
     }
@@ -34,6 +23,5 @@ export function* watchFetchVendors(): any {
 }
 
 export function* vendorsSaga() {
-  yield spawn(initializeVendors)
   yield spawn(watchFetchVendors)
 }
