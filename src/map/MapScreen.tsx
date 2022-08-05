@@ -1,15 +1,14 @@
 import React, { useRef } from 'react'
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import MapView from 'react-native-maps'
 import Animated from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch, useSelector } from 'react-redux'
 import VendorMarker from 'src/icons/VendorMarker'
-import { LOCALE_OFFSET, LOCALE_REGION } from 'src/map/constants'
+import { GMAP_STYLE, LOCALE_OFFSET, LOCALE_REGION } from 'src/map/constants'
 import MapBottomSheet from 'src/map/MapBottomSheet'
 import DrawerTopBar from 'src/navigator/DrawerTopBar'
 import Colors from 'src/styles/colors'
-import Logger from 'src/utils/Logger'
 import { setCurrentVendor } from 'src/vendors/actions'
 import { vendorsWithLocationSelector } from 'src/vendors/selector'
 import { VendorWithLocation } from 'src/vendors/types'
@@ -21,14 +20,12 @@ const MapScreen = () => {
   const vendors = useSelector(vendorsWithLocationSelector)
   const mapViewRef = useRef<MapView>(null)
   const { currentVendor, location } = useCurrentVendorLocation()
-  Logger.info('MapScreen:Location', JSON.stringify(location))
+
   location &&
     mapViewRef.current?.animateToRegion({
       ...location,
       ...LOCALE_OFFSET,
     })
-
-  Logger.info('MapScreen', JSON.stringify(vendors))
 
   const vendorLocationMarkers = () => (
     <>
@@ -47,7 +44,12 @@ const MapScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MapView ref={mapViewRef} style={styles.map} initialRegion={LOCALE_REGION}>
+      <MapView
+        ref={mapViewRef}
+        style={styles.map}
+        initialRegion={LOCALE_REGION}
+        customMapStyle={Platform.OS === 'android' ? GMAP_STYLE : undefined}
+      >
         {vendors && vendorLocationMarkers()}
       </MapView>
       <MapBottomSheet />

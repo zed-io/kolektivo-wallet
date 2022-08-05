@@ -3,6 +3,7 @@ import { map } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LatLng } from 'react-native-maps'
 import { useSelector } from 'react-redux'
+import { LOCALE_LATLNG } from 'src/map/constants'
 import { currentVendorSelector } from 'src/vendors/selector'
 import { Vendor, Vendors, VendorWithLocation } from 'src/vendors/types'
 
@@ -35,8 +36,11 @@ export const formatVendors = (vendorObject: any): Vendors => {
           subtitle: subtitle,
           phoneNumber: phone_number,
           location: {
-            latitude: latitude,
-            longitude: longitude,
+            // The Latitude and Longitude attributes cannot be null or undefined
+            // in the Android environment.
+            // See https://github.com/react-native-maps/react-native-maps/issues/3159
+            latitude: Number(latitude),
+            longitude: Number(longitude),
           },
         } as Vendor | VendorWithLocation,
       }
@@ -64,7 +68,7 @@ export const hasValidLocation = (vendor: VendorWithLocation): boolean => {
  */
 export const useCurrentVendorLocation = () => {
   const currentVendor = useSelector(currentVendorSelector) as VendorWithLocation
-  const [location, setLocation] = useState<LatLng>()
+  const [location, setLocation] = useState<LatLng>(LOCALE_LATLNG)
   useEffect(() => {
     if (currentVendor && hasValidLocation(currentVendor)) {
       setLocation(currentVendor.location)

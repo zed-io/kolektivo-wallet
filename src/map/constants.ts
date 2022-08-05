@@ -13,3 +13,40 @@ export const LOCALE_OFFSET: Omit<Region, 'longitude' | 'latitude'> = {
 }
 
 export const LOCALE_REGION: Region = { ...LOCALE_LATLNG, ...LOCALE_OFFSET }
+
+export const GMAP_STYLE = [
+  {
+    featureType: 'administrative',
+    elementType: 'geometry',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'poi',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'road',
+    elementType: 'labels.icon',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'transit',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+]
