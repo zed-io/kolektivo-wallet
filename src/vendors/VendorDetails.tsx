@@ -6,12 +6,16 @@ import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import Touchable from 'src/components/Touchable'
 import Directions from 'src/icons/Directions'
 import Phone from 'src/icons/Phone'
+import Pin from 'src/icons/Pin'
 import QRCodeBorderless from 'src/icons/QRCodeBorderless'
 import Share from 'src/icons/Share'
 import Times from 'src/icons/Times'
+import Website from 'src/icons/Website'
 import { initiateDirection, initiatePhoneCall, initiateShare } from 'src/map/utils'
-import colors, { Colors } from 'src/styles/colors'
+import colors from 'src/styles/colors'
 import fontStyles from 'src/styles/fonts'
+import variables from 'src/styles/variables'
+import { navigateToURI } from 'src/utils/linking'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
 
 type Props = {
@@ -21,7 +25,7 @@ type Props = {
 }
 
 const VendorDetails = ({ vendor, close, action }: Props) => {
-  const { title, subtitle, description, tags, logoURI, phoneNumber } = vendor
+  const { title, subtitle, address, siteURI, description, tags, logoURI, phoneNumber } = vendor
   const { location } = vendor as VendorWithLocation
   return (
     <View style={styles.container}>
@@ -48,10 +52,23 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
               <Directions />
             </TouchableOpacity>
           )}
+          {siteURI && (
+            <TouchableOpacity onPress={() => navigateToURI(siteURI)}>
+              <Website />
+            </TouchableOpacity>
+          )}
           {true && (
             <TouchableOpacity onPress={() => initiateShare({ message: title })}>
               <Share />
             </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.furtherDetailsRow}>
+          {address && (
+            <View>
+              <Pin />
+              <Text>{address}</Text>
+            </View>
           )}
         </View>
         <View style={styles.tags}>
@@ -125,14 +142,20 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 35,
-    borderColor: Colors.gray3,
+    borderColor: colors.gray3,
     borderWidth: StyleSheet.hairlineWidth,
     backgroundColor: 'white',
   },
   contactRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    paddingVertical: variables.contentPadding,
+    borderTopColor: colors.gray3,
+    borderBottomColor: colors.gray3,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
+  furtherDetailsRow: {},
   tags: {
     flexDirection: 'row',
     flexWrap: 'wrap',
