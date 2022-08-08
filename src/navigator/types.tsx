@@ -230,6 +230,7 @@ export type StackParamList = {
     reclaimPaymentInput: EscrowedPayment
     onCancel?: () => void
   }
+  [Screens.ReceiveAmount]: undefined
   [Screens.RegulatoryTerms]: undefined
   [Screens.SelectCountry]: {
     countries: Countries
