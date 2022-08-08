@@ -39,7 +39,6 @@ export const setLoading = (loading: boolean): SetLoadingAction => ({
   type: Actions.SET_LOADING,
   loading,
 })
-
 export const setCurrentVendor = (currentVendor: Vendor | undefined): SetCurrentVendorAction => ({
   type: Actions.SET_CURRENT_VENDOR,
   currentVendor,
