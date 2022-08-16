@@ -7,6 +7,7 @@ import { StyleSheet, View } from 'react-native'
 import { getNumberFormatSettings } from 'react-native-localize'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch } from 'react-redux'
+import { nameSelector } from 'src/account/selectors'
 import { SendEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import AmountKeypad from 'src/components/AmountKeypad'
@@ -113,6 +114,7 @@ function ReceiveAmount(props: Props) {
 
   const showInputInLocalAmount = usingLocalAmount && tokenHasUsdPrice
 
+  const displayName = useSelector(nameSelector)
   const account = useSelector(currentAccountSelector)
   const localCurrencyCode = useSelector(getLocalCurrencyCode)
   const { tokenAmount, localAmount, usdAmount } = useInputAmounts(
@@ -123,7 +125,7 @@ function ReceiveAmount(props: Props) {
 
   const [qrContent, setQrContent] = useState<Partial<UriData>>({
     address: account || '',
-    displayName: 'Matthew',
+    displayName: displayName || account || '',
     currencyCode: localCurrencyCode,
     amount: amount,
     comment: '',
