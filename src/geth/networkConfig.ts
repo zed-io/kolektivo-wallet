@@ -48,7 +48,7 @@ interface NetworkConfig {
   fetchExchangesUrl: string
 }
 
-const BLOCKCHAIN_API_TESTNET = 'https://kolektivo-backend.uc.r.appspot.com'
+const BLOCKCHAIN_API_TESTNET = 'https://alfajores-dot-kolektivo-backend.uc.r.appspot.com'
 const BLOCKCHAIN_API_MAINNET = 'https://kolektivo-backend.uc.r.appspot.com'
 const KOMENCI_URL_MAINNET = 'https://mainnet-komenci.azurefd.net'
 const KOMENCI_URL_STAGING = 'https://staging-komenci.azurefd.net'
