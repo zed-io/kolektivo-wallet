@@ -25,7 +25,18 @@ type Props = {
 }
 
 const VendorDetails = ({ vendor, close, action }: Props) => {
-  const { title, subtitle, address, siteURI, description, tags, logoURI, phoneNumber } = vendor
+  const {
+    title,
+    subtitle,
+    street,
+    building_number,
+    city,
+    siteURI,
+    description,
+    tags,
+    logoURI,
+    phoneNumber,
+  } = vendor
   const { location } = vendor as VendorWithLocation
   return (
     <View style={styles.container}>
@@ -48,7 +59,11 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
             </TouchableOpacity>
           )}
           {location && (
-            <TouchableOpacity onPress={() => initiateDirection({ coordinate: location })}>
+            <TouchableOpacity
+              onPress={() =>
+                initiateDirection({ title, coordinate: location, building_number, street, city })
+              }
+            >
               <Directions />
             </TouchableOpacity>
           )}
@@ -64,10 +79,10 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
           )}
         </View>
         <View style={styles.furtherDetailsRow}>
-          {address && (
+          {street && (
             <View>
               <Pin />
-              <Text>{address}</Text>
+              <Text>{`${street} ${building_number}, ${city}`}</Text>
             </View>
           )}
         </View>

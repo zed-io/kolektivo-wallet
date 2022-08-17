@@ -26,6 +26,9 @@ export const formatVendors = (vendorObject: any): Vendors => {
         latitude,
         longitude,
         phone_number,
+        street,
+        building_number,
+        city,
       } = v.attributes
       return {
         [name]: {
@@ -35,6 +38,9 @@ export const formatVendors = (vendorObject: any): Vendors => {
           title: name,
           subtitle: subtitle,
           phoneNumber: phone_number,
+          street: street,
+          building_number: building_number,
+          city: city,
           location: {
             // The Latitude and Longitude attributes cannot be null or undefined
             // in the Android environment.
