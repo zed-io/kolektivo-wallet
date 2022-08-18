@@ -80,9 +80,9 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
         </View>
         <View style={styles.furtherDetailsRow}>
           {street && (
-            <View>
-              <Pin />
-              <Text>{`${street} ${building_number}, ${city}`}</Text>
+            <View style={styles.streetContainer}>
+              <Pin style={styles.streetPin} />
+              <Text style={styles.street}>{`${street} ${building_number}, ${city}`}</Text>
             </View>
           )}
         </View>
@@ -171,6 +171,25 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   furtherDetailsRow: {},
+  streetContainer: {
+    ...fontStyles.regular,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  street: {
+    ...fontStyles.regular,
+    color: colors.gray5,
+    textAlign: 'justify',
+    fontSize: 14,
+  },
+  streetPin: {
+    ...fontStyles.regular,
+    textAlign: 'justify',
+    fontSize: 14,
+  },
   tags: {
     flexDirection: 'row',
     flexWrap: 'wrap',
