@@ -185,11 +185,6 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     fontSize: 14,
   },
-  streetPin: {
-    ...fontStyles.regular,
-    textAlign: 'justify',
-    fontSize: 14,
-  },
   tags: {
     flexDirection: 'row',
     flexWrap: 'wrap',
