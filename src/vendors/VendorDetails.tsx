@@ -58,7 +58,7 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
               <Phone />
             </TouchableOpacity>
           )}
-          {location && (
+          {((location.latitude !== 0 && location.longitude !== 0) || street) && (
             <TouchableOpacity
               onPress={() =>
                 initiateDirection({ title, coordinate: location, building_number, street, city })
@@ -81,7 +81,7 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
         <View style={styles.furtherDetailsRow}>
           {street && (
             <View style={styles.streetContainer}>
-              <Pin style={styles.streetPin} />
+              <Pin />
               <Text style={styles.street}>{`${street} ${building_number}, ${city}`}</Text>
             </View>
           )}
