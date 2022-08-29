@@ -94,4 +94,5 @@ export enum ErrorMessages {
   ADD_FIAT_ACCOUNT_RESOURCE_EXIST = 'fiatDetailsScreen.addFiatAccountResourceExist',
   CREATE_PDF_FAILED = 'createPdfFailure',
   FAILED_OPEN_DIRECTION = 'failedOpeningDirections',
+  CREATE_PDF_FAILED = 'createPdfFailure',
 }

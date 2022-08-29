@@ -15,27 +15,12 @@ const TAG = 'pdf/saga'
 
 export function* generatePdf(): any {
   try {
-    Logger.info(TAG, '@generatePDF', 'PDF requested')
     const payload = yield select(pdfDataSelector)
-    const account = yield select(accountAddressSelector)
-    const tokenUsdPrices: TokenBalanceWithUsdPrice[] = yield select(tokensListSelector)
-    const localCurrencyCode = yield select(getLocalCurrencyCode)
-    const localCurrencyExchangeRate = yield select(localCurrencyToUsdSelector)
-    const transactions = yield transactionsWithUsdPrice(
-      payload,
-      tokenUsdPrices,
-      localCurrencyCode,
-      localCurrencyExchangeRate
-    )
-    const file: Pdf = yield call(createTransactionSummary, {
-      account,
-      transactions,
-      localCurrencyCode,
-      tokenUsdPrices,
-    })
+    const file: Pdf = yield call(createTransactionSummary, payload as FeedTokenTransaction[])
+
     if (!file.filePath) throw new Error('Unable to generate Pdf')
-    yield put(savePdf(file.filePath))
-    Logger.info(TAG, '@generatePDF', 'PDF created')
+
+    put(savePdf(file.filePath))
   } catch (error: any) {
     Logger.error(TAG, 'Error while saving document', error)
     yield put(showError(ErrorMessages.CREATE_PDF_FAILED))
