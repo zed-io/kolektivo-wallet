@@ -29,7 +29,11 @@ N.B. The wallet only writes data to the `users` document in the RTDB.
 
 ### Firebase
 
-The wallet requires a `GoogleService-Info.plist` file. Specifically, the format is `GoogleService-Info.{$env}.plist`, where `${env}` is the environment setting name, e.g. `alfajoresdev`. You can get the file from the firebase server, and place it in the `ios` folder.
+The wallet requires a `GoogleService-Info.plist` file for iOS, and a `google-services.json` file for Android. Specifically, the format is `GoogleService-Info.{$env}.plist`, where `${env}` is the environment setting name, e.g. `alfajoresdev`. You can get the file from the firebase server, and place it in the `ios` folder.
+
+N.B.
+iOS expects a `GoogleService-Info.plist` in the `ios` folder
+Android expects a `google-services.json` in the `android/app/src/${env}` folder
 
 1. When archiving the wallet, specify the environment file to be used, and ensure that `FIREBASE_ENABLED=true`
 2. Ensure that the `GoogleService-Info.${env}.plist` file is present in the `ios` folder.
