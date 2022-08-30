@@ -10,6 +10,7 @@ export type Vendor = {
   currencies: Array<string>
   address?: string
   phoneNumber?: string
+  cico?: boolean
 }
 
 export type VendorWithLocation = Vendor & {

@@ -26,6 +26,7 @@ export const formatVendors = (vendorObject: any): Vendors => {
         latitude,
         longitude,
         phone_number,
+        cico,
       } = v.attributes
       return {
         [name]: {
@@ -42,6 +43,7 @@ export const formatVendors = (vendorObject: any): Vendors => {
             latitude: Number(latitude),
             longitude: Number(longitude),
           },
+          cico: Boolean(cico),
         } as Vendor | VendorWithLocation,
       }
     })
