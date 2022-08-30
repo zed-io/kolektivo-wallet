@@ -65,6 +65,8 @@ The wallet requires that you set the `CodePushDeploymentKey:<key>` pair in the `
 
 e.g. When archiving `.env.alfajores`, use the staging Codepush key.
 
+For Android you will have to place the Deployment key in `strings.xml`. To do generate the deployment key using this command `appcenter codepush deployment list -a Zed-Labs/kolektivo -k`. After that place that key in the CodePushDeploymentKey string in the `strings.xml` file.
+
 ## Future Update
 
 The next goal is to commit encrypted versions of the above files to the repo, where a developer can simply authenticate with GCP and have the files decrypted.
