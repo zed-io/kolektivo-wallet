@@ -1,9 +1,7 @@
 import BottomSheet from '@gorhom/bottom-sheet'
-import { map } from 'lodash'
-import React, { useEffect, useState } from 'react'
-import { LatLng } from 'react-native-maps'
+import { map, orderBy } from 'lodash'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { LOCALE_LATLNG } from 'src/map/constants'
 import { currentVendorSelector } from 'src/vendors/selector'
 import { Vendor, Vendors, VendorWithLocation } from 'src/vendors/types'
 
@@ -16,7 +14,7 @@ export const formatVendors = (vendorObject: any): Vendors => {
   const { data } = vendorObject
   const result = Object.assign(
     {},
-    ...data.map((v: any) => {
+    ...orderBy(data, ['attributes.name'], ['desc']).map((v: any) => {
       const {
         name,
         subtitle,
@@ -59,8 +57,6 @@ export const hasValidLocation = (vendor: VendorWithLocation): boolean => {
   const { latitude, longitude } = location
   return !!latitude && !!longitude
 }
-
-
 
 export const useInteractiveBottomSheet = (bottomSheetRef: React.RefObject<BottomSheet>) => {
   const snapPoints = React.useMemo(() => ['8%', '25%', '50%', '80%'], [])
