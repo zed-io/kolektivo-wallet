@@ -60,22 +60,7 @@ export const hasValidLocation = (vendor: VendorWithLocation): boolean => {
   return !!latitude && !!longitude
 }
 
-/**
- * This custom hook will return the latest vendor selected from the
- * redux store as well as its computed location. If the location of
- * the latest vendor is invalid, it will return the latest location
- * from the local state of this hook.
- */
-export const useCurrentVendorLocation = () => {
-  const currentVendor = useSelector(currentVendorSelector) as VendorWithLocation
-  const [location, setLocation] = useState<LatLng>(LOCALE_LATLNG)
-  useEffect(() => {
-    if (currentVendor && hasValidLocation(currentVendor)) {
-      setLocation(currentVendor.location)
-    }
-  }, [currentVendor])
-  return { currentVendor, location }
-}
+
 
 export const useInteractiveBottomSheet = (bottomSheetRef: React.RefObject<BottomSheet>) => {
   const snapPoints = React.useMemo(() => ['8%', '25%', '50%', '80%'], [])
