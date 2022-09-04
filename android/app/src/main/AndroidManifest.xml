@@ -47,13 +47,13 @@
 
     <meta-data android:name="CLEVERTAP_BACKGROUND_SYNC" android:value="1"/>
 
-    <service android:name=".FirebaseMessagingService" android:exported="false">
+    <service android:name=".FirebaseMessagingService" android:exported="true">
       <intent-filter>
         <action android:name="com.google.firebase.MESSAGING_EVENT"/>
       </intent-filter>
     </service>
 
-    <service android:name="com.clevertap.android.sdk.pushnotification.CTNotificationIntentService" android:exported="false">
+    <service android:name="com.clevertap.android.sdk.pushnotification.CTNotificationIntentService" android:exported="true">
       <intent-filter>
         <action android:name="com.clevertap.PUSH_EVENT" />
       </intent-filter>
