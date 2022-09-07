@@ -38,6 +38,8 @@ export const reducer = (state: State | undefined = initialState, action: ActionT
         ...state,
         transactionStatementLocation: undefined,
       }
+    default:
+      return { ...state }
   }
 }
 
