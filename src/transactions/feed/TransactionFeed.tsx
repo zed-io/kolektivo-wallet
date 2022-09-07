@@ -128,7 +128,7 @@ function TransactionFeed() {
       <TextButton
         hitSlop={variables.iconHitslop}
         style={styles.trxFilterBtn}
-        onPress={() => navigate(Screens.TransactionHistoryFiltered, { month: item.section.title })}
+        onPress={() => navigate(Screens.TransactionHistoryFiltered, { month: item.section.month })}
         children={<ProgressArrow color={Colors.greenUI} />}
       />
     )

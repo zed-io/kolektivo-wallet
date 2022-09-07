@@ -24,6 +24,7 @@ export function groupFeedItemsInSections<T extends { timestamp: number }>(items:
   const sectionsMap: {
     [key: string]: {
       data: T[]
+      month: string
       daysSinceTransaction: number
     }
   } = {}
@@ -36,6 +37,7 @@ export function groupFeedItemsInSections<T extends { timestamp: number }>(items:
         : formatFeedSectionTitle(item.timestamp, i18n)
     sections[key] = sections[key] || {
       daysSinceTransaction,
+      month: formatFeedSectionTitle(item.timestamp, i18n),
       data: [],
     }
     sections[key].data.push(item)
@@ -46,6 +48,7 @@ export function groupFeedItemsInSections<T extends { timestamp: number }>(items:
     .sort((a, b) => a[1].daysSinceTransaction - b[1].daysSinceTransaction)
     .map(([key, value]) => ({
       title: key,
+      month: value.month,
       data: value.data,
     }))
 }
