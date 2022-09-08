@@ -26,7 +26,7 @@ export const formatVendors = (vendorObject: any): Vendors => {
         latitude,
         longitude,
         phone_number,
-        providesGuilderprovidesGuilderprovidesGuilder,
+        acceptsGuilder,
         providesGuilder,
       } = v.attributes
       return {
