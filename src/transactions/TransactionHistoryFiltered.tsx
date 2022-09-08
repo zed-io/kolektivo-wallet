@@ -1,14 +1,16 @@
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 import { StackNavigationOptions, StackScreenProps } from '@react-navigation/stack'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useDispatch } from 'react-redux'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import TextButton from 'src/components/TextButton'
 import { headerWithBackButton } from 'src/navigator/Headers'
 import { Screens } from 'src/navigator/Screens'
 import { StackParamList } from 'src/navigator/types'
+import { generatePdf } from 'src/pdf/actions'
 import Colors from 'src/styles/colors'
 import fontStyles from 'src/styles/fonts'
 import variables from 'src/styles/variables'
@@ -18,6 +20,8 @@ type Props = StackScreenProps<StackParamList, Screens.TransactionHistoryFiltered
 
 function TransactionHistory({ navigation, route }: Props) {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const [content, setContent] = useState<any>(null)
   const { isExporting, month, minAmount, maxAmount, recipient } = route.params || {}
 
   const handleClose = () => {
@@ -29,6 +33,10 @@ function TransactionHistory({ navigation, route }: Props) {
     []
   )
 
+  const handleExport = () => {
+    dispatch(generatePdf(content))
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StaticTransactionFeed
@@ -36,6 +44,7 @@ function TransactionHistory({ navigation, route }: Props) {
         minAmount={minAmount}
         maxAmount={maxAmount}
         recipient={recipient}
+        generate={setContent}
       />
       {isExporting ? (
         <BottomSheet
@@ -54,7 +63,7 @@ function TransactionHistory({ navigation, route }: Props) {
               type={BtnTypes.BRAND_SECONDARY}
               size={BtnSizes.FULL}
               text={t('exportPrompt.continue')}
-              onPress={() => {}}
+              onPress={handleExport}
             />
           </View>
         </BottomSheet>
