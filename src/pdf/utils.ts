@@ -116,7 +116,6 @@ export const createTransactionSummary = async ({
     const tableHeader = header()
     const tableRows = map(content, (tx: TokenTransfer) => row(tx)).join('')
     const result = table(tableHeader + tableRows)
-    Logger.debug(TAG, '@createTransactionSummary', result)
     return styles + result
   }
 
