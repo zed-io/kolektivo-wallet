@@ -38,6 +38,12 @@ export const reducer = (state: State | undefined = initialState, action: ActionT
         ...state,
         transactionStatementLocation: undefined,
       }
+    case Actions.CLOSE_EXPORT:
+      return {
+        ...state,
+        transactionStatementLocation: undefined,
+        loading: false,
+      }
     default:
       return { ...state }
   }
