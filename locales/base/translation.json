@@ -1323,5 +1323,7 @@
   },
   "map": {
     "title": "Map"
-  }
+  },
+  "acceptsGuilder": "Accepts cGuilder",
+  "providesGuilder": "cGuilder cash in/out point"
 }

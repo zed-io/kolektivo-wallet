@@ -1,5 +1,6 @@
 import { map } from 'lodash'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
@@ -10,6 +11,7 @@ import Pin from 'src/icons/Pin'
 import QRCodeBorderless from 'src/icons/QRCodeBorderless'
 import Share from 'src/icons/Share'
 import Times from 'src/icons/Times'
+import VerifiedIcon from 'src/icons/VerifiedIcon'
 import Website from 'src/icons/Website'
 import { initiateDirection, initiatePhoneCall, initiateShare } from 'src/map/utils'
 import colors from 'src/styles/colors'
@@ -25,8 +27,20 @@ type Props = {
 }
 
 const VendorDetails = ({ vendor, close, action }: Props) => {
-  const { title, subtitle, address, siteURI, description, tags, logoURI, phoneNumber } = vendor
+  const {
+    title,
+    subtitle,
+    address,
+    siteURI,
+    description,
+    tags,
+    logoURI,
+    phoneNumber,
+    acceptsGuilder,
+    providesGuilder,
+  } = vendor
   const { location } = vendor as VendorWithLocation
+  const { t } = useTranslation()
   return (
     <View style={styles.container}>
       <View style={styles.sheetHeader}>
@@ -41,6 +55,18 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
         <Text style={styles.description}>{description}</Text>
+        {acceptsGuilder && (
+          <View style={styles.verifiedRow}>
+            <VerifiedIcon />
+            <Text style={styles.verified}>{t('acceptsGuilder')}</Text>
+          </View>
+        )}
+        {providesGuilder && (
+          <View style={styles.verifiedRow}>
+            <VerifiedIcon />
+            <Text style={styles.verified}>{t('providesGuilder')}</Text>
+          </View>
+        )}
         <View style={styles.contactRow}>
           {phoneNumber && (
             <TouchableOpacity onPress={() => initiatePhoneCall(phoneNumber)}>
@@ -118,6 +144,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 36,
     marginBottom: 16,
   },
+  verified: {
+    ...fontStyles.regular,
+    textAlign: 'left',
+    color: colors.gray5,
+    paddingHorizontal: 10,
+    marginBottom: 16,
+  },
   description: {
     ...fontStyles.regular,
     textAlign: 'justify',
@@ -155,6 +188,7 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
+  verifiedRow: { display: 'flex', flexDirection: 'row' },
   furtherDetailsRow: {},
   tags: {
     flexDirection: 'row',
