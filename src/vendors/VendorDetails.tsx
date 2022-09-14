@@ -43,6 +43,17 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
   } = vendor
   const { location } = vendor as VendorWithLocation
   const dispatch = useDispatch()
+
+  const handleOpenMap = (): void => {
+    try {
+      initiateDirection({ title, coordinate: location, building_number, street, city })
+    } catch (error) {
+      Logger.warn('Directions', error)
+      dispatch(showError(ErrorMessages.FAILED_OPEN_DIRECTION))
+      return
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.sheetHeader}>
@@ -64,17 +75,7 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
             </TouchableOpacity>
           )}
           {((location.latitude !== 0 && location.longitude !== 0) || street) && (
-            <TouchableOpacity
-              onPress={() => {
-                try {
-                  initiateDirection({ title, coordinate: location, building_number, street, city })
-                } catch (error) {
-                  Logger.warn('Directions', error)
-                  dispatch(showError(ErrorMessages.FAILED_OPEN_DIRECTION))
-                  return
-                }
-              }}
-            >
+            <TouchableOpacity onPress={handleOpenMap}>
               <Directions />
             </TouchableOpacity>
           )}
