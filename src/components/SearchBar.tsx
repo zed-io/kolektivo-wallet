@@ -18,9 +18,8 @@ export default function Searchbar() {
   }, [search])
 
   const handleSearch = (search: string) => {
-    const sanatizeSearch = search.replace(/\s/g, '')
-    setSearch(sanatizeSearch)
-    dispatch(setSearchQuery(sanatizeSearch))
+    setSearch(search)
+    dispatch(setSearchQuery(search))
   }
 
   return (
