@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react'
-import { Platform, StyleSheet } from 'react-native'
+import React, { useRef } from 'react'
+import { Platform, StyleSheet, View } from 'react-native'
 import MapView from 'react-native-maps'
 import Animated from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch, useSelector } from 'react-redux'
+import Searchbar from 'src/components/SearchBar'
 import VendorMarker from 'src/icons/VendorMarker'
 import { GMAP_STYLE, LOCALE_REGION } from 'src/map/constants'
 import { useMap } from 'src/map/hooks'
@@ -48,7 +49,19 @@ const MapScreen = () => {
         {vendors && vendorLocationMarkers()}
       </MapView>
       <MapBottomSheet />
-      <DrawerTopBar scrollPosition={scrollPosition} />
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <View style={styles.drawer}>
+          <DrawerTopBar scrollPosition={scrollPosition} />
+        </View>
+        <Searchbar />
+      </View>
     </SafeAreaView>
   )
 }
@@ -60,6 +73,7 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+  drawer: { marginRight: 30 },
 })
 
 export default MapScreen
