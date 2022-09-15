@@ -2,12 +2,13 @@ import { TransitionPresets } from '@react-navigation/stack'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import Education, { EmbeddedNavBar } from 'src/account/Education'
+import { EmbeddedNavBar } from 'src/account/Education'
 import { KolektivoNotificationEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { BtnTypes } from 'src/components/Button'
 import { setCicoCompleted } from 'src/home/actions'
 import { celoEducation1, celoEducation2, celoEducation3, celoEducation4 } from 'src/images/Images'
+import KolektivoNotification from 'src/kolektivoNotification/KolektivoNotification'
 import { noHeader } from 'src/navigator/Headers'
 import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
@@ -38,7 +39,7 @@ export default function CicoPromptScreen() {
   }, [])
 
   return (
-    <Education
+    <KolektivoNotification
       embeddedNavBar={isCicoPromptShowing ? EmbeddedNavBar.Close : EmbeddedNavBar.Drawer}
       stepInfo={stepInfo}
       onFinish={onFinish}
