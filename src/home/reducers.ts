@@ -30,11 +30,13 @@ export interface IdToNotification {
 export interface State {
   loading: boolean
   notifications: IdToNotification
+  kolektivoNotifications: { [key: string]: boolean }
 }
 
 export const initialState = {
   loading: false,
   notifications: {},
+  kolektivoNotifications: { cicoPrompt: true },
 }
 
 export const homeReducer = (state: State = initialState, action: ActionTypes | RehydrateAction) => {

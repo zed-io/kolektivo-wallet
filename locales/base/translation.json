@@ -1328,5 +1328,12 @@
     "title": "You're About to Export!",
     "details": "You're about the export all transactions for the {{month}} period.",
     "continue": "Export"
+  },
+  "cicoPrompt": {
+    "text": "Buy your cGuilder today at verified vendors today",
+    "step1": "Make fast and reliable digital payments with Kolektivo Guilder.",
+    "step2": "Easily purchase goods and services from local organizations.",
+    "step3": "Participate in a local impact network and help develop Curaçao.",
+    "step4": "Join the revolution by creating your {{appName}}."
   }
 }
