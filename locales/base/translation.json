@@ -1330,10 +1330,24 @@
     "continue": "Export"
   },
   "cicoPrompt": {
-    "text": "Buy your cGuilder today at verified vendors today",
-    "step1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "step2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "step3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "step4": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  }
+    "text": "Buy your cGuilder today at verified vendors today"
+  },
+  "cicoSteps": [
+    {
+      "title": "Lorem Ipsum",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu augue ac sapien ullamcorper sodales."
+    },
+    {
+      "title": "Lorem Ipsum",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu augue ac sapien ullamcorper sodales."
+    },
+    {
+      "title": "Lorem Ipsum",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu augue ac sapien ullamcorper sodales."
+    },
+    {
+      "title": "Lorem Ipsum",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu augue ac sapien ullamcorper sodales."
+    }
+  ]
 }

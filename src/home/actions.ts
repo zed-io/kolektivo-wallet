@@ -7,6 +7,7 @@ export enum Actions {
   REFRESH_BALANCES = 'HOME/REFRESH_BALANCES',
   START_BALANCE_AUTOREFRESH = 'HOME/START_BALANCE_AUTOREFRESH',
   STOP_BALANCE_AUTOREFRESH = 'HOME/STOP_BALANCE_AUTOREFRESH',
+  SET_CICO_COMPLETED = 'HOME/SET_CICO_COMPLETED',
 }
 
 export interface SetLoadingAction {
@@ -28,7 +29,16 @@ export interface RefreshBalancesBalancesAction {
   type: Actions.REFRESH_BALANCES
 }
 
-export type ActionTypes = SetLoadingAction | UpdateNotificationsAction | DismissNotificationAction
+export interface SetCicoCompletedAction {
+  type: Actions.SET_CICO_COMPLETED
+  cicoPrompt: boolean
+}
+
+export type ActionTypes =
+  | SetLoadingAction
+  | UpdateNotificationsAction
+  | DismissNotificationAction
+  | SetCicoCompletedAction
 
 export const setLoading = (loading: boolean): SetLoadingAction => ({
   type: Actions.SET_LOADING,
@@ -57,4 +67,8 @@ export const startBalanceAutorefresh = () => ({
 
 export const stopBalanceAutorefresh = () => ({
   type: Actions.STOP_BALANCE_AUTOREFRESH,
+})
+export const setCicoCompleted = (): SetCicoCompletedAction => ({
+  type: Actions.SET_CICO_COMPLETED,
+  cicoPrompt: false,
 })

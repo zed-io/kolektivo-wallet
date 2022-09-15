@@ -55,6 +55,14 @@ export const homeReducer = (state: State = initialState, action: ActionTypes | R
         ...state,
         loading: action.loading,
       }
+    case Actions.SET_CICO_COMPLETED:
+      return {
+        ...state,
+        kolektivoNotifications: {
+          ...state.kolektivoNotifications,
+          cicoPrompt: action.cicoPrompt,
+        },
+      }
     case Actions.UPDATE_NOTIFICATIONS:
       // Doing it this way removes any notifications not received on the action.
       let updatedNotifications = {}
