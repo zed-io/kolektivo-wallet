@@ -6,6 +6,11 @@ import { hasValidLocation } from 'src/vendors/utils'
 
 export const vendorsSelector = (state: RootState): Vendors => state.vendors.allVendors
 
+export const filteredVendorsSelector = (state: RootState): (Vendor | VendorWithLocation)[] =>
+  state.vendors.filteredVendors
+
+export const searchQuerySelector = (state: RootState): string => state.vendors.searchQuery
+
 export const vendorLoadingSelector = (state: RootState): boolean => state.vendors.loading
 
 export const currentVendorSelector = (state: RootState): Vendor | undefined =>

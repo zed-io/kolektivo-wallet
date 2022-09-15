@@ -48,20 +48,13 @@ const MapScreen = () => {
       >
         {vendors && vendorLocationMarkers()}
       </MapView>
-      <MapBottomSheet />
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <View style={styles.menuContainer}>
         <View style={styles.drawer}>
           <DrawerTopBar scrollPosition={scrollPosition} />
         </View>
         <Searchbar />
       </View>
+      <MapBottomSheet />
     </SafeAreaView>
   )
 }
@@ -72,6 +65,12 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  menuContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   drawer: { marginRight: 30 },
 })

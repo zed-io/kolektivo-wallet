@@ -4,7 +4,12 @@ import { ListRenderItemInfo, StyleSheet, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import fontStyles from 'src/styles/fonts'
 import { setCurrentVendor } from 'src/vendors/actions'
-import { currentVendorSelector, vendorsSelector } from 'src/vendors/selector'
+import {
+  currentVendorSelector,
+  filteredVendorsSelector,
+  searchQuerySelector,
+  vendorsSelector,
+} from 'src/vendors/selector'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
 import { useInteractiveBottomSheet } from 'src/vendors/utils'
 import VendorDetails from 'src/vendors/VendorDetails'
@@ -15,6 +20,9 @@ type Props = {}
 const MapBottomSheet = () => {
   const dispatch = useDispatch()
   const vendors = Object.values(useSelector(vendorsSelector))
+  const filteredVendors = Object.values(useSelector(filteredVendorsSelector))
+  const searchQuery = Object.values(useSelector(searchQuerySelector))
+
   const currentVendor = useSelector(currentVendorSelector)
 
   const bottomSheetRef = useRef<BottomSheet>(null)
@@ -29,13 +37,12 @@ const MapBottomSheet = () => {
       />
     )
   }
-
   return (
     <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
       <Text style={styles.header}>{!currentVendor && `Vendors`}</Text>
       {!currentVendor && (
         <BottomSheetFlatList
-          data={vendors}
+          data={searchQuery.length > 0 ? filteredVendors : vendors}
           keyExtractor={(vendor: Vendor) => vendor.title}
           renderItem={renderVendorItem}
           contentContainerStyle={styles.innerContainer}
