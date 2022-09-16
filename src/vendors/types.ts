@@ -12,6 +12,9 @@ export type Vendor = {
   phoneNumber?: string
   acceptsGuilder?: boolean
   providesGuilder?: boolean
+  street: string
+  building_number: string
+  city: string
 }
 
 export type VendorWithLocation = Vendor & {

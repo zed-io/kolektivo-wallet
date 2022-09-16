@@ -1326,4 +1326,9 @@
   },
   "acceptsGuilder": "Accepts\ncGuilder",
   "providesGuilder": "Cash-In\nPoint"
+  "exportPrompt": {
+    "title": "You're About to Export!",
+    "details": "You're about the export all transactions for the {{month}} period.",
+    "continue": "Export"
+  }
 }
