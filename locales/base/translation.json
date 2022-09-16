@@ -1324,6 +1324,6 @@
   "map": {
     "title": "Map"
   },
-  "acceptsGuilder": "Accepts cGuilder",
-  "providesGuilder": "cGuilder cash in/out point"
+  "acceptsGuilder": "Accepts\ncGuilder",
+  "providesGuilder": "Cash-In\nPoint"
 }

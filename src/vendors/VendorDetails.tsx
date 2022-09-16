@@ -55,18 +55,21 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
         <Text style={styles.description}>{description}</Text>
-        {acceptsGuilder && (
-          <View style={styles.verifiedRow}>
-            <VerifiedIcon />
-            <Text style={styles.verified}>{t('acceptsGuilder')}</Text>
-          </View>
-        )}
-        {providesGuilder && (
-          <View style={styles.verifiedRow}>
-            <VerifiedIcon />
-            <Text style={styles.verified}>{t('providesGuilder')}</Text>
-          </View>
-        )}
+        <View style={[styles.cico, acceptsGuilder && providesGuilder ? styles.cicoPartner : null]}>
+          {acceptsGuilder && (
+            <View style={styles.verifiedRow}>
+              <VerifiedIcon />
+              <Text style={styles.verified}>{t('acceptsGuilder')}</Text>
+            </View>
+          )}
+          {providesGuilder && (
+            <View style={styles.verifiedRow}>
+              <VerifiedIcon />
+              <Text style={styles.verified}>{t('providesGuilder')}</Text>
+            </View>
+          )}
+        </View>
+
         <View style={styles.contactRow}>
           {phoneNumber && (
             <TouchableOpacity onPress={() => initiatePhoneCall(phoneNumber)}>
@@ -144,9 +147,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 36,
     marginBottom: 16,
   },
+  cico: {},
+  cicoPartner: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
   verified: {
     ...fontStyles.regular,
-    textAlign: 'left',
+    textAlign: 'center',
     color: colors.gray5,
     paddingHorizontal: 10,
     marginBottom: 16,
@@ -188,7 +196,10 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  verifiedRow: { display: 'flex', flexDirection: 'row' },
+  verifiedRow: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
   furtherDetailsRow: {},
   tags: {
     flexDirection: 'row',
