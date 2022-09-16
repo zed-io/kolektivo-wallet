@@ -47,7 +47,8 @@ const VendorDetails = ({ vendor, close, action }: Props) => {
   } = vendor
   const { location } = vendor as VendorWithLocation
   const { t } = useTranslation()
-  
+  const dispatch = useDispatch()
+
   const handleOpenMap = (): void => {
     try {
       initiateDirection({ title, coordinate: location, building_number, street, city })
