@@ -58,7 +58,7 @@
   "selectCurrency": "Sélectionner une devise",
   "continue": "Continuer",
   "yourName": "Votre nom",
-  "version": "Version {{appVersion}}",
+  "version": "Variante {{appVersion}}",
   "addressCopied": "Adresse copiée dans le presse-papiers",
   "support": "Assistance",
   "contact": "Contact",
@@ -285,7 +285,7 @@
   "onlyCeloDollars": "cUSD seulement",
   "onlyCelo": "CELO uniquement",
   "celoDollar": "Celo Dollar",
-  "celoEuro": "Celo Euro",
+  "celoEuro": "Célo Euro",
   "celoDollars": "Celo Dollars",
   "tapToCopyCeloDollarsAddress": "Appuyez pour copier votre adresse cUSD {{appName}}",
   "disclaimerFiat": "Les valeurs {{currency}} sont des estimations.",
@@ -301,12 +301,12 @@
   "fundingEducationDialog": {
     "title": "Créditer votre {{appName}}",
     "body": "{{appName}} fonctionne via le réseau Celo. {{appName}} fonctionne avec des Celo Dollars (cUSD) et des Celo Euro (cEUR), deux monnaies numériques stables qui suivent le cours du dollar américain et de l'euro.\n\nPour approvisionner votre portefeuille {{appName}}, achetez des cUSD our cEUR auprès d'un des fournisseurs tiers disponibles dans votre pays. Pour plus d'informations, veuillez consulter <0>{{link}}</0>.",
-    "dismiss": "OK"
+    "dismiss": "D'ACCORD"
   },
   "cashOutEducationDialog": {
     "title": "Retirer de {{appName}}",
     "body": "{{appName}} fonctionne via le réseau Celo. {{appName}} fonctionne avec des Celo Dollars (cUSD) et des Celo Euro (cEUR), deux monnaies numériques stables qui suivent le cours du dollar américain et de l'euro.\n\nPour retirer des fonds de votre solde {{appName}}, vendez des cUSD ou cEUR à l'un des fournisseurs tiers disponibles dans votre pays. Pour plus d'informations, veuillez consulter <0>{{link}}</0>.",
-    "dismiss": "OK"
+    "dismiss": "D'ACCORD"
   },
   "explanationModal": {
     "title": "À propos des prestataires",
@@ -315,7 +315,7 @@
   "invalidAmountDialog": {
     "minAmount": "Nos prestataires ne prennent pas en charge les montants inférieurs à {{usdLimit}}{{localLimit}}. Veuillez saisir un montant plus élevé.",
     "maxAmount": "Nos prestataires ne prennent pas en charge les montants supérieurs à {{usdLimit}}{{localLimit}}. Veuillez saisir un montant moins élevé.",
-    "dismiss": "OK"
+    "dismiss": "D'ACCORD"
   },
   "dailyLimitDialog": {
     "body": "Vous êtes sur le point d'acheter plus que votre limite quotidienne de virement de {{limit}}. Veuillez contacter <0>{{contactEmail}}</0> si vous souhaitez augmenter votre limite de virement quotidienne.",
@@ -417,7 +417,7 @@
   "to": "À",
   "for": "Pour",
   "reclaim": "Réclamer",
-  "celoGold": "CELO",
+  "celoGold": "PDG",
   "celoEuros": "Celo Euro",
   "balanceAvailable": "<0></0> disponibles",
   "subtotal": "Sous-total",
@@ -464,7 +464,7 @@
   "accountUnlockFailed": "Impossible de déverrouiller votre compte",
   "calculateFeeFailed": "Impossible de calculer les frais",
   "failedToSwitchSyncModes": "Impossible de changer de mode de synchronisation",
-  "gold": "CELO",
+  "gold": "PDG",
   "localCurrencyTitle": "Sélectionner une devise",
   "or": "ou",
   "accepted": "Accepté",
@@ -486,7 +486,7 @@
   "ordinals": [
     "zéro",
     "premier",
-    "second",
+    "deuxième",
     "troisième",
     "quatrième",
     "cinquième",
@@ -696,7 +696,7 @@
     "step1": "Si vous savez comment envoyer un SMS, vous saurez comprendre les cryptos. Dès maintenant, votre téléphone devient votre portefeuille de cryptomonnaies.",
     "step2": "Avec {{appName}}, se lancer et développer votre portefeuille de cryptomonnaies est plus facile que jamais.",
     "step3": "Tout ce dont vous avez besoin est un téléphone portable pour envoyer, dépenser et découvrir.",
-    "step4": "Join the revolution by creating your {{appName}}."
+    "step4": "Rejoignez la révolution en créant votre {{appName}}."
   },
   "enableBiometry": {
     "title": "Sécurisez votre portefeuille",
@@ -704,8 +704,8 @@
     "cta": "Activer {{biometryType}}"
   },
   "biometryType": {
-    "FaceID": "Face ID",
-    "TouchID": "Touch ID",
+    "FaceID": "Identification faciale",
+    "TouchID": "ID tactile",
     "Fingerprint": "Reconnaissance d'empreinte digitale",
     "Face": "Reconnaissance faciale",
     "Iris": "Reconnaissance de l'iris"
@@ -1005,7 +1005,7 @@
   "outgoingPaymentRequestsSummaryDetails_exactly2Items": "Vous attendez des paiements de <0></0> et de <1></1>",
   "outgoingPaymentRequestsSummaryDetails_exactly3Items": "Vous attendez des paiements de <0></0>, de <1></1> et d'une autre personne",
   "outgoingPaymentRequestsSummaryDetails_moreThan3Items": "Vous attendez des paiements de <0></0>, de <1></1> et d'autres personnes",
-  "notifications": "Notifications",
+  "notifications": "Avis",
   "sent": "Envoyé",
   "received": "Reçu",
   "viewAll": "Voir tout",
@@ -1050,31 +1050,31 @@
   },
   "dollarBalance": "<0></0> $t(celoDollars)",
   "feedItemAddress": "Compte {{address}}",
-  "feedItemExchangeTitle": "CELO",
+  "feedItemExchangeTitle": "PDG",
   "feedItemExchangeInfo_boughtGold": "Acheté <0></0> CELO",
   "feedItemExchangeInfo_soldGold": "Vendu <0></0> CELO",
   "feedItemBoughtCeloTitle": "CELO achetés",
   "feedItemSoldCeloTitle": "CELO vendus",
   "feedItemExchangeCeloInfo": "{{amount}} à {{price}}",
-  "feedItemVerificationFeeTitle": "Celo",
+  "feedItemVerificationFeeTitle": "Célo",
   "feedItemVerificationFeeInfo": "$t(verificationFee)",
-  "feedItemNetworkFeeTitle": "Celo",
+  "feedItemNetworkFeeTitle": "Célo",
   "feedItemNetworkFeeInfo": "Frais de réseau",
-  "feedItemVerificationRewardTitle": "Celo",
+  "feedItemVerificationRewardTitle": "Célo",
   "feedItemVerificationRewardInfo": "Récompense de confirmation",
-  "feedItemFaucetTitle": "Celo",
-  "feedItemFaucetInfo": "{{faucet}} Faucet",
-  "feedItemFaucetInfo_noTestnet": "Faucet",
-  "feedItemInviteSentTitle": "Celo",
+  "feedItemFaucetTitle": "Célo",
+  "feedItemFaucetInfo": "{{faucet}} Robinet",
+  "feedItemFaucetInfo_noTestnet": "Robinet",
+  "feedItemInviteSentTitle": "Célo",
   "feedItemInviteSentInfo": "Invité {{nameOrNumber}}",
   "feedItemInviteSentInfo_noInviteeDetails": "$t(inviteSent)",
-  "feedItemInviteReceivedTitle": "Celo",
+  "feedItemInviteReceivedTitle": "Célo",
   "feedItemInviteReceivedInfo": "$t(inviteReceived)",
   "feedItemSentTitle": "{{displayName}}",
   "feedItemSentInfo": "{{comment}}",
   "feedItemSentInfo_noComment": "Paiement envoyé",
   "feedItemCeloRewardReceivedTitle": "CELO gagnés",
-  "feedItemRewardReceivedTitle": "Supercharge",
+  "feedItemRewardReceivedTitle": "Supercharger",
   "feedItemRewardReceivedInfo": "Récompenses hebdomadaires",
   "feedItemInviteRewardReceivedTitle": "{{appName}}",
   "feedItemInviteRewardReceivedInfo": "Récompense reçue",
@@ -1097,7 +1097,7 @@
   "feedItemGoldReceived": "Reçu de {{displayName}}",
   "transactionHeaderVerificationFee": "Confirmation",
   "transactionHeaderNetworkFee": "Réseau",
-  "transactionHeaderFaucet": "Faucet",
+  "transactionHeaderFaucet": "Robinet",
   "transactionHeaderInviteSent": "$t(inviteSent)",
   "transactionHeaderInviteReceived": "$t(inviteReceived)",
   "transactionHeaderSent": "Paiement envoyé",
@@ -1209,9 +1209,9 @@
   "recentlyUsedDapps": "Dapps récemment utilisés",
   "allDapps": "Toutes les Dapps",
   "rewards": "Récompenses",
-  "supercharge": "Supercharge",
+  "supercharge": "Supercharger",
   "others": "Autres",
-  "nomSpaceRecipient": "Nomspace: {{name}}",
+  "nomSpaceRecipient": "Espace nominatif : {{name}}",
   "lastDay": "24 dernières heures",
   "merchant": "Paiement commerçant",
   "merchantMoneyEscrow": "Vous êtes sur le point d'envoyer un paiement direct à un vendeur.",
@@ -1221,22 +1221,22 @@
   "merchantPaymentSubmitSuccess": "Votre paiement a bien été envoyé",
   "merchantWalletUnlockError": "Une erreur s'est produite lors du déverrouillage de votre portefeuille, veuillez réessayer",
   "noMoreTransactions": "Il n'y a plus de transactions",
-  "daysAgo": "{{days}} days ago",
+  "daysAgo": "il y a {{days}} jours",
   "servicesList": {
-    "buy": "Deposit",
-    "cico": "Withdraw",
-    "swap": "Swap",
-    "invest": "Invest",
-    "bills": "Pay Bills",
-    "vendors": "Vendors",
-    "mobileTopUp": "Top Up"
+    "buy": "Verser",
+    "cico": "Retirer",
+    "swap": "Échanger",
+    "invest": "Investir",
+    "bills": "Payer les factures",
+    "vendors": "Vendeurs",
+    "mobileTopUp": "Recharger"
   },
   "swap": {
-    "title": "Swap",
-    "select": "Choose",
-    "execute": "Swap"
+    "title": "Échanger",
+    "select": "Choisir",
+    "execute": "Échanger"
   },
-  "services": "Services",
+  "services": "Prestations de service",
   "selectProviderScreen": {
     "somePaymentsUnavailable": "Certaines modes de paiement ne sont pas disponibles dans votre région",
     "learnMore": "En savoir plus.",
@@ -1303,41 +1303,41 @@
       "errorMessage": "Le numéro de compte doit comporter 10 chiffres et ne contenir que des chiffres"
     }
   },
-  "transactionHistory": "Transaction History",
-  "vendors": "Vendors",
-  "payVendor": "Pay Now",
+  "transactionHistory": "Historique des transactions",
+  "vendors": "Vendeurs",
+  "payVendor": "Payez maintenant",
   "NuxInterests": {
-    "title": "Your Interests",
-    "header": "What would you like to see?",
-    "body": "Kolektivo is a community-first organization. This means that to best serve you, we want to know what you're interested in.",
-    "continue": "Continue",
-    "learnMore": "What is this used for?",
-    "skipForNow": "Skip for now"
+    "title": "Vos intérêts",
+    "header": "Que souhaitez-vous voir?",
+    "body": "Kolektivo est une organisation communautaire. Cela signifie que pour mieux vous servir, nous voulons savoir ce qui vous intéresse.",
+    "continue": "Continuer",
+    "learnMore": "À quoi cela sert-il ?",
+    "skipForNow": "Ignorer pour l'instant"
   },
   "InterestsLearnMoreDialog": {
-    "title": "My Interests and {{appName}}",
-    "body": "This helps Kolektivo better understand your needs and how you use the wallet.\n\n<0>Can I do this later?</0>\n\nYes, but we recommend this step to help you get the most out of your wallet experience.\n\n<1>Anonymous</1>\n\n{{appName}} does not store this information alongside any uniquely identifying data.",
-    "dismiss": "Dismiss"
+    "title": "Mes intérêts et {{appName}}",
+    "body": "Cela aide Kolektivo à mieux comprendre vos besoins et la façon dont vous utilisez le portefeuille.\n\n<0>Puis-je le faire plus tard ?</0>\n\nOui, mais nous recommandons cette étape pour vous aider à tirer le meilleur parti de votre expérience de portefeuille.\n\n<1>Anonyme</1>\n\n{{appName}} ne stocke pas ces informations avec des données d'identification uniques.",
+    "dismiss": "Ignorer"
   },
   "map": {
-    "title": "Map"
+    "title": "Carte"
   },
-  "acceptsGuilder": "Accepts\ncGuilder",
-  "providesGuilder": "Cash-In\nPoint",
+  "acceptsGuilder": "Accepte\n florin",
+  "providesGuilder": "Encaissement\npoint",
   "exportPrompt": {
-    "title": "You're About to Export!",
-    "details": "You're about the export all transactions for the {{month}} period.",
-    "continue": "Export"
+    "title": "Vous êtes sur le point d'exporter !",
+    "details": "Vous êtes sur le point d'exporter toutes les transactions pour la période {{month}}.",
+    "continue": "Exporter"
   },
   "txSummary": {
-    "0": "Type",
+    "0": "Taper",
     "1": "Date",
-    "2": "Sender",
-    "3": "Receiver",
-    "4": "Contract",
-    "5": "Name",
-    "6": "Amount",
-    "7": "Local Amount"
+    "2": "Expéditeur",
+    "3": "Destinataire",
+    "4": "Contracter",
+    "5": "Nom",
+    "6": "Montant",
+    "7": "Montant local"
   },
   "celoDollarAmount": "<0></0> Celo Dollar",
   "celoDollarAmount_plural": "<0></0> Celo Dollars"
