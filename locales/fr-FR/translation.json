@@ -4,7 +4,7 @@
   "languageSettings": "Langue",
   "localCurrencySetting": "Devise",
   "licenses": "Licences",
-  "removeAccountTitle": "Réinitialiser Valora",
+  "removeAccountTitle": "Réinitialiser {{appName}}",
   "removeAccountDetails": "La réinitialisation supprimera votre compte de cet appareil. Vos fonds resteront sur votre compte, mais ne seront accessibles qu'avec votre Phrase de récupération",
   "legal": "Mentions légales",
   "security": "Sécurité",
@@ -31,11 +31,11 @@
   },
   "accountKeyModal": {
     "header": "Sans votre Phrase de récupération, vous perdez définitivement l'accès à vos fonds",
-    "body1": "Afin de réinitialiser Valora, vous devrez confirmer que vous avez bien noté votre Phrase de récupération.",
-    "body2": "Personne, même pas Valora, ne sera en mesure de récupérer votre compte sans votre phrase."
+    "body1": "Afin de réinitialiser {{appName}}, vous devrez confirmer que vous avez écrit votre phrase de récupération.",
+    "body2": "Personne, pas même {{appName}}, ne peut récupérer votre compte sans votre Phrase."
   },
   "promptConfirmRemovalModal": {
-    "header": "Êtes-vous sûr de vouloir réinitialiser Valora ?",
+    "header": "Êtes-vous sûr de vouloir réinitialiser {{appName}} ?",
     "body": "Vous ne pourrez plus accéder à vos fonds ou à votre Phrase de récupération depuis cet appareil. Il n'y a aucun moyen de récupérer votre Phrase de récupération si vous ne l'avez pas enregistrée quelque part.",
     "resetNow": "Réinitialiser maintenant"
   },
