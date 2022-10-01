@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,8 +12,10 @@ export default function Searchbar() {
   const [search, setSearch] = useState<string>('')
 
   useEffect(() => {
-    const filteredVendors = vendors.filter((vendor) =>
-      vendor.title.toLowerCase().includes(search.toLowerCase())
+    const filteredVendors = vendors.filter(
+      (vendor) =>
+        vendor.title.toLowerCase().includes(search.toLowerCase()) ||
+        _.some(vendor.tags, (tag) => tag.toLowerCase().includes(search.toLowerCase()))
     )
     dispatch(setFilteredVendors(filteredVendors))
   }, [search])

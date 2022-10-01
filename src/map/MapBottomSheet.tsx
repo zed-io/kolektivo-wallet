@@ -2,6 +2,7 @@ import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import React, { useRef } from 'react'
 import { ListRenderItemInfo, StyleSheet, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import Searchbar from 'src/components/SearchBar'
 import fontStyles from 'src/styles/fonts'
 import { setCurrentVendor } from 'src/vendors/actions'
 import {
@@ -38,8 +39,14 @@ const MapBottomSheet = () => {
     )
   }
   return (
-    <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
+    <BottomSheet
+      style={{ overflow: 'visible' }}
+      ref={bottomSheetRef}
+      index={0}
+      snapPoints={snapPoints}
+    >
       <Text style={styles.header}>{!currentVendor && `Vendors`}</Text>
+      {!currentVendor && <Searchbar />}
       {!currentVendor && (
         <BottomSheetFlatList
           data={searchQuery.length > 0 ? filteredVendors : vendors}
