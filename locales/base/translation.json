@@ -1330,24 +1330,24 @@
     "continue": "Export"
   },
   "cicoPrompt": {
-    "text": "Buy your cGuilder today at verified vendors today"
+    "text": "Buy your kGuilder today and shop with local merchants"
   },
   "cicoSteps": [
     {
-      "title": "Lorem Ipsum",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu augue ac sapien ullamcorper sodales."
+      "title": "",
+      "text": "Top up at any of the vendors to load balance in your {{appName}}."
     },
     {
-      "title": "Lorem Ipsum",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu augue ac sapien ullamcorper sodales."
+      "title": "",
+      "text": "You can use your kGuilder to support local small businesses with easy payments."
     },
     {
-      "title": "Lorem Ipsum",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu augue ac sapien ullamcorper sodales."
+      "title": "",
+      "text": "Use the {{appName}} to top up your phone with any of the local telecom providers."
     },
     {
-      "title": "Lorem Ipsum",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu augue ac sapien ullamcorper sodales."
+      "title": "",
+      "text": "Send some kGuilder to family and friends."
     }
   ]
 }

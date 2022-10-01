@@ -13,7 +13,6 @@ import { NativeSafeAreaViewProps, SafeAreaView } from 'react-native-safe-area-co
 import Swiper from 'react-native-swiper'
 import Button, { BtnTypes } from 'src/components/Button'
 import BackChevron from 'src/icons/BackChevron'
-import Logo from 'src/icons/Logo'
 import Times from 'src/icons/Times'
 import DrawerTopBar from 'src/navigator/DrawerTopBar'
 import { navigateBack } from 'src/navigator/NavigationService'
@@ -148,12 +147,12 @@ export default class KolektivoNotification extends React.Component<Props, State>
                   key={i}
                 >
                   <View style={styles.swipedContentInner}>
-                    {step.isTopTitle && <Logo height={64} />}
+                    {/* {step.isTopTitle && <Logo height={64} />} */}
                     {step.isTopTitle && <Text style={styles.headingTop}>{step.title}</Text>}
                     {step.image && (
                       <Image source={step.image} style={styles.bodyImage} resizeMode="contain" />
                     )}
-                    {!step.isTopTitle && <Logo height={50} />}
+                    {/* {!step.isTopTitle && <Logo height={50} />} */}
                     {!step.isTopTitle && <Text style={styles.heading}>{step.title}</Text>}
                     {!!step.text && <Text style={styles.bodyText}>{step.text}</Text>}
                   </View>
