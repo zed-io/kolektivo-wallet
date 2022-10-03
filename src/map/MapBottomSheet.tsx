@@ -1,8 +1,10 @@
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet'
-import React, { useRef } from 'react'
-import { ListRenderItemInfo, StyleSheet, Text } from 'react-native'
+import React, { useCallback, useRef } from 'react'
+import { ListRenderItemInfo, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Searchbar from 'src/components/SearchBar'
+import { MapCategory } from 'src/map/constants'
+import MapSheetHandle from 'src/map/MapFilters'
 import fontStyles from 'src/styles/fonts'
 import { setCurrentVendor } from 'src/vendors/actions'
 import {
@@ -38,15 +40,19 @@ const MapBottomSheet = () => {
       />
     )
   }
+
+  const renderHandle = useCallback(
+    (props) => <MapSheetHandle title={MapCategory.All} {...props} />,
+    []
+  )
+
   return (
     <BottomSheet
-      style={{ overflow: 'visible' }}
       ref={bottomSheetRef}
       index={0}
       snapPoints={snapPoints}
+      handleComponent={renderHandle}
     >
-      <Text style={styles.header}>{!currentVendor && `Vendors`}</Text>
-      {!currentVendor && <Searchbar />}
       {!currentVendor && (
         <BottomSheetFlatList
           data={searchQuery.length > 0 ? filteredVendors : vendors}
@@ -67,10 +73,6 @@ const MapBottomSheet = () => {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    marginHorizontal: 16,
-    ...fontStyles.h1,
-  },
   innerContainer: {},
 })
 
