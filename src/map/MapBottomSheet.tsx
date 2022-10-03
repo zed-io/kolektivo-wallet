@@ -4,7 +4,7 @@ import { ListRenderItemInfo, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Searchbar from 'src/components/SearchBar'
 import { MapCategory } from 'src/map/constants'
-import MapSheetHandle from 'src/map/MapFilters'
+import MapSheetHandle from 'src/map/MapSheetHandle'
 import fontStyles from 'src/styles/fonts'
 import { setCurrentVendor } from 'src/vendors/actions'
 import {

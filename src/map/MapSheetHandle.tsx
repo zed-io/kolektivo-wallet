@@ -1,7 +1,7 @@
 import { BottomSheetHandleProps } from '@gorhom/bottom-sheet'
 import { keysIn } from 'lodash'
 import React, { memo, useMemo } from 'react'
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import Animated, {
   Extrapolate,
   interpolate,
@@ -10,7 +10,9 @@ import Animated, {
 } from 'react-native-reanimated'
 import { toRad } from 'react-native-redash'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
+import Searchbar from 'src/components/SearchBar'
 import { MapCategory } from 'src/map/constants'
+import variables from 'src/styles/variables'
 import { transformOrigin } from 'src/utils/transform'
 
 interface CustomHandleProps extends BottomSheetHandleProps {
@@ -92,7 +94,7 @@ const MapSheetHandle: React.FC<CustomHandleProps> = ({ title, style, animatedInd
   const renderFilters = () => {
     return (
       <>
-        {keysIn(MapCategory).map((cat) => {
+        {keysIn(MapCategory).map((cat: string) => {
           return (
             <Button text={cat} size={BtnSizes.SMALL} type={BtnTypes.SECONDARY} onPress={() => {}} />
           )
@@ -108,9 +110,9 @@ const MapSheetHandle: React.FC<CustomHandleProps> = ({ title, style, animatedInd
       renderToHardwareTextureAndroid={true}
     >
       <View style={[styles.headerFilter, styles.flex]}>{renderFilters()}</View>
-      <Animated.View style={[leftIndicatorStyle, leftIndicatorAnimatedStyle]} />
-      <Animated.View style={[rightIndicatorStyle, rightIndicatorAnimatedStyle]} />
-      <Text style={styles.title}>{title}</Text>
+      <View style={[styles.searchFilter]}>
+        <Searchbar />
+      </View>
     </Animated.View>
   )
 }
@@ -123,8 +125,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 12,
     paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.125)',
     zIndex: 99999,
   },
   indicator: {
@@ -142,17 +142,13 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 2,
     borderBottomEndRadius: 2,
   },
-  title: {
-    marginTop: 26,
-    fontSize: 20,
-    lineHeight: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
   flex: {
     flexDirection: 'row',
   },
   headerFilter: {
     marginTop: -50,
+  },
+  searchFilter: {
+    marginTop: variables.contentPadding,
   },
 })

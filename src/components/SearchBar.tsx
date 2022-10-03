@@ -45,16 +45,19 @@ const styles = StyleSheet.create({
   searchContainer: {
     display: 'flex',
     alignItems: 'center',
-    width: '70%',
+    width: 'auto',
+    borderWidth: 1,
+    borderColor: '#EDEDED',
+    borderRadius: 25,
   },
   searchBox: {
     display: 'flex',
-    borderRadius: 5,
+    borderRadius: 25,
     alignItems: 'center',
     backgroundColor: '#fff',
     padding: 12,
     flexDirection: 'row',
     width: '100%',
   },
-  searchInput: { marginLeft: 10, width: '100%' },
+  searchInput: { marginLeft: 10, width: '100%', borderRadius: 25 },
 })
