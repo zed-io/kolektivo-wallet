@@ -2,6 +2,12 @@ import { LatLng, Region } from 'react-native-maps'
 
 export const BASE_TAG = 'MapScreen'
 
+export enum MapCategory {
+  All = 'All',
+  Vendor = 'Vendor',
+  FoodForest = 'FoodForest',
+}
+
 export const LOCALE_LATLNG: LatLng = {
   latitude: 12.1696,
   longitude: -68.99,
