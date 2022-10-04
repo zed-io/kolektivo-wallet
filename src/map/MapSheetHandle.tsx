@@ -1,19 +1,12 @@
 import { BottomSheetHandleProps } from '@gorhom/bottom-sheet'
-import { keysIn } from 'lodash'
+import { keysIn, remove } from 'lodash'
 import React, { memo, useMemo } from 'react'
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
-import Animated, {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle,
-  useDerivedValue,
-} from 'react-native-reanimated'
-import { toRad } from 'react-native-redash'
+import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import Searchbar from 'src/components/SearchBar'
 import { MapCategory } from 'src/map/constants'
 import variables from 'src/styles/variables'
-import { transformOrigin } from 'src/utils/transform'
 
 interface CustomHandleProps extends BottomSheetHandleProps {
   title: string
@@ -21,14 +14,6 @@ interface CustomHandleProps extends BottomSheetHandleProps {
 }
 
 const MapSheetHandle: React.FC<CustomHandleProps> = ({ title, style, animatedIndex }) => {
-  //#region animations
-
-  const indicatorTransformOriginY = useDerivedValue(() =>
-    interpolate(animatedIndex.value, [0, 1, 2], [-1, 0, 1], Extrapolate.CLAMP)
-  )
-  //#endregion
-
-  //#region styles
   const containerStyle = useMemo(() => [styles.container, style], [style])
   const containerAnimatedStyle = useAnimatedStyle(() => {
     const borderTopRadius = interpolate(animatedIndex.value, [1, 2], [20, 0], Extrapolate.CLAMP)
@@ -37,66 +22,18 @@ const MapSheetHandle: React.FC<CustomHandleProps> = ({ title, style, animatedInd
       borderTopRightRadius: borderTopRadius,
     }
   })
-  const leftIndicatorStyle = useMemo(
-    () => ({
-      ...styles.indicator,
-      ...styles.leftIndicator,
-    }),
-    []
-  )
-  const leftIndicatorAnimatedStyle = useAnimatedStyle(() => {
-    const leftIndicatorRotate = interpolate(
-      animatedIndex.value,
-      [0, 1, 2],
-      [toRad(-30), 0, toRad(30)],
-      Extrapolate.CLAMP
-    )
-    return {
-      transform: transformOrigin(
-        { x: 0, y: indicatorTransformOriginY.value },
-        {
-          rotate: `${leftIndicatorRotate}rad`,
-        },
-        {
-          translateX: -5,
-        }
-      ),
-    }
-  })
-  const rightIndicatorStyle = useMemo(
-    () => ({
-      ...styles.indicator,
-      ...styles.rightIndicator,
-    }),
-    []
-  )
-  const rightIndicatorAnimatedStyle = useAnimatedStyle(() => {
-    const rightIndicatorRotate = interpolate(
-      animatedIndex.value,
-      [0, 1, 2],
-      [toRad(30), 0, toRad(-30)],
-      Extrapolate.CLAMP
-    )
-    return {
-      transform: transformOrigin(
-        { x: 0, y: indicatorTransformOriginY.value },
-        {
-          rotate: `${rightIndicatorRotate}rad`,
-        },
-        {
-          translateX: 5,
-        }
-      ),
-    }
-  })
-  //#endregion
-
   const renderFilters = () => {
     return (
       <>
-        {keysIn(MapCategory).map((cat: string) => {
+        {remove(keysIn(MapCategory), (x) => x !== 'All').map((cat: string) => {
           return (
-            <Button text={cat} size={BtnSizes.SMALL} type={BtnTypes.SECONDARY} onPress={() => {}} />
+            <Button
+              style={styles.filterButton}
+              text={cat}
+              size={BtnSizes.SMALL}
+              type={BtnTypes.SECONDARY}
+              onPress={() => {}}
+            />
           )
         })}
       </>
@@ -121,34 +58,21 @@ export default memo(MapSheetHandle)
 
 const styles = StyleSheet.create({
   container: {
-    alignContent: 'center',
-    alignItems: 'center',
     paddingBottom: 12,
-    paddingHorizontal: 16,
     zIndex: 99999,
-  },
-  indicator: {
-    marginTop: 10,
-    position: 'absolute',
-    width: 10,
-    height: 4,
-    backgroundColor: '#999',
-  },
-  leftIndicator: {
-    borderTopStartRadius: 2,
-    borderBottomStartRadius: 2,
-  },
-  rightIndicator: {
-    borderTopEndRadius: 2,
-    borderBottomEndRadius: 2,
   },
   flex: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   headerFilter: {
     marginTop: -50,
+    width: '100%',
   },
   searchFilter: {
     marginTop: variables.contentPadding,
+  },
+  filterButton: {
+    marginHorizontal: 2,
   },
 })
