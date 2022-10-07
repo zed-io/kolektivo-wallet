@@ -2,17 +2,11 @@ import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import React, { useCallback, useRef } from 'react'
 import { ListRenderItemInfo, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import Searchbar from 'src/components/SearchBar'
 import { MapCategory } from 'src/map/constants'
 import MapSheetHandle from 'src/map/MapSheetHandle'
-import fontStyles from 'src/styles/fonts'
+import { filteredVendorsSelector, searchQuerySelector } from 'src/map/selector'
 import { setCurrentVendor } from 'src/vendors/actions'
-import {
-  currentVendorSelector,
-  filteredVendorsSelector,
-  searchQuerySelector,
-  vendorsSelector,
-} from 'src/vendors/selector'
+import { currentVendorSelector, vendorsSelector } from 'src/vendors/selector'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
 import { useInteractiveBottomSheet } from 'src/vendors/utils'
 import VendorDetails from 'src/vendors/VendorDetails'

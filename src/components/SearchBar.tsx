@@ -1,28 +1,24 @@
-import _ from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useDispatch, useSelector } from 'react-redux'
+import DeniedIcon from 'src/icons/DeniedIcon'
 import Search from 'src/icons/Search'
-import { setFilteredVendors, setSearchQuery } from 'src/vendors/actions'
-import { vendorsSelector } from 'src/vendors/selector'
+import { setSearchQuery } from 'src/map/actions'
+import { searchQuerySelector } from 'src/map/selector'
 
 export default function Searchbar() {
   const dispatch = useDispatch()
-  const vendors = Object.values(useSelector(vendorsSelector))
-  const [search, setSearch] = useState<string>('')
-
-  useEffect(() => {
-    const filteredVendors = vendors.filter(
-      (vendor) =>
-        vendor.title.toLowerCase().includes(search.toLowerCase()) ||
-        _.some(vendor.tags, (tag) => tag.toLowerCase().includes(search.toLowerCase()))
-    )
-    dispatch(setFilteredVendors(filteredVendors))
-  }, [search])
+  const [search, setSearch] = useState<string>(useSelector(searchQuerySelector))
 
   const handleSearch = (search: string) => {
     setSearch(search)
     dispatch(setSearchQuery(search))
+  }
+
+  const handleClearSearch = () => {
+    setSearch('')
+    dispatch(setSearchQuery(''))
   }
 
   return (
@@ -37,6 +33,11 @@ export default function Searchbar() {
           placeholder="Search"
           style={styles.searchInput}
         />
+        {!!search && (
+          <TouchableOpacity onPress={handleClearSearch}>
+            <DeniedIcon />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   )
@@ -59,5 +60,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
   },
-  searchInput: { marginLeft: 10, width: '100%', borderRadius: 25 },
+  searchInput: { marginLeft: 10, width: '88%', borderRadius: 25 },
 })
