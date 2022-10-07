@@ -254,6 +254,7 @@ export type StackParamList = {
       }
     | undefined
   [Screens.SendAmount]: {
+    inputAmount?: string
     recipient: Recipient
     isOutgoingPaymentRequest?: boolean
     isFromScan?: boolean

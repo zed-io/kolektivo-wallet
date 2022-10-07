@@ -20,6 +20,7 @@ interface Props {
   onPressMax: () => void
   onSwapInput: () => void
   tokenHasUsdPrice: boolean
+  isFromScan: boolean
 }
 
 function SendAmountValue({
@@ -31,6 +32,7 @@ function SendAmountValue({
   onPressMax,
   onSwapInput,
   tokenHasUsdPrice,
+  isFromScan,
 }: Props) {
   const { t } = useTranslation()
 
@@ -44,7 +46,7 @@ function SendAmountValue({
   return (
     <>
       <View style={styles.container}>
-        {isOutgoingPaymentRequest ? (
+        {isOutgoingPaymentRequest || isFromScan ? (
           <View style={styles.placeholder} />
         ) : (
           <Touchable

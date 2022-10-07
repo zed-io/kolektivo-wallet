@@ -145,11 +145,17 @@ function useFeeToReduceFromMaxButtonInToken(
 function SendAmount(props: Props) {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-
-  const [amount, setAmount] = useState('')
-  const [rawAmount, setRawAmount] = useState('')
+  const {
+    isOutgoingPaymentRequest,
+    recipient,
+    origin,
+    forceTokenAddress,
+    inputAmount,
+    isFromScan,
+  } = props.route.params
+  const [amount, setAmount] = useState(inputAmount ?? '')
+  const [rawAmount, setRawAmount] = useState(inputAmount ?? '')
   const [usingLocalAmount, setUsingLocalAmount] = useState(true)
-  const { isOutgoingPaymentRequest, recipient, origin, forceTokenAddress } = props.route.params
   const defaultToken = useSelector(defaultTokenToSendSelector)
   const inviteTokens = useSelector(stablecoinsSelector)
   const [transferTokenAddress, setTransferToken] = useState(forceTokenAddress ?? defaultToken)
@@ -180,6 +186,7 @@ function SendAmount(props: Props) {
   )
 
   const onPressMax = () => {
+    if (isFromScan) return
     setAmount(
       formatWithMaxDecimals(
         maxAmountValue,
@@ -223,7 +230,7 @@ function SendAmount(props: Props) {
     inputIsInLocalCurrency: showInputInLocalAmount,
     transferTokenAddress,
     origin,
-    isFromScan: !!props.route.params?.isFromScan,
+    isFromScan: !!isFromScan,
   })
 
   const maxEscrowInLocalAmount =
@@ -289,6 +296,7 @@ function SendAmount(props: Props) {
   const isAmountValid = localAmount?.isGreaterThanOrEqualTo(STABLE_TRANSACTION_MIN_AMOUNT) ?? true
 
   const onAmountChange = (updatedAmount: string) => {
+    if (isFromScan) return
     setAmount(updatedAmount)
     setRawAmount(updatedAmount)
   }
@@ -311,14 +319,17 @@ function SendAmount(props: Props) {
           usingLocalAmount={showInputInLocalAmount}
           tokenAddress={transferTokenAddress}
           onPressMax={onPressMax}
+          isFromScan={!!isFromScan}
           onSwapInput={onSwapInput}
           tokenHasUsdPrice={tokenHasUsdPrice}
         />
-        <AmountKeypad
-          amount={amount}
-          maxDecimals={showInputInLocalAmount ? NUMBER_INPUT_MAX_DECIMALS : TOKEN_MAX_DECIMALS}
-          onAmountChange={onAmountChange}
-        />
+        {!isFromScan && (
+          <AmountKeypad
+            amount={amount}
+            maxDecimals={showInputInLocalAmount ? NUMBER_INPUT_MAX_DECIMALS : TOKEN_MAX_DECIMALS}
+            onAmountChange={onAmountChange}
+          />
+        )}
       </View>
       <Button
         style={styles.nextBtn}
