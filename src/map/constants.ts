@@ -1,4 +1,7 @@
 import { LatLng, Region } from 'react-native-maps'
+import Skerpene from 'src/map/forests/skerpene.json'
+import Organic from 'src/map/forests/organic.json'
+import Hofinan from 'src/map/forests/hofinan.json'
 
 export const BASE_TAG = 'MapScreen'
 
@@ -56,3 +59,9 @@ export const GMAP_STYLE = [
     ],
   },
 ]
+
+export const FoodForest = {
+  Skerpene: Skerpene,
+  Hofinan: Hofinan,
+  Organic: Organic,
+}
