@@ -6,7 +6,7 @@ import { EmbeddedNavBar } from 'src/account/Education'
 import { KolektivoNotificationEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { BtnTypes } from 'src/components/Button'
-import { setCicoCompleted } from 'src/home/actions'
+import { setCicoCompleted } from 'src/goldToken/actions'
 import { celoEducation1, celoEducation2, celoEducation3, celoEducation4 } from 'src/images/Images'
 import KolektivoNotification from 'src/kolektivoNotification/KolektivoNotification'
 import { noHeader } from 'src/navigator/Headers'
@@ -22,7 +22,9 @@ export default function CicoPromptScreen() {
 
   const dispatch = useDispatch()
 
-  const isCicoPromptShowing = useSelector((state) => state.home.kolektivoNotifications.cicoPrompt)
+  const isCicoPromptShowing = useSelector(
+    (state) => state.goldToken.kolektivoNotifications.cicoPrompt
+  )
 
   const onFinish = () => {
     ValoraAnalytics.track(KolektivoNotificationEvents.cico_prompt_complete)

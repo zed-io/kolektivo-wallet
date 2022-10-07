@@ -30,13 +30,11 @@ export interface IdToNotification {
 export interface State {
   loading: boolean
   notifications: IdToNotification
-  kolektivoNotifications: { [key: string]: boolean }
 }
 
 export const initialState = {
   loading: false,
   notifications: {},
-  kolektivoNotifications: { cicoPrompt: true },
 }
 
 export const homeReducer = (state: State = initialState, action: ActionTypes | RehydrateAction) => {
@@ -54,14 +52,6 @@ export const homeReducer = (state: State = initialState, action: ActionTypes | R
       return {
         ...state,
         loading: action.loading,
-      }
-    case Actions.SET_CICO_COMPLETED:
-      return {
-        ...state,
-        kolektivoNotifications: {
-          ...state.kolektivoNotifications,
-          cicoPrompt: action.cicoPrompt,
-        },
       }
     case Actions.UPDATE_NOTIFICATIONS:
       // Doing it this way removes any notifications not received on the action.

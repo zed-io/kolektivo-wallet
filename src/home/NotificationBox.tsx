@@ -36,8 +36,8 @@ import Logger from 'src/utils/Logger'
 
 const TAG = 'NotificationBox'
 // Priority of static notifications
-const KOLEKTIVO_NOTIFICATTION_PRIORITY = 1100
 const BACKUP_PRIORITY = 1000
+const KOLEKTIVO_NOTIFICATTION_PRIORITY = 975
 const VERIFICATION_PRIORITY = 100
 const INVITES_PRIORITY = 400
 const INCOMING_PAYMENT_REQUESTS_PRIORITY = 900
@@ -87,7 +87,7 @@ function useSimpleActions() {
 
   const extraNotifications = useSelector(getExtraNotifications)
 
-  const kolektivoNotifications = useSelector((state) => state.home.kolektivoNotifications)
+  const kolektivoNotifications = useSelector((state) => state.goldToken.kolektivoNotifications)
 
   const verificationPossible = useSelector(verificationPossibleSelector)
 
