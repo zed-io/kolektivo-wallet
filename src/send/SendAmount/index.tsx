@@ -150,11 +150,11 @@ function SendAmount(props: Props) {
     recipient,
     origin,
     forceTokenAddress,
-    inputAmount,
+    forceInputAmount,
     isFromScan,
   } = props.route.params
-  const [amount, setAmount] = useState(inputAmount ?? '')
-  const [rawAmount, setRawAmount] = useState(inputAmount ?? '')
+  const [amount, setAmount] = useState(forceInputAmount ?? '')
+  const [rawAmount, setRawAmount] = useState(forceInputAmount ?? '')
   const [usingLocalAmount, setUsingLocalAmount] = useState(true)
   const defaultToken = useSelector(defaultTokenToSendSelector)
   const inviteTokens = useSelector(stablecoinsSelector)
@@ -186,7 +186,7 @@ function SendAmount(props: Props) {
   )
 
   const onPressMax = () => {
-    if (isFromScan) return
+    if (forceInputAmount) return
     setAmount(
       formatWithMaxDecimals(
         maxAmountValue,
@@ -296,7 +296,7 @@ function SendAmount(props: Props) {
   const isAmountValid = localAmount?.isGreaterThanOrEqualTo(STABLE_TRANSACTION_MIN_AMOUNT) ?? true
 
   const onAmountChange = (updatedAmount: string) => {
-    if (isFromScan) return
+    if (forceInputAmount) return
     setAmount(updatedAmount)
     setRawAmount(updatedAmount)
   }
@@ -319,11 +319,11 @@ function SendAmount(props: Props) {
           usingLocalAmount={showInputInLocalAmount}
           tokenAddress={transferTokenAddress}
           onPressMax={onPressMax}
-          isFromScan={!!isFromScan}
+          allowModify={!forceInputAmount}
           onSwapInput={onSwapInput}
           tokenHasUsdPrice={tokenHasUsdPrice}
         />
-        {!isFromScan && (
+        {!forceInputAmount && (
           <AmountKeypad
             amount={amount}
             maxDecimals={showInputInLocalAmount ? NUMBER_INPUT_MAX_DECIMALS : TOKEN_MAX_DECIMALS}
