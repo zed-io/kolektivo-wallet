@@ -1,10 +1,11 @@
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ListRenderItemInfo, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { MapCategory } from 'src/map/constants'
 import MapSheetHandle from 'src/map/MapSheetHandle'
 import { filteredVendorsSelector, searchQuerySelector } from 'src/map/selector'
+import Logger from 'src/utils/Logger'
 import { setCurrentVendor } from 'src/vendors/actions'
 import { currentVendorSelector, vendorsSelector } from 'src/vendors/selector'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
@@ -23,11 +24,17 @@ const MapBottomSheet = () => {
   const currentVendor = useSelector(currentVendorSelector)
 
   const bottomSheetRef = useRef<BottomSheet>(null)
-  const snapPoints = useInteractiveBottomSheet(bottomSheetRef)
+  const [snapPoints] = useInteractiveBottomSheet(bottomSheetRef)
+  const [listMode, setListMode] = useState<boolean>(false)
+
+  useEffect(() => {
+    setListMode(listMode || !!searchQuery.length)
+  }, [listMode, searchQuery])
 
   const renderVendorItem = ({ item }: ListRenderItemInfo<Vendor | VendorWithLocation>) => {
     return (
       <VendorListItem
+        listMode={listMode}
         vendor={item}
         id={item.title}
         onPress={() => dispatch(setCurrentVendor(item))}
@@ -35,24 +42,33 @@ const MapBottomSheet = () => {
     )
   }
 
+  const toggleVendorListMode = (index: number) => {
+    if (index >= 2) setListMode(true)
+    else setListMode(false)
+  }
+
   const renderHandle = useCallback(
-    (props) => <MapSheetHandle title={MapCategory.All} {...props} />,
+    (props) => <MapSheetHandle title={MapCategory.All} {...props} ref={bottomSheetRef} />,
     []
   )
 
   return (
     <BottomSheet
       ref={bottomSheetRef}
-      index={0}
+      index={1}
       snapPoints={snapPoints}
       handleComponent={renderHandle}
+      onChange={toggleVendorListMode}
+      style={styles.sheet}
     >
       {!currentVendor && (
         <BottomSheetFlatList
+          key={!listMode ? 'VendorList/Icons' : 'VendorList/List'}
+          numColumns={!listMode ? 4 : 1}
           data={searchQuery.length > 0 ? filteredVendors : vendors}
           keyExtractor={(vendor: Vendor) => vendor.title}
           renderItem={renderVendorItem}
-          contentContainerStyle={styles.innerContainer}
+          contentContainerStyle={!listMode ? styles.innerContainer : null}
         />
       )}
       {currentVendor && (
@@ -67,7 +83,23 @@ const MapBottomSheet = () => {
 }
 
 const styles = StyleSheet.create({
-  innerContainer: {},
+  innerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  sheet: {
+    shadowColor: 'rgba(0,0,0,0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+
+    elevation: 24,
+  },
 })
 
 export default MapBottomSheet

@@ -8,7 +8,7 @@ export const BASE_TAG = 'MapScreen'
 export enum MapCategory {
   All = 'All',
   Vendor = 'Vendor',
-  FoodForest = 'FoodForest',
+  FoodForest = 'Food Forest',
 }
 
 export const LOCALE_LATLNG: LatLng = {
