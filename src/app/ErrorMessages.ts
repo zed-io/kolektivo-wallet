@@ -92,4 +92,7 @@ export enum ErrorMessages {
   SUPERCHARGE_FETCH_REWARDS_FAILED = 'superchargeFetchRewardsFailed',
   SUPERCHARGE_CLAIM_FAILED = 'superchargeClaimFailure',
   ADD_FIAT_ACCOUNT_RESOURCE_EXIST = 'fiatDetailsScreen.addFiatAccountResourceExist',
+  CREATE_PDF_FAILED = 'createPdfFailure',
+  FAILED_OPEN_DIRECTION = 'failedOpeningDirections',
+  CREATE_PDF_FAILED = 'createPdfFailure',
 }

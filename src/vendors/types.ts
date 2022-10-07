@@ -10,6 +10,11 @@ export type Vendor = {
   currencies: Array<string>
   address?: string
   phoneNumber?: string
+  acceptsGuilder?: boolean
+  providesGuilder?: boolean
+  street: string
+  building_number: string
+  city: string
 }
 
 export type VendorWithLocation = Vendor & {

@@ -167,7 +167,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode appVersionCode
-        versionName "1.34.2"
+        versionName "1.34.3"
         multiDexEnabled true
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -274,6 +274,12 @@ android {
         exclude 'META-INF/-no-jdk.kotlin_module'
         exclude 'META-INF/androidx.exifinterface_exifinterface.version'
         pickFirst '**/libc++_shared.so'
++       pickFirst 'lib/x86/libc++_shared.so'
++       pickFirst 'lib/x86_64/libjsc.so'
++       pickFirst 'lib/arm64-v8a/libjsc.so'
++       pickFirst 'lib/arm64-v8a/libc++_shared.so'
++       pickFirst 'lib/x86_64/libc++_shared.so'
++       pickFirst 'lib/armeabi-v7a/libc++_shared.so'
     }
 
     dexOptions {
