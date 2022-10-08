@@ -259,7 +259,6 @@ function RecipientPicker(props: RecipientProps) {
               }
             }
             renderItem={renderItem}
-            renderSectionHeader={renderSectionHeader}
             sections={buildSections(props.sections)}
             ItemSeparatorComponent={renderItemSeparator}
             ListHeaderComponent={props.listHeaderComponent}
