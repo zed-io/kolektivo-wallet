@@ -11,6 +11,7 @@ import { HomeEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { AppState } from 'src/app/actions'
 import { appStateSelector } from 'src/app/selectors'
+import AccountNumber from 'src/components/AccountNumber'
 import { HomeTokenBalance } from 'src/components/TokenBalance'
 import {
   ALERT_BANNER_DURATION,
@@ -36,12 +37,14 @@ import colors from 'src/styles/colors'
 import { celoAddressSelector, coreTokensSelector } from 'src/tokens/selectors'
 import TransactionFeed from 'src/transactions/feed/TransactionFeed'
 import { checkContactsPermission } from 'src/utils/permissions'
+import { accountAddressSelector } from 'src/web3/selectors'
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList)
 
 function WalletHome() {
   const { t } = useTranslation()
 
+  const account = useSelector(accountAddressSelector)
   const appState = useSelector(appStateSelector)
   const isLoading = useSelector((state) => state.home.loading)
   const recipientCache = useSelector(phoneRecipientCacheSelector)
@@ -132,6 +135,11 @@ function WalletHome() {
   sections.push({
     data: [{}],
     renderItem: () => <NotificationBox key={'NotificationBox'} />,
+  })
+
+  sections.push({
+    data: [{}],
+    renderItem: () => <AccountNumber key={'NotificationBox'} address={account || ''} short />,
   })
 
   sections.push({
