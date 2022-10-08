@@ -78,8 +78,14 @@ export enum Colors {
   notificationBackground = '#F9F6F0',
   notificationButton = '#45ADA8',
 
-  currentVendor = '#307582',
+  // Map Colors
+  activeMarker = '#D55C38',
+
+  // Vendor Map Marker Colors
   inactiveVendor = '#D55C38',
+
+  // Food Forest Marker Colors
+  inactiveForest = '#68DB88',
 }
 
 export default Colors

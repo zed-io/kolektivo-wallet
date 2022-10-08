@@ -11,7 +11,6 @@ import { removeMapCategory, setMapCategory } from 'src/map/actions'
 import { MapCategory } from 'src/map/constants'
 import { currentMapCategorySelector } from 'src/map/selector'
 import variables from 'src/styles/variables'
-import Logger from 'src/utils/Logger'
 import { currentVendorSelector } from 'src/vendors/selector'
 
 interface CustomHandleProps extends BottomSheetHandleProps {

@@ -39,7 +39,7 @@ const MapScreen = () => {
             key={vendor.title}
             description={vendor.subtitle}
             onPress={() => dispatch(setCurrentVendor(vendor))}
-            color={currentVendor === vendor ? Colors.currentVendor : Colors.inactiveVendor}
+            color={currentVendor === vendor ? Colors.activeMarker : Colors.inactiveVendor}
           />
         ))}
       </>

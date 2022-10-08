@@ -13,7 +13,7 @@ export interface Props {
   onPress?: () => void
 }
 
-function ForestMarker({ color = colors.greenUI, size = 35, ...props }: Props) {
+function ForestMarker({ color = colors.inactiveForest, size = 35, ...props }: Props) {
   const width = (size * 2) / 3
   return (
     <Marker {...props}>
