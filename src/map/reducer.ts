@@ -1,10 +1,12 @@
+import { union, without } from 'lodash'
 import { Actions, ActionTypes } from 'src/map/actions'
 import { MapCategory } from 'src/map/constants'
 import { FoodForest, FoodForests } from 'src/map/types'
+import { Actions as VendorActions } from 'src/vendors/actions'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
 
 export interface State {
-  mapCategory: MapCategory
+  mapCategory: MapCategory[]
   filteredVendors: (Vendor | VendorWithLocation)[]
   searchQuery: string
   currentFoodForest: FoodForest
@@ -12,7 +14,7 @@ export interface State {
 }
 
 export const initialState = {
-  mapCategory: MapCategory.All,
+  mapCategory: [MapCategory.Vendor, MapCategory.FoodForest],
   filteredVendors: [],
   searchQuery: '',
   currentFoodForest: {},
@@ -36,13 +38,29 @@ export const reducer = (state: State | undefined = initialState, action: ActionT
     case Actions.SET_CATEGORY:
       return {
         ...state,
-        mapCategory: action.category,
+        mapCategory: union(state.mapCategory, [action.category]) as MapCategory[],
+      }
+    case Actions.REMOVE_CATEGORY:
+      return {
+        ...state,
+        mapCategory: without(state.mapCategory, action.category) as MapCategory[],
       }
     case Actions.SET_FOOD_FORESTS:
       return {
         ...state,
         allFoodForests: action.foodForests,
       }
+    case Actions.SET_CURRENT_FOOD_FOREST:
+      return {
+        ...state,
+        currentFoodForest: action.foodForest,
+      }
+    case VendorActions.SET_CURRENT_VENDOR:
+      return {
+        ...state,
+        currentFoodForest: {},
+      }
+
     default:
       return state
   }

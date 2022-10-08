@@ -1,14 +1,17 @@
 import { BottomSheetHandleProps } from '@gorhom/bottom-sheet'
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { keysIn, remove, valuesIn } from 'lodash'
+import { includes, remove, valuesIn } from 'lodash'
 import React, { memo, useMemo } from 'react'
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import Searchbar from 'src/components/SearchBar'
+import { removeMapCategory, setMapCategory } from 'src/map/actions'
 import { MapCategory } from 'src/map/constants'
+import { currentMapCategorySelector } from 'src/map/selector'
 import variables from 'src/styles/variables'
+import Logger from 'src/utils/Logger'
 import { currentVendorSelector } from 'src/vendors/selector'
 
 interface CustomHandleProps extends BottomSheetHandleProps {
@@ -18,6 +21,8 @@ interface CustomHandleProps extends BottomSheetHandleProps {
 }
 
 const MapSheetHandle: React.FC<CustomHandleProps> = ({ title, style, animatedIndex, ref }) => {
+  const dispatch = useDispatch()
+  const mapCategory = useSelector(currentMapCategorySelector)
   const currentVendor = useSelector(currentVendorSelector)
   const containerStyle = useMemo(() => [styles.container, style], [style])
   const containerAnimatedStyle = useAnimatedStyle(() => {
@@ -27,6 +32,15 @@ const MapSheetHandle: React.FC<CustomHandleProps> = ({ title, style, animatedInd
       borderTopRightRadius: borderTopRadius,
     }
   })
+
+  const handleFilterToggle = (category: MapCategory) => {
+    if (includes(mapCategory, category)) {
+      dispatch(removeMapCategory(category))
+    } else {
+      dispatch(setMapCategory(category))
+    }
+  }
+
   const renderFilters = () => {
     return (
       <>
@@ -36,8 +50,12 @@ const MapSheetHandle: React.FC<CustomHandleProps> = ({ title, style, animatedInd
               style={styles.filterButton}
               text={cat}
               size={BtnSizes.SMALL}
-              type={BtnTypes.SECONDARY}
-              onPress={() => {}}
+              type={
+                mapCategory.includes(cat as MapCategory) ? BtnTypes.PRIMARY : BtnTypes.SECONDARY
+              }
+              onPress={() => {
+                handleFilterToggle(cat as MapCategory)
+              }}
             />
           )
         })}
