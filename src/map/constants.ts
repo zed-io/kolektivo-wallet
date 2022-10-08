@@ -1,7 +1,7 @@
 import { LatLng, Region } from 'react-native-maps'
-import Skerpene from 'src/map/forests/skerpene.json'
-import Organic from 'src/map/forests/organic.json'
-import Hofinan from 'src/map/forests/hofinan.json'
+import Hofinan from 'src/map/forests/Hofinan_Seri_Otrobanda.geojson'
+import Skerpene from 'src/map/forests/Kolektivo_Skerpene_Food_Forest.geojson'
+import Organic from 'src/map/forests/Organic_farms_Curacao.geojson'
 
 export const BASE_TAG = 'MapScreen'
 
