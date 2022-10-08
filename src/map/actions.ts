@@ -1,10 +1,12 @@
 import { MapCategory } from 'src/map/constants'
+import { FoodForest, FoodForests } from 'src/map/types'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
 
 export enum Actions {
   SET_CATEGORY = 'MAP/SET_CATEGORY',
   SET_FILTERED_VENDORS = 'MAP/SET_FILTERED_VENDORS',
   SET_SEARCH_QUERY = 'MAP/SET_SEARCH_QUERY',
+  SET_FOOD_FORESTS = 'MAP/SET_FOOD_FORESTS',
 }
 
 export interface SetMapCategoryAction {
@@ -15,6 +17,11 @@ export interface SetMapCategoryAction {
 export interface SetSearchQueryAction {
   type: Actions.SET_SEARCH_QUERY
   searchQuery: string
+}
+
+export interface SetFoodForestsAction {
+  type: Actions.SET_FOOD_FORESTS
+  foodForests: FoodForests
 }
 
 export interface SetFilteredVendorsAction {
@@ -39,4 +46,13 @@ export const setFilteredVendors = (
   filteredVendors,
 })
 
-export type ActionTypes = SetFilteredVendorsAction | SetSearchQueryAction | SetMapCategoryAction
+export const setFoodForests = (foodForests: FoodForests): SetFoodForestsAction => ({
+  type: Actions.SET_FOOD_FORESTS,
+  foodForests,
+})
+
+export type ActionTypes =
+  | SetFilteredVendorsAction
+  | SetSearchQueryAction
+  | SetMapCategoryAction
+  | SetFoodForestsAction
