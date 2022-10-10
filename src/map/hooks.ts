@@ -19,7 +19,8 @@ export const useMap = () => {
   }, [vendorLocation])
 
   useEffect(() => {
-    currentFoodForest.ingress &&
+    currentFoodForest &&
+      currentFoodForest.ingress &&
       mapRef.current?.animateToRegion({
         ...currentFoodForest.ingress,
         ...FOREST_OFFSET,

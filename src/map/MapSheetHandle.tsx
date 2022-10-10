@@ -9,7 +9,7 @@ import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import Searchbar from 'src/components/SearchBar'
 import { removeMapCategory, setMapCategory } from 'src/map/actions'
 import { MapCategory } from 'src/map/constants'
-import { currentMapCategorySelector } from 'src/map/selector'
+import { currentForestSelector, currentMapCategorySelector } from 'src/map/selector'
 import variables from 'src/styles/variables'
 import { currentVendorSelector } from 'src/vendors/selector'
 
@@ -23,6 +23,7 @@ const MapSheetHandle: React.FC<CustomHandleProps> = ({ title, style, animatedInd
   const dispatch = useDispatch()
   const mapCategory = useSelector(currentMapCategorySelector)
   const currentVendor = useSelector(currentVendorSelector)
+  const currentForest = useSelector(currentForestSelector)
   const containerStyle = useMemo(() => [styles.container, style], [style])
   const containerAnimatedStyle = useAnimatedStyle(() => {
     const borderTopRadius = interpolate(animatedIndex.value, [1, 2], [20, 0], Extrapolate.CLAMP)
@@ -68,10 +69,14 @@ const MapSheetHandle: React.FC<CustomHandleProps> = ({ title, style, animatedInd
       style={[containerStyle, containerAnimatedStyle]}
       renderToHardwareTextureAndroid={true}
     >
-      {!currentVendor && <View style={[styles.headerFilter, styles.flex]}>{renderFilters()}</View>}
-      <View style={[styles.searchFilter]}>
-        <Searchbar isInBottomSheet={true} />
-      </View>
+      {!currentVendor && !currentForest && (
+        <View>
+          <View style={[styles.headerFilter, styles.flex]}>{renderFilters()}</View>
+          <View style={[styles.searchFilter]}>
+            <Searchbar isInBottomSheet={true} />
+          </View>
+        </View>
+      )}
     </Animated.View>
   )
 }

@@ -66,7 +66,22 @@ export const GMAP_STYLE = [
 ]
 
 export const FoodForest = {
-  Skerpene: { data: Skerpene, ingress: { latitude: 12.11283457, longitude: -68.87177425 } },
-  Hofinan: { data: Hofinan, ingress: { latitude: 12.11056768, longitude: -68.93777658 } },
-  Organic: { data: Organic, ingress: { latitude: 12.29392, longitude: -69.0973749 } },
+  Skerpene: {
+    data: Skerpene,
+    area: '800',
+    start: new Date(2021, 3, 1).getTime(),
+    ingress: { latitude: 12.11283457, longitude: -68.87177425 },
+  },
+  Hofinan: {
+    data: Hofinan,
+    area: '100',
+    start: new Date(2020, 7, 18).getTime(),
+    ingress: { latitude: 12.11056768, longitude: -68.93777658 },
+  },
+  Organic: {
+    data: Organic,
+    area: '3000',
+    start: new Date(2020, 7, 29).getTime(),
+    ingress: { latitude: 12.29392, longitude: -69.0973749 },
+  },
 }

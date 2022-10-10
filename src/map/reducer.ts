@@ -9,7 +9,7 @@ export interface State {
   mapCategory: MapCategory[]
   filteredVendors: (Vendor | VendorWithLocation)[]
   searchQuery: string
-  currentFoodForest: FoodForest
+  currentFoodForest: FoodForest | undefined
   allFoodForests: FoodForests
 }
 
@@ -17,7 +17,7 @@ export const initialState = {
   mapCategory: [MapCategory.Vendor, MapCategory.FoodForest],
   filteredVendors: [],
   searchQuery: '',
-  currentFoodForest: {},
+  currentFoodForest: undefined,
   allFoodForests: {},
 }
 
@@ -58,7 +58,7 @@ export const reducer = (state: State | undefined = initialState, action: ActionT
     case VendorActions.SET_CURRENT_VENDOR:
       return {
         ...state,
-        currentFoodForest: {},
+        currentFoodForest: undefined,
       }
 
     default:

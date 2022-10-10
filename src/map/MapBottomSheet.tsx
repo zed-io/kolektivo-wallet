@@ -2,10 +2,15 @@ import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ListRenderItemInfo, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { setFoodForest } from 'src/map/actions'
 import { MapCategory } from 'src/map/constants'
+import FoodForestDetails from 'src/map/FoodForestDetails'
 import MapSheetHandle from 'src/map/MapSheetHandle'
-import { filteredVendorsSelector, searchQuerySelector } from 'src/map/selector'
-import Logger from 'src/utils/Logger'
+import {
+  currentForestSelector,
+  filteredVendorsSelector,
+  searchQuerySelector,
+} from 'src/map/selector'
 import { setCurrentVendor } from 'src/vendors/actions'
 import { currentVendorSelector, vendorsSelector } from 'src/vendors/selector'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
@@ -22,6 +27,7 @@ const MapBottomSheet = () => {
   const searchQuery = Object.values(useSelector(searchQuerySelector))
 
   const currentVendor = useSelector(currentVendorSelector)
+  const currentForest = useSelector(currentForestSelector)
 
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [snapPoints] = useInteractiveBottomSheet(bottomSheetRef)
@@ -29,7 +35,7 @@ const MapBottomSheet = () => {
 
   useEffect(() => {
     setListMode(listMode || !!searchQuery.length)
-  }, [listMode, searchQuery])
+  }, [searchQuery])
 
   const renderVendorItem = ({ item }: ListRenderItemInfo<Vendor | VendorWithLocation>) => {
     return (
@@ -44,7 +50,7 @@ const MapBottomSheet = () => {
 
   const toggleVendorListMode = (index: number) => {
     if (index >= 2) setListMode(true)
-    else setListMode(false)
+    else setListMode(!!searchQuery.length)
   }
 
   const renderHandle = useCallback(
@@ -61,7 +67,7 @@ const MapBottomSheet = () => {
       onChange={toggleVendorListMode}
       style={styles.sheet}
     >
-      {!currentVendor && (
+      {!currentVendor && !currentForest && (
         <BottomSheetFlatList
           key={!listMode ? 'VendorList/Icons' : 'VendorList/List'}
           numColumns={!listMode ? 4 : 1}
@@ -75,6 +81,13 @@ const MapBottomSheet = () => {
         <VendorDetails
           vendor={currentVendor}
           close={() => dispatch(setCurrentVendor(undefined))}
+          action={() => {}}
+        />
+      )}
+      {currentForest && (
+        <FoodForestDetails
+          forest={currentForest}
+          close={() => dispatch(setFoodForest(undefined))}
           action={() => {}}
         />
       )}

@@ -1,9 +1,11 @@
 import { LatLng } from 'react-native-maps'
+import { Vendor } from 'src/vendors/types'
 
-export type FoodForest = {
+export type FoodForest = Vendor & {
   data?: any
-  title?: string
   ingress?: LatLng
+  start?: number
+  area?: string
 }
 
 export type FoodForests = {

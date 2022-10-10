@@ -34,7 +34,7 @@ export interface SetFoodForestsAction {
 
 export interface SetCurrentFoodForestAction {
   type: Actions.SET_CURRENT_FOOD_FOREST
-  foodForest: FoodForest
+  foodForest: FoodForest | undefined
 }
 
 export interface SetFilteredVendorsAction {
@@ -69,7 +69,7 @@ export const setFoodForests = (foodForests: FoodForests): SetFoodForestsAction =
   foodForests,
 })
 
-export const setFoodForest = (foodForest: FoodForest): SetCurrentFoodForestAction => ({
+export const setFoodForest = (foodForest: FoodForest | undefined): SetCurrentFoodForestAction => ({
   type: Actions.SET_CURRENT_FOOD_FOREST,
   foodForest,
 })
