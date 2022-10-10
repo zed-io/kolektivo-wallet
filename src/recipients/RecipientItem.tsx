@@ -38,25 +38,25 @@ function RecipientItem({ recipient, onSelectRecipient }: Props) {
     })
   }
 
-  // if (recipient.recipientType == RecipientType.Address)
-  return (
-    <Touchable onPress={onPress} testID="RecipientItem">
-      <View style={styles.row}>
-        <ContactCircle style={styles.avatar} recipient={recipient} />
-        <View style={styles.contentContainer}>
-          <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.name}>
-            {getDisplayName(recipient, t)}
-          </Text>
-          {recipient.name && <Text style={styles.phone}>{getDisplayDetail(recipient)}</Text>}
+  if (recipient.recipientType == RecipientType.Address)
+    return (
+      <Touchable onPress={onPress} testID="RecipientItem">
+        <View style={styles.row}>
+          <ContactCircle style={styles.avatar} recipient={recipient} />
+          <View style={styles.contentContainer}>
+            <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.name}>
+              {getDisplayName(recipient, t)}
+            </Text>
+            {recipient.name && <Text style={styles.phone}>{getDisplayDetail(recipient)}</Text>}
+          </View>
+          <View style={styles.rightIconContainer}>
+            {recipient.address ? <Logo style={styles.logo} type={LogoTypes.GREEN} /> : null}
+          </View>
         </View>
-        <View style={styles.rightIconContainer}>
-          {recipient.address ? <Logo style={styles.logo} type={LogoTypes.GREEN} /> : null}
-        </View>
-      </View>
-    </Touchable>
-  )
+      </Touchable>
+    )
 
-  // return <></>
+  return <></>
 }
 
 const styles = StyleSheet.create({
