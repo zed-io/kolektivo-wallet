@@ -68,8 +68,6 @@ function Send(_props: Props) {
 
   const throttledSearch = throttle((searchInput: string) => {
     setSearchQuery(searchInput)
-    setRecentFiltered(recentRecipientsFilter(searchInput))
-    setAllFiltered(allRecipientsFilter(searchInput))
   }, SEARCH_THROTTLE_TIME)
 
   useEffect(() => {
@@ -124,17 +122,18 @@ function Send(_props: Props) {
     navigateToPhoneSettings()
   }
 
+  // @note When integrating phone numbers, revert commit 954520dfcac06626238702592bfe08a94ee64929
   const buildSections = (): Section[] => {
     const sections = [
-      { key: t('recent'), data: recentFiltered },
-      { key: t('contacts'), data: allFiltered },
+      { key: t('recent'), data: [] },
+      { key: t('contacts'), data: [] },
     ].filter((section) => section.data.length > 0)
 
     return sections
   }
 
   return (
-    <BottomSheet index={0} snapPoints={['20%', '80%']}>
+    <BottomSheet index={0} snapPoints={['20%', '40%']}>
       <SendHeader isOutgoingPaymentRequest={false} />
       <DisconnectBanner />
       <SendSearchInput input={searchQuery} onChangeText={throttledSearch} />

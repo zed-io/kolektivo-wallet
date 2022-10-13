@@ -135,11 +135,7 @@ function RecipientPicker(props: RecipientProps) {
             <Text style={styles.emptyStateBody}>{t('searchForSomeone')}</Text>
           </View>
         </>
-      ) : (
-        <View style={styles.emptyViewBody}>
-          <Text style={fontStyles.emptyState}>{t('noContacts')}</Text>
-        </View>
-      )}
+      ) : null}
     </View>
   )
 
