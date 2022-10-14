@@ -5,7 +5,7 @@ import { SetCurrentVendorAction } from 'src/vendors/actions'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
 
 export enum Actions {
-  INIT_USER_LOCATION = 'MAP/INIT_USER_LOCATION',
+  SET_USER_LOCATION = 'MAP/SET_USER_LOCATION',
   SET_CATEGORY = 'MAP/SET_CATEGORY',
   REMOVE_CATEGORY = 'MAP/REMOVE_CATEGORY',
   SET_FILTERED_VENDORS = 'MAP/SET_FILTERED_VENDORS',
@@ -16,7 +16,7 @@ export enum Actions {
 }
 
 export interface InitializeUserLocationAction {
-  type: Actions.INIT_USER_LOCATION
+  type: Actions.SET_USER_LOCATION
   location: LatLng | {}
 }
 
@@ -55,8 +55,8 @@ export interface SetFilteredVendorsAction {
   filteredVendors: (Vendor | VendorWithLocation)[]
 }
 
-export const initUserLocation = (location: LatLng | {}) => ({
-  type: Actions.INIT_USER_LOCATION,
+export const setUserLocation = (location: LatLng | {}) => ({
+  type: Actions.SET_USER_LOCATION,
   location,
 })
 

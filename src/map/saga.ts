@@ -3,17 +3,19 @@ import { map } from 'lodash'
 import { LatLng } from 'react-native-maps'
 import { fork, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects'
 import { Actions as AppActions } from 'src/app/actions'
+import { activeScreenSelector } from 'src/app/selectors'
 import {
   Actions,
-  initUserLocation,
   setFilteredVendors,
   setFoodForests,
   setLocationError,
   setSearchQuery,
+  setUserLocation,
 } from 'src/map/actions'
 import { FoodForest } from 'src/map/constants'
 import { FoodForests } from 'src/map/types'
 import { filterVendors } from 'src/map/utils'
+import { Screens } from 'src/navigator/Screens'
 import { watchFetchVendors } from 'src/vendors/saga'
 import { vendorsSelector } from 'src/vendors/selector'
 
@@ -53,10 +55,12 @@ export function* mapSearchSaga() {
   yield takeLatest(AppActions.ACTIVE_SCREEN_CHANGED, resetMapFilter)
 }
 
-export function* findUserLocation() {
+export function* findUserLocation(): any {
+  const activeScreen = yield select(activeScreenSelector)
+  if (activeScreen !== Screens.Map) return
+
   let error: any
   let coordinates: LatLng | undefined = undefined
-
   Geolocation.getCurrentPosition(
     (position) => {
       coordinates = position.coords as LatLng
@@ -68,13 +72,12 @@ export function* findUserLocation() {
       enableHighAccuracy: true,
     }
   )
-
   if (error && !coordinates) yield put(setLocationError(JSON.stringify(error)))
-  yield put(initUserLocation(coordinates || {}))
+  yield put(setUserLocation(coordinates || {}))
 }
 
 export function* mapSaga() {
   yield spawn(mapServiceSaga)
   yield spawn(mapSearchSaga)
-  yield takeLatest(AppActions.SET_APP_STATE, findUserLocation)
+  yield takeLatest(AppActions.ACTIVE_SCREEN_CHANGED, findUserLocation)
 }

@@ -1,6 +1,5 @@
 import { union, without } from 'lodash'
 import { LatLng } from 'react-native-maps'
-import { actions } from 'src/dappkit/dappkit'
 import { Actions, ActionTypes } from 'src/map/actions'
 import { MapCategory } from 'src/map/constants'
 import { FoodForest, FoodForests } from 'src/map/types'
@@ -29,7 +28,7 @@ export const initialState = {
 
 export const reducer = (state: State | undefined = initialState, action: ActionTypes): State => {
   switch (action.type) {
-    case Actions.INIT_USER_LOCATION: {
+    case Actions.SET_USER_LOCATION: {
       return {
         ...state,
         userLocation: action.location,
