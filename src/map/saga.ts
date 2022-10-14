@@ -1,7 +1,16 @@
+import Geolocation from '@react-native-community/geolocation'
 import { map } from 'lodash'
+import { LatLng } from 'react-native-maps'
 import { fork, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects'
 import { Actions as AppActions } from 'src/app/actions'
-import { Actions, setFilteredVendors, setFoodForests, setSearchQuery } from 'src/map/actions'
+import {
+  Actions,
+  initUserLocation,
+  setFilteredVendors,
+  setFoodForests,
+  setLocationError,
+  setSearchQuery,
+} from 'src/map/actions'
 import { FoodForest } from 'src/map/constants'
 import { FoodForests } from 'src/map/types'
 import { filterVendors } from 'src/map/utils'
@@ -44,7 +53,28 @@ export function* mapSearchSaga() {
   yield takeLatest(AppActions.ACTIVE_SCREEN_CHANGED, resetMapFilter)
 }
 
+export function* findUserLocation() {
+  let error: any
+  let coordinates: LatLng | undefined = undefined
+
+  Geolocation.getCurrentPosition(
+    (position) => {
+      coordinates = position.coords as LatLng
+    },
+    (_error) => {
+      error = _error
+    },
+    {
+      enableHighAccuracy: true,
+    }
+  )
+
+  if (error && !coordinates) yield put(setLocationError(JSON.stringify(error)))
+  yield put(initUserLocation({ latitude: 0, longitude: 0 } || {}))
+}
+
 export function* mapSaga() {
   yield spawn(mapServiceSaga)
   yield spawn(mapSearchSaga)
+  yield takeLatest(AppActions.SET_APP_STATE, findUserLocation)
 }

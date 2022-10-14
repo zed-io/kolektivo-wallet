@@ -1,3 +1,4 @@
+import { LatLng } from 'react-native-maps'
 import { MapCategory } from 'src/map/constants'
 import { FoodForest } from 'src/map/types'
 import { RootState } from 'src/redux/reducers'
@@ -14,3 +15,4 @@ export const foodForestsSelector = (state: RootState): FoodForest[] =>
   Object.values(state.map.allFoodForests)
 
 export const currentForestSelector = (state: RootState): FoodForest => state.map.currentFoodForest
+export const userLocationSelector = (state: RootState): LatLng => state.map.userLocation as LatLng

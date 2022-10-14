@@ -1,15 +1,28 @@
+import { LatLng } from 'react-native-maps'
 import { MapCategory } from 'src/map/constants'
 import { FoodForest, FoodForests } from 'src/map/types'
 import { SetCurrentVendorAction } from 'src/vendors/actions'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
 
 export enum Actions {
+  INIT_USER_LOCATION = 'MAP/INIT_USER_LOCATION',
   SET_CATEGORY = 'MAP/SET_CATEGORY',
   REMOVE_CATEGORY = 'MAP/REMOVE_CATEGORY',
   SET_FILTERED_VENDORS = 'MAP/SET_FILTERED_VENDORS',
   SET_SEARCH_QUERY = 'MAP/SET_SEARCH_QUERY',
   SET_FOOD_FORESTS = 'MAP/SET_FOOD_FORESTS',
   SET_CURRENT_FOOD_FOREST = 'MAP/SET_CURRENT_FOOD_FOREST',
+  SET_LOCATION_ERROR = 'MAP/SET_LOCATION_ERROR',
+}
+
+export interface InitializeUserLocationAction {
+  type: Actions.INIT_USER_LOCATION
+  location: LatLng | {}
+}
+
+export interface LocationErrorAction {
+  type: Actions.SET_LOCATION_ERROR
+  error: string
 }
 
 export interface SetMapCategoryAction {
@@ -41,6 +54,16 @@ export interface SetFilteredVendorsAction {
   type: Actions.SET_FILTERED_VENDORS
   filteredVendors: (Vendor | VendorWithLocation)[]
 }
+
+export const initUserLocation = (location: LatLng | {}) => ({
+  type: Actions.INIT_USER_LOCATION,
+  location,
+})
+
+export const setLocationError = (error: string) => ({
+  type: Actions.SET_LOCATION_ERROR,
+  error,
+})
 
 export const setMapCategory = (category: MapCategory) => ({
   type: Actions.SET_CATEGORY,
@@ -82,3 +105,5 @@ export type ActionTypes =
   | SetCurrentFoodForestAction
   | SetCurrentVendorAction
   | RemoveMapCategoryAction
+  | InitializeUserLocationAction
+  | LocationErrorAction

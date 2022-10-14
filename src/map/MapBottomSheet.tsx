@@ -1,6 +1,7 @@
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ListRenderItemInfo, StyleSheet } from 'react-native'
+import MapView from 'react-native-maps'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFoodForest } from 'src/map/actions'
 import { MapCategory } from 'src/map/constants'
@@ -18,9 +19,11 @@ import { useInteractiveBottomSheet } from 'src/vendors/utils'
 import VendorDetails from 'src/vendors/VendorDetails'
 import VendorListItem from 'src/vendors/VendorListItem'
 
-type Props = {}
+type Props = {
+  mapRef: React.RefObject<MapView>
+}
 
-const MapBottomSheet = () => {
+const MapBottomSheet = ({ mapRef }: Props) => {
   const dispatch = useDispatch()
   const vendors = Object.values(useSelector(vendorsSelector))
   const filteredVendors = Object.values(useSelector(filteredVendorsSelector))
@@ -54,7 +57,9 @@ const MapBottomSheet = () => {
   }
 
   const renderHandle = useCallback(
-    (props) => <MapSheetHandle title={MapCategory.All} {...props} ref={bottomSheetRef} />,
+    (props) => (
+      <MapSheetHandle title={MapCategory.All} {...props} ref={bottomSheetRef} mapRef={mapRef} />
+    ),
     []
   )
 
@@ -110,7 +115,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.58,
     shadowRadius: 16.0,
-
     elevation: 24,
   },
 })

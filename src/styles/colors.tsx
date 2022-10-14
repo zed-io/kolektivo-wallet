@@ -86,6 +86,10 @@ export enum Colors {
 
   // Food Forest Marker Colors
   inactiveForest = '#68DB88',
+
+  // Map Filter Buttons
+  vendorButton = '#F07C4B',
+  forestButton = '#307582',
 }
 
 export default Colors

@@ -96,7 +96,7 @@ const MapScreen = () => {
         {vendors && vendorLocationMarkers()}
       </MapView>
       <DrawerTopBar scrollPosition={scrollPosition} />
-      <MapBottomSheet />
+      <MapBottomSheet mapRef={mapRef} />
     </SafeAreaView>
   )
 }

@@ -1,4 +1,6 @@
 import { union, without } from 'lodash'
+import { LatLng } from 'react-native-maps'
+import { actions } from 'src/dappkit/dappkit'
 import { Actions, ActionTypes } from 'src/map/actions'
 import { MapCategory } from 'src/map/constants'
 import { FoodForest, FoodForests } from 'src/map/types'
@@ -6,6 +8,8 @@ import { Actions as VendorActions } from 'src/vendors/actions'
 import { Vendor, VendorWithLocation } from 'src/vendors/types'
 
 export interface State {
+  userLocation: LatLng | {}
+  locationError: string | undefined
   mapCategory: MapCategory[]
   filteredVendors: (Vendor | VendorWithLocation)[]
   searchQuery: string
@@ -14,6 +18,8 @@ export interface State {
 }
 
 export const initialState = {
+  userLocation: {},
+  locationError: undefined,
   mapCategory: [MapCategory.Vendor, MapCategory.FoodForest],
   filteredVendors: [],
   searchQuery: '',
@@ -23,6 +29,18 @@ export const initialState = {
 
 export const reducer = (state: State | undefined = initialState, action: ActionTypes): State => {
   switch (action.type) {
+    case Actions.INIT_USER_LOCATION: {
+      return {
+        ...state,
+        userLocation: action.location,
+      }
+    }
+    case Actions.SET_LOCATION_ERROR: {
+      return {
+        ...state,
+        locationError: action.error,
+      }
+    }
     case Actions.SET_FILTERED_VENDORS:
       return {
         ...state,
@@ -60,7 +78,6 @@ export const reducer = (state: State | undefined = initialState, action: ActionT
         ...state,
         currentFoodForest: undefined,
       }
-
     default:
       return state
   }
