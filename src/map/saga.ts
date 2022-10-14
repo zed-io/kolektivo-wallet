@@ -70,7 +70,7 @@ export function* findUserLocation() {
   )
 
   if (error && !coordinates) yield put(setLocationError(JSON.stringify(error)))
-  yield put(initUserLocation({ latitude: 0, longitude: 0 } || {}))
+  yield put(initUserLocation(coordinates || {}))
 }
 
 export function* mapSaga() {
