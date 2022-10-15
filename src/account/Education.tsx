@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   bodyImage: {
     alignSelf: 'center',
     marginBottom: 24,
-    height: '75%',
+    height: '80%',
   },
   swipedContent: {
     marginBottom: 24,
@@ -259,8 +259,7 @@ const styles = StyleSheet.create({
     overflow: 'scroll',
   },
   swipedContentInner: {
-    flex: 1,
-    justifyContent: 'center',
+    width: '100%',
   },
   top: {
     paddingLeft: 24,
