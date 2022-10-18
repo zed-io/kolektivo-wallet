@@ -1260,17 +1260,17 @@
   },
   "fiatExchangeFlow": {
     "cashIn": {
-      "fiatExchangeTitle": "Fondsen toevoegen",
-      "fiatExchangeSubtitle": "Financier uw {{appName}} -account van een bank, kaart of uitwisseling.",
+      "fiatExchangeTitle": "Geld Toevoegen",
+      "fiatExchangeSubtitle": "Financier uw {{appName}} -account via een bank, kaart of uitwisseling.",
       "selectCurrencyTitle": "Fondsen toevoegen",
       "exchangeAmountTitle": "{{currency}}. toevoegen",
       "selectProviderHeader": "Selecteer betaalmethode"
     },
     "cashOut": {
-      "fiatExchangeTitle": "Terugtrekken",
-      "fiatExchangeSubtitle": "Krijg geld van {{appName}} en op een bankrekening, kaart, crypto-uitwisseling of naar mobiel geld.",
+      "fiatExchangeTitle": "Opnemen",
+      "fiatExchangeSubtitle": "Krijg geld van {{appName}} op een bankrekening, kaart, crypto-uitwisseling of naar mobiel geld.",
       "selectCurrencyTitle": "Geld opnemen",
-      "exchangeAmountTitle": "Terugtrekken {{currency}}",
+      "exchangeAmountTitle": "Opnemen {{currency}}",
       "selectProviderHeader": "Selecteer Opnamemethode"
     },
     "spend": {
@@ -1283,13 +1283,13 @@
     "header": "Voer bankgegevens in",
     "selectedPaymentOption": "Geselecteerde betalingsoptie",
     "addFiatAccountSuccess": "Uw account is gekoppeld aan {{appName}}.",
-    "addFiatAccountResourceExist": "U heeft dit account al aan {{appName}}gekoppeld.",
+    "addFiatAccountResourceExist": "U heeft deze account al aan {{appName}} gekoppeld.",
     "addFiatAccountFailed": "Uw account is niet gekoppeld, probeer het opnieuw of neem contact op met de ondersteuning."
   },
   "fiatAccountSchema": {
     "accountName": {
       "label": "Accountnaam",
-      "placeholderText": "Een naam voor het account",
+      "placeholderText": "Een naam voor de account",
       "errorMessage": "Een accountnaam is vereist"
     },
     "institutionName": {
@@ -1304,10 +1304,10 @@
     }
   },
   "transactionHistory": "Transactie Geschiedenis",
-  "vendors": "Verkoper",
-  "payVendor": "Nu betalen",
+  "vendors": "Verkopers",
+  "payVendor": "Betaal nu",
   "NuxInterests": {
-    "title": "Jouw interesses",
+    "title": "Onderwerpen waar u interesse voor heeft",
     "header": "Wat zou je willen zien?",
     "body": "Kolektivo is een gemeenschapsgerichte organisatie. Dit betekent dat we, om u zo goed mogelijk van dienst te zijn, willen weten waarin u geïnteresseerd bent.",
     "continue": "Doorgaan",
@@ -1330,16 +1330,16 @@
     "continue": "Exporteren"
   },
   "cicoPrompt": {
-    "text": "Koop uw kGuilder vandaag en koop bij lokale bedrijven"
+    "text": "Koop uw kGuilder vandaag en koop bij lokale verkopers"
   },
   "cicoSteps": [
     {
       "title": "",
-      "text": "Top up bij een van de leveranciers om het saldo in uw {{appName}} te laden."
+      "text": "Waardeer op bij een van de leveranciers om het saldo in uw {{appName}} te laden."
     },
     {
       "title": "",
-      "text": "U kunt uw kGuilder gebruiken om lokale kleine bedrijven met gemakkelijke betalingen te ondersteunen."
+      "text": "U kunt uw kGuilder gebruiken om lokale kleine bedrijven met simpele betalingen te ondersteunen."
     },
     {
       "title": "",
