@@ -409,12 +409,12 @@
   "invalidInvite": "Ongeldige uitnodigingscode",
   "inviteFriends": "Nodig vrienden uit",
   "account": "Account",
-  "invalidAccount": "Ongeldig account",
+  "invalidAccount": "Ongeldige account",
   "delete": "Verwijderen",
   "remind": "Herinneren",
   "pay": "Betalen",
   "decline": "Afwijzen",
-  "to": "Tot",
+  "to": "Naar",
   "for": "Voor",
   "reclaim": "terugvorderen",
   "celoGold": "CELO",
@@ -432,8 +432,8 @@
   "verifyFailed": "Kon niet verbinden",
   "canNotRequestFromUnverified": "Kan geen verzoek indienen bij onbevestigde gebruikers",
   "restartApp": "App opnieuw starten",
-  "quitApp": "Ontslag nemen",
-  "loading": "…. laden",
+  "quitApp": "Sluit af",
+  "loading": "Laden…",
   "inviteFailed": "Kan uitnodiging niet verzenden",
   "inviteOpenAppFailed": "Kan berichten-app niet openen, uitnodigingscode gekopieerd naar klembord",
   "importContactsFailed": "Kan contacten niet importeren",
@@ -444,13 +444,13 @@
   "reclaimingEscrowedPaymentFailed": "Betaling kon niet worden teruggevorderd",
   "connectingToCelo": "…. aansluiten",
   "poorConnection": {
-    "0": "Slechte connectie",
-    "1": "sommige functies uitgeschakeld"
+    "0": "Slechte verbinding",
+    "1": "sommige functies zijn uitgeschakeld"
   },
   "networkConnectionFailed": "Kon geen verbinding maken met het netwerk, controleer uw gegevensverbinding",
   "firebaseFailed": "Internetverbinding is zwak. Accountgegevens kunnen pas worden bijgewerkt als de verbinding is hersteld.",
   "gasPriceUpdateFailed": "Kan vergoeding niet updaten",
-  "appUpdateAvailable": "App-update beschikbaar",
+  "appUpdateAvailable": "App-update Beschikbaar",
   "appIsOutdated": "Uw huidige versie is verouderd, update naar de nieuwste versie",
   "update": "Update",
   "qrFailedNoAddress": "QR-code lezen mislukt. Reden: wallet adres niet gevonden.",
@@ -465,10 +465,10 @@
   "calculateFeeFailed": "Kan vergoeding niet berekenen",
   "failedToSwitchSyncModes": "Kan synchronisatiemodus niet wijzigen",
   "gold": "CELO",
-  "localCurrencyTitle": "selecteer valuta",
+  "localCurrencyTitle": "Selecteer valuta",
   "or": "of",
   "accepted": "Geaccepteerd",
-  "processing": "Verwerken",
+  "processing": "Bezig met verwerken",
   "unknown": "Onbekend",
   "emptyList": "Lege lijst",
   "timeframes": {
@@ -486,7 +486,7 @@
   "ordinals": [
     "nulde",
     "eerst",
-    "seconde",
+    "tweede",
     "derde",
     "vierde",
     "vijfde",
@@ -518,36 +518,36 @@
   ],
   "addressValidationError": "De ingevoerde accountgegevens waren niet geldig",
   "addressValidationNoMatch": "De ingevoerde accountgegevens komen niet overeen met die van uw contactpersoon",
-  "addressValidationFullPoorlyFormatted": "Accountadressen beginnen met \"0x\", bevatten alleen cijfers en letters en zijn 42 tekens lang. Druk op de onderstaande link voor hulp",
-  "addressValidationPartialPoorlyFormatted": "Accountadressen bevatten alleen cijfers en letters, geef de laatste 4 cijfers op. Druk op de onderstaande link voor hulp",
+  "addressValidationFullPoorlyFormatted": "Account adressen beginnen met \"0x\", bevatten alleen cijfers en letters en zijn 42 tekens lang. Druk op de onderstaande link voor hulp",
+  "addressValidationPartialPoorlyFormatted": "Account adressen bevatten alleen cijfers en letters, geef de laatste 4 cijfers op. Druk op de onderstaande link voor hulp",
   "addressValidationFullOwnAddress": "Voer het accountadres van uw contactpersoon in, niet uw eigen. Druk op de onderstaande link voor hulp",
   "addressValidationPartialOwnAddress": "Voer de laatste 4 cijfers van het accountadres van uw contactpersoon in, niet uw eigen. Druk op de onderstaande link voor hulp",
   "providerRateFetchFailed": "Kan providertarief niet ophalen. U kunt doorgaan zonder vooraf ingevuld tarief.",
-  "helpFindAccount": "Help uw contactpersoon zijn accountadres te vinden",
-  "close": "Dichtbij",
+  "helpFindAccount": "Help uw contactpersoon zijn account adres te vinden",
+  "close": "Sluiten",
   "home": "Portemonnee",
   "accountKey": "Herstelzin",
   "addAndWithdraw": "Toevoegen & Intrekken",
   "settings": "Instellingen",
-  "help": "Helpen",
+  "help": "Hulp",
   "dismiss": "Afwijzen",
   "review": "Opnieuw bekijken",
   "insufficientBalance": "Uw saldo is te laag om deze transactie uit te voeren",
   "amount": "Hoeveelheid",
   "currentBalance": "Huidig saldo (cUSD)",
-  "restore": "Importeren",
+  "restore": "Importeer",
   "commentUnavailable": "Reactie niet beschikbaar",
   "accountClearFailed": "Er is een fout opgetreden bij het verwijderen van uw herstelzin. Mogelijk moet u de app opnieuw installeren om alle functionaliteit te herstellen.",
-  "withdraw": "Terugtrekken",
+  "withdraw": "Opnemen",
   "countryNotAvailable": "{{appName}} is niet beschikbaar in uw land",
   "fetchFailed": "Serververbinding mislukt",
-  "pictureLoadFailed": "Er is een fout opgetreden bij het laden van je foto",
+  "pictureLoadFailed": "Er is een fout opgetreden bij het laden van uw foto",
   "simplexPurchaseFetchFailed": "Kan een offerte van Simplex niet ophalen. Probeer het later opnieuw",
   "providerFetchFailed": "Kan geen verbinding maken met service. Neem contact op met ondersteuning",
   "ok": "Oké",
   "cashOutLimitExceeded": "U kunt niet meer uitbetalen dan uw saldo van {{balance}} {{currency}}",
   "appDescription": "Een portemonnee voor mobiele betalingen die wereldwijd werkt",
-  "earn": "Verdienen",
+  "earn": "Verdien",
   "free": "Vrij",
   "notNow": "Niet nu",
   "goldEducationSteps": [
@@ -561,39 +561,39 @@
     },
     {
       "title": "Vorm het Celo-netwerk",
-      "text": "Door CELO vast te houden, heb je de mogelijkheid om te stemmen voor veranderingen en functies die je graag zou willen zien op het Celo Network."
+      "text": "Door CELO aan te houden, heb je de mogelijkheid om te stemmen voor veranderingen en functies die je graag zou willen zien op het Celo Network."
     },
     {
-      "title": "Koop en verkoop a.u.b. verantwoord",
-      "text": "{{appName}} kunt u CELO kopen en verkopen. CELO brengt een risico van financieel verlies met zich mee, wees voorzichtig."
+      "title": "Koop en verkoop op verantwoorde wijze",
+      "text": "{{appName}} stelt u in staat CELO te kopen en verkopen. CELO bevat een risico op financieel verlies. Wees voorzichtig."
     }
   ],
   "inviteWithWhatsapp": "Uitnodigen met WhatsApp",
   "inviteWithSMS": "Uitnodigen met sms",
   "whySendFees": "Deze vergoeding dekt de kosten voor de nieuwe gebruiker om zijn telefoonnummer te koppelen",
-  "whyReceiveFees": "Je hebt wat crypto gekregen om je account te bevestigen",
+  "whyReceiveFees": "U heeft wat crypto ontvangen om uw account te bevestigen",
   "inviteSent": "Uitnodiging verzonden",
   "redeemFailed": "Inwisselcode mislukt ",
-  "redeemInviteTimeout": "Uitnodiging verzilveren Time-out",
-  "accountSetupFailed": "Kan uw portemonnee niet maken",
+  "redeemInviteTimeout": "In te wisselen uitnodiging is verlopen",
+  "accountSetupFailed": "Het maken van de Portemonnee is mislukt",
   "accountSetupFailedDescription": "Verwijder {{appName}} van uw apparaat en probeer het opnieuw. Als je problemen blijft ondervinden, neem dan contact op met ondersteuning.",
   "closeApp": "Sluit app",
-  "emptyInviteCode": "Uitnodigingscode heeft geen geld",
+  "emptyInviteCode": "De uitnodigingscode heeft geen saldo",
   "transferDollarsToAccount": "Geld overgemaakt naar uw rekening!",
   "inviteAnyone": "Stuur gemakkelijk naar je vrienden door je contacten toe te voegen",
   "inviteReceived": "Uitnodiging ontvangen",
-  "escrowPaymentNotificationTitle": "uitgenodigd {{mobile}}",
+  "escrowPaymentNotificationTitle": "Uitgenodigd {{mobile}}",
   "inviteDialog": {
     "title": "Nodig een vriend uit",
     "body": "Maak verbinding en deel waarde met je vrienden en familie op {{appName}}.",
     "button": "Nodig uit"
   },
-  "sendAndInvite": "Uitnodiging sturen",
+  "sendAndInvite": "Verstuur uitnodiging",
   "inviteAndSendDialog": {
     "title": "Voltooi het uitnodigen van {{name}} tot {{appName}}",
-    "bodyWithRewards": "Zodra ze lid worden en een telefoonnummer verbinden, ontvangen jullie allebei {{amount}} {{currency}}. Klik hieronder om uw uitnodiging te verzenden en aan te passen.",
+    "bodyWithRewards": "Zodra ze lid worden en een telefoonnummer verbinden, ontvangen jullie allebei {{amount}} {{currency}}. Klik hieronder om je uitnodiging te verzenden en aan te passen.",
     "body": "Deel een uitnodigingsbericht met {{name}} om lid te worden {{appName}}. Zodra ze lid worden en een telefoonnummer koppelen, ontvangen ze je betaling.",
-    "button": "Uitnodigen afronden"
+    "button": "Uitnodiging voltooien"
   },
   "inviteRewardsBanner": {
     "title": "Stuur crypto om een vriend uit te nodigen (bèta)",
@@ -605,10 +605,10 @@
   "chooseCountry": "Land",
   "joinText": "{{appName}} helpt u bij het verzenden, ontvangen en opslaan van waarde op het Celo-netwerk.",
   "terms": {
-    "title": "Voorwaarden",
+    "title": "Algemene Voorwaarden",
     "heading1": "Gegevens en privacy",
     "heading2": "Celo-activa en {{appName}} -account",
-    "info": "Om onze diensten te gebruiken, lees en accepteer onze <0>Gebruikersovereenkomst en voorwaarden</0> door op de onderstaande accepteerknop te klikken.",
+    "info": "Om onze diensten te gebruiken, lees en accepteer onze <0>Gebruikersovereenkomst en voorwaarden</0> door op de onderstaande knop accepteer te klikken.",
     "privacy": "Door lid te worden van dit netwerk geeft u ons toestemming om anonieme informatie te verzamelen over uw gebruik van de app. Bovendien, als u uw telefoonnummer verbindt, wordt een gehashte kopie ervan opgeslagen op het Celo Network. Als u {{appName}} toegang verleent tot uw contactenlijst, importeert {{appName}} de naam, het telefoonnummer en de profielfoto van elk contact zodat gebruikers verbinding kunnen maken via de {{appName}} app. Lees ons <0>Privacybeleid . voor meer informatie over hoe we deze informatie verzamelen en gebruiken</0> .",
     "goldDisclaimer": "Wanneer u een \"account\" met {{appName}} aanmaakt, maakt u een digitale portemonnee aan waarvan alleen u de sleutels bezit. Geen enkele andere persoon of entiteit, inclusief Regenerative Finance Foundation of {{appName}}, kan uw sleutel herstellen, transacties wijzigen of ongedaan maken, of verloren geld terugkrijgen. Houd er rekening mee dat kGuilder, CELO, cUSD en cEUR deel uitmaken van een nieuwe activaklasse en een risico op financieel verlies inhouden. Denk goed na over uw financiële situatie en tolerantie voor financiële risico's voordat u activa koopt. U kunt maximaal {{dailyLimitCUSD}} cUSD per dag verzenden tot en met {{appName}} (de \"Dagelijkse limiet\"). U moet contact opnemen met support@kolektivo.co en aanvullende persoonlijke informatie verstrekken om een verhoging van deze dagelijkse limiet aan te vragen. Er kan vertraging optreden bij het uitvoeren van de vereiste naleving."
   },
@@ -622,23 +622,23 @@
   "goToSystemSecuritySettingsActionLabel": "Ga naar beveiliging",
   "enableSystemScreenLockFailedMessage": "Kan schermvergrendeling niet inschakelen",
   "initKeystoreFailureMessage": "Kan keystore niet starten",
-  "pinLostForeverMessage": "Je hebt de schermvergrendeling verwijderd, de pincode is verloren",
+  "pinLostForeverMessage": "U heeft de schermvergrendeling verwijderd, de pincode is verloren",
   "importContactsPermission": {
-    "title": "Contacten importeren",
-    "0": "Door uw adresboek te koppelen, kunt u gemakkelijk betalingen verzenden en aanvragen met uw vrienden. Anders moet u hun gegevens afzonderlijk invoeren.",
+    "title": "Importeer contacten",
+    "0": "Door uw adresboek te koppelen, kunt u gemakkelijk betalingen verzenden naar en aanvragen van uw vrienden. Anders moet u hun gegevens afzonderlijk invoeren.",
     "1": "Maak je geen zorgen: als je verbinding maakt, worden er geen uitnodigingen naar je contacten verzonden.",
     "enable": "Toegang tot contact inschakelen",
     "loading": "Vrienden vinden op {{appName}}..."
   },
   "getVerified": "Telefoonnummer verbinden",
-  "notReadyForCode": "Nog niet klaar om de code in te voeren",
+  "notReadyForCode": "Nog niet gereed om de code in te voeren",
   "emptyVerificationCode": "Geen code in klembord",
   "invalidVerificationCode": "Ongeldige code",
   "repeatVerificationCode": "Herhaalde code",
   "revealAttestationFailure": "Fout bij het aanvragen van sms-bericht",
   "verificationFailure": "Verbinding mislukt",
-  "cantVerifyRevokedAccount": "Dit account is eerder ingetrokken. Maak een nieuw account aan en probeer het opnieuw.",
-  "verificationTimeout": "Connectie time-out",
+  "cantVerifyRevokedAccount": "Deze account is eerder ingetrokken. Maak een nieuwe account aan en probeer het opnieuw.",
+  "verificationTimeout": "Verbinden duurde te lang",
   "errorRequestCode": "Opvragen van codes mislukt.",
   "errorRedeemingCode": "Kan code niet inwisselen.",
   "pleaseRetry": "Probeer opnieuw verbinding te maken.",
@@ -646,7 +646,7 @@
   "education": {
     "header": "Verbind je telefoon",
     "body1": "Verbind vervolgens uw telefoonnummer.",
-    "body2": "Door uw telefoon aan te sluiten, kunt u gemakkelijker met vrienden verzenden en ontvangen. U kunt deze stap ook overslaan en er later op terugkomen.",
+    "body2": "Door uw telefoon aan te sluiten, kunt u gemakkelijker naar vrienden verzenden en ontvangen. U kunt deze stap ook overslaan en er later op terugkomen.",
     "learnMore": "Meer informatie over telefoonverbinding",
     "start": "Telefoonnummer verbinden",
     "skip": "Voor nu overslaan"
@@ -654,7 +654,7 @@
   "verificationLoading": {
     "confirming": "Telefoonnummer verbinden…",
     "pleaseKeepAppOpen": "Verlaat dit scherm niet, anders moet je opnieuw beginnen",
-    "learnMore": "Leer meer",
+    "learnMore": "Meer weten",
     "card1": "Om er zeker van te zijn dat je telefoonnummer echt van jou is, sturen we je drie berichten.",
     "card2": "Zodra uw nummer is gekoppeld, kunt u eenvoudig geld naar uw telefoonnummer verzenden en ontvangen.",
     "card3": "Door je nummer te koppelen, kun je ook zien wie van je vrienden op {{appName}}staan.",
@@ -677,9 +677,9 @@
   },
   "retryWithFornoModal": {
     "header": "Verbinding met Databesparing opnieuw proberen?",
-    "body1": "Er is een probleem opgetreden bij het verbinden van je telefoonnummer. We raden u aan het opnieuw te proberen met de gegevensbesparingsmodus ingeschakeld.",
-    "body2": "Met de Data Saver-modus kunt u consistenter communiceren met het Celo Network via een vertrouwde verbinding.",
-    "retryButton": "Opnieuw proberen met Databesparing"
+    "body1": "Er is een probleem opgetreden bij het verbinden van uw telefoonnummer. We raden u aan het opnieuw te proberen met de ingeschakelde gegevensbesparingsmodus.",
+    "body2": "Met de Data Saver-modus kunt u beter communiceren met het Celo Network via een vertrouwde verbinding.",
+    "retryButton": "Probeer opnieuw met databesparing"
   },
   "congratsVerified": "Gefeliciteerd, je telefoonnummer is nu verbonden!",
   "notification": {
@@ -694,19 +694,19 @@
   },
   "onboardingEducation": {
     "step1": "Betaal snel en betrouwbaar digitaal met Kolektivo Gulden.",
-    "step2": "Koop eenvoudig goederen en diensten van lokale organisaties.",
+    "step2": "Koop gemakkelijk goederen en diensten van lokale organisaties.",
     "step3": "Neem deel aan een lokaal impactnetwerk en help Curaçao te ontwikkelen.",
-    "step4": "Doe mee met de revolutie door uw {{appName}}te creëren."
+    "step4": "Doe mee met de revolutie door je {{appName}} te maken."
   },
   "enableBiometry": {
     "title": "Beveilig uw portemonnee",
-    "description": "{{biometryType}} beveiligt uw portemonnee en maakt het gebruik {{appName}}",
+    "description": "{{biometryType}} beveiligt uw portemonnee en maakt het gebruik {{appName}} eenvoudiger",
     "cta": "Schakel {{biometryType}}. in"
   },
   "biometryType": {
     "FaceID": "Gezichts-ID",
     "TouchID": "Touch-ID",
-    "Fingerprint": "Vingerafdrukherkenning",
+    "Fingerprint": "Vingerafdruk herkenning",
     "Face": "Gezichtsherkenning",
     "Iris": "Irisherkenning"
   },
@@ -714,22 +714,22 @@
   "unlockWithBiometryPrompt": "Authenticeer om {{appName}}. te ontgrendelen",
   "welcome": {
     "title": "Stap in de toekomst van crypto met {{appName}}",
-    "createAccount": "Creëer een nieuw account",
-    "restoreAccount": "Mijn account importeren"
+    "createAccount": "Maak een nieuwe account aan",
+    "restoreAccount": "Importeer mijn account"
   },
   "accessContacts": {
     "disclosure": {
-      "title": "Contacten importeren",
+      "title": "Importeer contacten",
       "body": "{{appName}} wil uw contacten importeren. Door hieronder te tikken, geef ik toegang tot de telefoonnummers, namen en foto's van mijn contacten om met hen in contact te komen via {{appName}}"
     }
   },
-  "createAccount": "Maak account",
-  "restoreAccount": "Mijn account importeren",
+  "createAccount": "Maak account aan",
+  "restoreAccount": "Importeer mijn account",
   "registrationSteps": "Stap {{step}} van {{totalSteps}}",
   "selectCountryCode": "Selecteer landcode",
   "pincodeSet": {
     "create": "Maak een pincode",
-    "createNew": "Een nieuwe pincode maken",
+    "createNew": "Maak een nieuwe pincode",
     "verify": "Voer uw pincode nogmaals in om te bevestigen",
     "changePIN": "Verander pincode",
     "pinsDontMatch": "De pincodes kwamen niet overeen",
@@ -742,7 +742,7 @@
     "codePlaceholder": "Voer uitnodigingscode in",
     "noCode": "Heb geen uitnodigingscode",
     "nodeCodeInviteLink": "Heb je geen uitnodigingscode? Vraag er een aan op <0>celo.org/developers/wallet</0> of <1>ga verder zonder</1>",
-    "loadingHeader": "Creëren van een account...",
+    "loadingHeader": "Account aanmaken...",
     "loadingBody": "Dit kan tot 90 seconden duren"
   },
   "verificationEducation": {
@@ -751,7 +751,7 @@
     "body": "Om er zeker van te zijn dat je nummer echt van jou is, ontvang je drie sms-berichten die elk ongeveer 0,05 cUSD kosten.\n\nVerbinding duurt ongeveer drie minuten.",
     "feelessBody": "U ontvangt drie berichten om u te helpen uw telefoonnummer veilig te verbinden. De verbinding duurt ongeveer drie minuten.",
     "start": "Begin",
-    "resume": "Cv",
+    "resume": "Doorgaan",
     "doINeedToConfirm": "Moet ik verbinding maken?",
     "skipForNow": "Voor nu overslaan",
     "bodyInsufficientBalance": "Uw huidige saldo is niet hoog genoeg om het bevestigingsproces te voltooien.\n\nProbeer het opnieuw wanneer u geld aan uw portemonnee heeft toegevoegd.",
@@ -774,7 +774,7 @@
     "keyPlaceholder": "paard luipaard hond aap ..."
   },
   "verificationInput": {
-    "title": "Bevestigen",
+    "title": "Bevestig",
     "body": "We hebben je drie berichten (sms) gestuurd. Kopieer en plak ze hieronder.",
     "body_ios": "We hebben je drie berichten (sms) gestuurd. Tik op de link in elk bericht om de onderstaande codes in te vullen of kopieer en plak ze handmatig.",
     "body_short": "We hebben drie codes naar {{phoneNumber}}gestuurd, vul ze hieronder in.",
@@ -788,15 +788,15 @@
     "codePlaceholder3": "Kopieer het derde bericht",
     "codePlaceholder3_ios": "Tik of kopieer het derde bericht",
     "codePlaceholderWithCodeInClipboard": "Super goed! Plak het hier",
-    "resendMessages_all": "Alle berichten opnieuw verzenden",
-    "resendMessages": "Laatste bericht opnieuw verzenden",
-    "resendMessages_plural": "{{count}} berichten opnieuw verzenden"
+    "resendMessages_all": "Verstuur alle berichten opnieuw",
+    "resendMessages": "Verstuur laatste bericht opnieuw",
+    "resendMessages_plural": "Verstuur {{count}} berichten opnieuw"
   },
   "verificationInputHelpDialog": {
-    "title": "Helpen",
+    "title": "Hulp",
     "bodySection1": {
       "title": "Alle drie de berichten ontvangen?",
-      "content": "Als uw berichten een link bevatten, tikt u eenvoudig op de links om te bevestigen.\n\nAls er geen links zijn, kopieer en plak de berichten dan in de velden. Je mag het hele bericht plakken."
+      "content": "Als uw berichten een link bevatten, tikt u eenvoudig op de links om te bevestigen.\n\nAls er geen links zijn, kopieer en plak de berichten dan in de velden. U mag het hele bericht plakken."
     },
     "bodySection2": {
       "title": "Mist u enkele of alle berichten?",
@@ -810,7 +810,7 @@
     "back": "Ga terug"
   },
   "emptyAccount": {
-    "description": "Deze rekening heeft geen geld. Wil je er toch nog gebruik van maken?",
+    "description": "Deze account heeft geen saldo. Wil je het nog steeds gebruiken?",
     "useAccount": "Account gebruiken",
     "title": "Saldo <0></0>"
   },
