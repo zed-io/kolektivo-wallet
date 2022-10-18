@@ -265,19 +265,19 @@
   "accountAddressLabel": "Accountadres",
   "celoAmountLabel": "Bedrag (CELO)",
   "maxSymbol": "Max",
-  "withdrawCeloReview": "Opnieuw bekijken",
-  "withdrawCeloTo": "Terugtrekken naar",
+  "withdrawCeloReview": "Beoordeling",
+  "withdrawCeloTo": "Afboeking naar",
   "withdrawCeloAmount": "Bedrag (CELO)",
   "withdrawScanQrTitle": "Scannen",
   "tokenBalance": "{{token}} Saldo",
-  "addFunds": "Fondsen toevoegen",
+  "addFunds": "Saldo toevoegen",
   "addFundsHeaderWithCurrency": "{{token}}. toevoegen",
-  "addFundsSubtitle": "Financier uw {{appName}} -account",
+  "addFundsSubtitle": "Stort geld op uw {{appName}} account",
   "exchanges": "Uitwisselingen",
   "noExchanges": "Er zijn geen uitwisselingen beschikbaar voor {{digitalAsset}} in uw regio.",
   "buySellOnExchanges": "Kopen/verkopen op beurzen",
   "cashOut": "Geld opnemen",
-  "cashOutSubtitle": "Geef cadeaubonnen en andere aankopen uit of stuur geld naar een crypto-uitwisseling",
+  "cashOutSubtitle": "Besteed aan cadeaubonnen en andere aankopen of stuur geld naar een crypto-uitwisseling",
   "cashOutComingSoon": "Uitbetalen (binnenkort beschikbaar)",
   "spend": "Besteden",
   "spendSubtitle": "Gebruik uw saldo met ondersteunende verkopers",
@@ -289,8 +289,8 @@
   "celoDollars": "Celo-dollars",
   "tapToCopyCeloDollarsAddress": "Tik om uw {{appName}} CUSD-adres te kopiëren",
   "disclaimerFiat": "{{currency}} -waarden zijn schattingen.",
-  "dollarsNotYetEnabledNote": "Celo Dollars zijn nog bij geen enkele provider beschikbaar. Om Celo Dollars te krijgen, koop je CELO en wissel je het in voor Celo Dollars op het CELO-tabblad.",
-  "selectDigitalCurrency": "Selecteer een digitaal item",
+  "dollarsNotYetEnabledNote": "Celo Dollars zijn nog bij geen enkele provider beschikbaar. Om Celo Dollars te krijgen, koop CELO en wissel het in voor Celo Dollars op het CELO-tabblad.",
+  "selectDigitalCurrency": "Selecteer een digitale activa",
   "selectPaymentMethod": "Selecteer methode:",
   "payWithBank": "bankrekening",
   "payWithCard": "Debetkaart",
@@ -304,8 +304,8 @@
     "dismiss": "Oké"
   },
   "cashOutEducationDialog": {
-    "title": "Terugtrekken vanaf {{appName}}",
-    "body": "{{appName}} wordt aangedreven door het Celo Network. {{appName}} draait op Celo Dollars (cUSD), een stabiele digitale valuta die de Amerikaanse dollar volgt.\n\nOm uw {{appName}} -saldo op te nemen, verkoopt u cUSD bij een van de externe providers die op uw locatie beschikbaar zijn. Ga voor meer informatie naar <0>{{link}}</0>",
+    "title": "Opnemen uit {{appName}}",
+    "body": "{{appName}} wordt aangedreven door het Celo Network. {{appName}} draait op Celo Dollars (cUSD), een stabiele digitale valuta die de Amerikaanse dollar volgt.\n\nOm uw {{appName}} -saldo op te nemen, verkoopt u cUSD bij een van de externe providers die op uw lokatie beschikbaar zijn. Ga voor meer informatie naar <0>{{link}}</0>",
     "dismiss": "Oké"
   },
   "explanationModal": {
@@ -314,16 +314,16 @@
   },
   "invalidAmountDialog": {
     "minAmount": "Onze providers ondersteunen geen totalen kleiner dan {{usdLimit}}{{localLimit}}. Vul a.u.b. een groter bedrag in.",
-    "maxAmount": "Onze providers ondersteunen geen totalen groter dan {{usdLimit}}{{localLimit}}. Voer een kleiner bedrag in.",
+    "maxAmount": "Onze providers ondersteunen geen totalen groter dan {{usdLimit}}{{localLimit}}. Voer a.u.b. een kleiner bedrag in.",
     "dismiss": "Oké"
   },
   "dailyLimitDialog": {
-    "body": "U staat op het punt meer te kopen dan uw dagelijkse verzendlimiet van {{limit}}. Neem contact op met <0>{{contactEmail}}</0> als u uw dagelijkse verzendlimiet wilt verhogen.",
+    "body": "U staat op het punt meer te kopen dan uw dagelijkse verzendlimiet van {{limit}}. Neem a.u.b. contact op met <0>{{contactEmail}}</0> als u uw dagelijkse verzendlimiet wilt verhogen.",
     "contact": "Contact",
-    "continue": "Ik begrijp"
+    "continue": "Ik begrijp het"
   },
   "providerFeesDialog": {
-    "title": "Providerkosten",
+    "title": "Aanbiederkosten",
     "body1": "Aanbiederkosten worden door elke aanbieder afzonderlijk bepaald en omvatten onder meer een omruilvergoeding en een liquiditeitsvergoeding. Ga voor meer informatie naar ",
     "body2": "{{providerName}}'s website"
   },
@@ -332,11 +332,11 @@
     "body": "Als promotie worden de kosten tijdelijk gesubsidieerd om de lancering van {{appName}}te vieren!"
   },
   "dailyLimitRequest": "Hoi! Ik wil graag mijn dagelijkse verzendlimiet verhogen.",
-  "pleaseSelectProvider": "Selecteer hieronder een aanbieder. Deze links maken verbinding met een service van een derde partij.",
+  "pleaseSelectProvider": "Selecteer hieronder een aanbieder. Deze links maken verbinding met een derde partij.",
   "otherFundingOptions": "Ga voor meer manieren om geld toe te voegen en op te nemen naar <0>Hoe u geld op uw account kunt storten</0>",
-  "youCanTransferIn": "U kunt een externe uitwisseling gebruiken om {{digitalAsset}} naar uw {{appName}} -account te sturen. Hiervoor heeft u uw accountadres nodig.",
+  "youCanTransferIn": "U kunt een externe uitwisseling gebruiken om {{digitalAsset}} naar uw {{appName}} -account te sturen. Hiervoor heeft u uw account adres nodig.",
   "youCanTransferOut": "U kunt uw geld opnemen door ze naar een externe exchange te sturen die {{digitalAsset}}ondersteunt.",
-  "useBalanceWithMerchants": "Gebruik uw saldo met ondersteunende verkopers",
+  "useBalanceWithMerchants": "Gebruik uw saldo bij ondersteunende verkopers",
   "findMerchants": "Vind lokale handelaars bij jou in de buurt",
   "celoDeposit": "CELO Aankoop",
   "cUsdDeposit": "cUSD Aankoop",
@@ -346,7 +346,7 @@
   "feeDiscount": "Kosten korting",
   "continueToProvider": "Ga verder naar {{provider}}",
   "cicoSuccess": {
-    "title": "Bestelling ingediend!",
+    "title": "Bestelling geplaatst!",
     "bodyWithProvider": "{{provider}} verwerkt uw bestelling. U zou uw geld binnen een paar dagen moeten ontvangen.",
     "bodyWithoutProvider": "De serviceprovider verwerkt uw bestelling. U zou uw geld binnen een paar dagen moeten ontvangen."
   },
@@ -355,8 +355,8 @@
   "noProviders": "Er zijn geen providers beschikbaar voor {{digitalAsset}} in uw regio.",
   "switchCurrency": "Wissel valuta",
   "accept": "Aanvaarden",
-  "at": "Bij",
-  "yourClockIsBroke": "De datum en tijd van je telefoon kloppen niet",
+  "at": "bij",
+  "yourClockIsBroke": "De datum en tijd van je telefoon zijn onjuist",
   "adjustYourClock": "Stel de juiste tijd in of pas uw klok aan om de tijd automatisch af te lezen.",
   "adjustDate": "Datum aanpassen",
   "connect": "Aansluiten",
@@ -380,7 +380,7 @@
   "earnRewards": "Verdien beloningen",
   "notEnoughStableError": "Niet genoeg {{token}} om te ruilen",
   "notEnoughGoldError": "Niet genoeg CELO om te ruilen",
-  "exchangeFailed": "Omruilen mislukt, probeer het opnieuw",
+  "exchangeFailed": "Omruilen mislukt, probeer het a.u.b. opnieuw",
   "transactionFailed": "Transactie mislukt, probeer het opnieuw",
   "refreshFailedUnexpectedly": "Vernieuwen mislukt, controleer uw verbinding",
   "paste": "Plakken",
