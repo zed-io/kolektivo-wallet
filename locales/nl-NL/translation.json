@@ -31,18 +31,18 @@
   },
   "accountKeyModal": {
     "header": "Zonder uw herstelzin verliest u voor altijd de toegang tot uw geld",
-    "body1": "Om {{appName}}te resetten, moet u bevestigen dat u uw herstelzin hebt geschreven.",
-    "body2": "Niemand, zelfs {{appName}}niet, kan uw account herstellen zonder uw Phrase."
+    "body1": "Om {{appName}} te resetten, moet u bevestigen dat u uw herstelzin heeft geschreven.",
+    "body2": "Niemand, zelfs {{appName}} kan uw account niet herstellen zonder uw Phrase."
   },
   "promptConfirmRemovalModal": {
-    "header": "Weet u zeker dat u {{appName}}wilt resetten?",
-    "body": "Je hebt vanaf dit apparaat geen toegang meer tot je geld of je herstelzin. Er is geen manier om uw herstelzin te herstellen als u deze niet hebt opgeschreven.",
+    "header": "Weet u zeker dat u {{appName}} wilt resetten?",
+    "body": "Je hebt vanaf dit apparaat geen toegang meer tot je geld of je herstelzin. Er is geen manier om uw herstelzin te herstellen als u deze niet heeft opgeschreven.",
     "resetNow": "Nu resetten"
   },
   "promptConfirmRevokeModal": {
     "header": "Weet je zeker dat je je telefoonnummer wilt ontkoppelen?",
     "body": "Nadat de verbinding is verbroken, kunt u uw telefoonnummer niet opnieuw met deze portemonnee verbinden.",
-    "revoke": "verbinding verbreken"
+    "revoke": "Verbinding verbreken"
   },
   "testFaqLink": "{{appName}} Veelgestelde vragen",
   "termsOfServiceLink": "Servicevoorwaarden",
@@ -374,7 +374,7 @@
   "wallet": "Portemonnee",
   "send": "Versturen",
   "search": "Zoeken",
-  "namePhoneAddress": "Naam, telefoon of adres",
+  "namePhoneAddress": "Stuur naar een CELO Adres",
   "payments": "Betalingen",
   "activity": "Werkzaamheid",
   "earnRewards": "Verdien beloningen",
@@ -610,7 +610,7 @@
     "heading2": "Celo-activa en {{appName}} -account",
     "info": "Om onze diensten te gebruiken, lees en accepteer onze <0>Gebruikersovereenkomst en voorwaarden</0> door op de onderstaande accepteerknop te klikken.",
     "privacy": "Door lid te worden van dit netwerk geeft u ons toestemming om anonieme informatie te verzamelen over uw gebruik van de app. Bovendien, als u uw telefoonnummer verbindt, wordt een gehashte kopie ervan opgeslagen op het Celo Network. Als u {{appName}} toegang verleent tot uw contactenlijst, importeert {{appName}} de naam, het telefoonnummer en de profielfoto van elk contact zodat gebruikers verbinding kunnen maken via de {{appName}} app. Lees ons <0>Privacybeleid . voor meer informatie over hoe we deze informatie verzamelen en gebruiken</0> .",
-    "goldDisclaimer": "Wanneer u een \"account\" met {{appName}} aanmaakt, maakt u een digitale portemonnee aan waarvan alleen u de sleutels bezit. Geen enkele andere persoon of entiteit, inclusief cLabs of {{appName}}, kan uw sleutel herstellen, transacties wijzigen of ongedaan maken, of verloren geld terugkrijgen. Houd er rekening mee dat CELO, cUSD en cEUR deel uitmaken van een nieuwe activaklasse en een risico op financieel verlies inhouden. Denk goed na over uw financiële situatie en tolerantie voor financiële risico's voordat u activa koopt. U kunt maximaal {{dailyLimitCUSD}} cUSD per dag verzenden tot en met {{appName}} (de \"Dagelijkse limiet\"). U moet contact opnemen met support@{{appName}}app.com en aanvullende, persoonlijke informatie verstrekken om een verhoging van deze dagelijkse limiet aan te vragen. Er kan vertraging optreden bij het uitvoeren van de vereiste naleving."
+    "goldDisclaimer": "Wanneer u een \"account\" met {{appName}} aanmaakt, maakt u een digitale portemonnee aan waarvan alleen u de sleutels bezit. Geen enkele andere persoon of entiteit, inclusief Regenerative Finance Foundation of {{appName}}, kan uw sleutel herstellen, transacties wijzigen of ongedaan maken, of verloren geld terugkrijgen. Houd er rekening mee dat kGuilder, CELO, cUSD en cEUR deel uitmaken van een nieuwe activaklasse en een risico op financieel verlies inhouden. Denk goed na over uw financiële situatie en tolerantie voor financiële risico's voordat u activa koopt. U kunt maximaal {{dailyLimitCUSD}} cUSD per dag verzenden tot en met {{appName}} (de \"Dagelijkse limiet\"). U moet contact opnemen met support@kolektivo.co en aanvullende persoonlijke informatie verstrekken om een verhoging van deze dagelijkse limiet aan te vragen. Er kan vertraging optreden bij het uitvoeren van de vereiste naleving."
   },
   "fullName": "Naam",
   "fullNamePlaceholder": "Eerste achternaam",
@@ -1329,6 +1329,27 @@
     "details": "U bent bezig met het exporteren van alle transacties voor de {{month}} -periode.",
     "continue": "Exporteren"
   },
+  "cicoPrompt": {
+    "text": "Koop uw kGuilder vandaag en koop bij lokale bedrijven"
+  },
+  "cicoSteps": [
+    {
+      "title": "",
+      "text": "Top up bij een van de leveranciers om het saldo in uw {{appName}} te laden."
+    },
+    {
+      "title": "",
+      "text": "U kunt uw kGuilder gebruiken om lokale kleine bedrijven met gemakkelijke betalingen te ondersteunen."
+    },
+    {
+      "title": "",
+      "text": "Gebruik de {{appName}} om je telefoon op te waarderen bij een van de lokale telecomproviders."
+    },
+    {
+      "title": "",
+      "text": "Stuur kGuilder naar familie en vrienden."
+    }
+  ],
   "txSummary": {
     "0": "Type",
     "1": "Datum",
@@ -1338,6 +1359,10 @@
     "5": "Naam",
     "6": "Hoeveelheid",
     "7": "Lokaal bedrag"
+  },
+  "foodForestDetails": {
+    "area": "{{area}} m²",
+    "age": "{{years}} jaar {{months}} maanden {{days}} dagen"
   },
   "celoDollarAmount": "<0></0> Celo-dollar",
   "celoDollarAmount_plural": "<0></0> Celo-dollars"
