@@ -145,9 +145,12 @@ export function HomeTokenBalance() {
           {t('whatTotalValue.body')}
         </Dialog>
         {tokenBalances.length > 1 && (
-          <TouchableOpacity style={[styles.row]} onPress={onViewBalances} testID="ViewBalances">
+          <TouchableOpacity
+            style={[styles.row, styles.adjusted]}
+            onPress={onViewBalances}
+            testID="ViewBalances"
+          >
             <Text style={[styles.viewBalances]}>{t('viewBalances')}</Text>
-            <ProgressArrow style={styles.arrow} color={Colors.greenUI} />
           </TouchableOpacity>
         )}
       </View>
@@ -190,6 +193,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     margin: variables.contentPadding,
+    paddingBottom: variables.contentPadding,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.gray2,
   },
   title: {
     flexDirection: 'row',
@@ -203,8 +209,12 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    width: '100%',
+    flexGrow: 1,
     justifyContent: 'center',
+  },
+  adjusted: {
+    position: 'absolute',
+    right: 0,
   },
   totalValue: {
     ...fontStyles.sectionHeader,
@@ -219,10 +229,7 @@ const styles = StyleSheet.create({
   viewBalances: {
     ...fontStyles.label,
     color: Colors.greenUI,
-    paddingRight: 8,
-  },
-  arrow: {
-    paddingTop: 3,
+    textAlign: 'right',
   },
   exchangeArrow: {
     paddingTop: 4,
