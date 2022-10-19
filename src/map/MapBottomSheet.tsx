@@ -102,7 +102,7 @@ const MapBottomSheet = ({ mapRef }: Props) => {
         <FoodForestDetails
           forest={currentForest}
           close={() => dispatch(setFoodForest(undefined))}
-          action={() => {}}
+          action={handleVendorAction}
         />
       )}
     </BottomSheet>
