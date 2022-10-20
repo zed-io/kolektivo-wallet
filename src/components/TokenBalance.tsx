@@ -41,7 +41,7 @@ function TokenBalance({ style = styles.balance }: { style?: StyleProp<TextStyle>
     return (
       <Text style={style} testID={'TotalTokenBalance'}>
         {localCurrencySymbol}
-        {tokenFetchError || tokenFetchLoading ? '0.00' : new BigNumber(0).toFormat(2)}
+        {tokenFetchError || tokenFetchLoading ? '-' : new BigNumber(0).toFormat(2)}
       </Text>
     )
   } else if (tokensWithUsdValue.length === 1) {
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   balance: {
     ...fontStyles.largeNumber,
     fontSize: 54,
-    lineHeight: 0,
+    lineHeight: undefined,
     textAlign: 'center',
   },
   exchangeBalance: {
