@@ -374,7 +374,8 @@ export function useTransferFeedDetails(transfer: FeedTokenTransfer) {
 
   const daysSince = timeDeltaInDays(Date.now(), timestamp, true)
   const elapsed = t('daysAgo', { days: daysSince })
-  const displayTime = daysSince > 0 ? null : new Date(timestamp).toLocaleTimeString()
+  const displayTime =
+    daysSince > 0 ? null : new Date(timestamp).toLocaleTimeString([], { timeStyle: 'short' })
   return { title, subtitle, recipient, elapsed, displayTime }
 }
 
