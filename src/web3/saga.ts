@@ -3,6 +3,7 @@ import { generateKeys, generateMnemonic, MnemonicStrength } from '@celo/utils/li
 import { privateKeyToAddress } from '@celo/utils/lib/address'
 import { UnlockableWallet } from '@celo/wallet-base'
 import { RpcWalletErrors } from '@celo/wallet-rpc/lib/rpc-wallet'
+import { NativeModules } from 'react-native'
 import * as bip39 from 'react-native-bip39'
 import { call, delay, put, race, select, spawn, take, takeLatest } from 'redux-saga/effects'
 import { setAccountCreationTime, setPromptForno } from 'src/account/actions'
@@ -50,7 +51,13 @@ import {
 import { blockIsFresh, getLatestBlock } from 'src/web3/utils'
 import { RootState } from '../redux/reducers'
 
+const { SignerModule } = NativeModules
+
 const TAG = 'web3/saga'
+
+const protocolId = SignerModule.getProtocolId()
+Logger.debug(TAG, 'CAPSULE ', protocolId)
+Logger.debug(TAG, 'CAPSULE ', SignerModule.createAccount(protocolId))
 
 const MNEMONIC_BIT_LENGTH = MnemonicStrength.s256_24words
 // The timeout for web3 to complete syncing and the latestBlock to be > 0
