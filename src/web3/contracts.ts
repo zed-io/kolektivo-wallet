@@ -11,10 +11,11 @@ import { call, select } from 'redux-saga/effects'
 import { ContractKitEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { ErrorMessages } from 'src/app/ErrorMessages'
+import { CapsuleWallet } from 'src/capsule/CapsuleWallet'
 import { DEFAULT_FORNO_URL } from 'src/config'
 //import { isProviderConnectionError } from 'src/geth/geth'
 //import { GethNativeBridgeWallet } from 'src/geth/GethNativeBridgeWallet'
-import { waitForGethInitialized, waitForGethSync, waitForGethSyncAsync } from 'src/geth/saga'
+import { waitForGethSync, waitForGethSyncAsync } from 'src/geth/saga'
 import { navigateToError } from 'src/navigator/NavigationService'
 import Logger from 'src/utils/Logger'
 import { getHttpProvider, getIpcProvider } from 'src/web3/providers'
@@ -26,18 +27,19 @@ const TAG = 'web3/contracts'
 const CONTRACT_KIT_RETRIES = 3
 const WAIT_FOR_CONTRACT_KIT_RETRIES = 10
 
-let wallet: undefined // GethNativeBridgeWallet | undefined
+let wallet: CapsuleWallet | undefined // GethNativeBridgeWallet | undefined
 let contractKit: ContractKit | undefined
 
 const initContractKitLock = new Lock()
 
 async function initWallet() {
   ValoraAnalytics.track(ContractKitEvents.init_contractkit_get_wallet_start)
-  //const newWallet = new GethNativeBridgeWallet(GethBridge)
+  const newWallet = new CapsuleWallet()
+  Logger.debug(TAG + '@initWallet', 'Created Wallet')
   ValoraAnalytics.track(ContractKitEvents.init_contractkit_get_wallet_finish)
-  //await newWallet.init()
+  await newWallet.init()
   ValoraAnalytics.track(ContractKitEvents.init_contractkit_init_wallet_finish)
-  return undefined // newWallet
+  return newWallet
 }
 
 function* initWeb3() {
@@ -67,7 +69,7 @@ export function* initContractKit() {
       ValoraAnalytics.track(ContractKitEvents.init_contractkit_geth_init_start, {
         retries: CONTRACT_KIT_RETRIES - retries,
       })
-      yield call(waitForGethInitialized)
+      //yield call(waitForGethInitialized)
       ValoraAnalytics.track(ContractKitEvents.init_contractkit_geth_init_finish)
 
       const fornoMode = yield select(fornoSelector)
@@ -174,9 +176,12 @@ export async function getContractKitAsync(waitForSync: boolean = true): Promise<
 
 export function* getWallet() {
   if (!wallet) {
+    Logger.debug(TAG + '@getWallet', 'Acquiring lock')
     yield initContractKitLock.acquire()
+    Logger.debug(TAG + '@getWallet', 'Got lock')
     try {
       if (wallet) {
+        Logger.debug(TAG + '@getWallet', 'Wallet exists, returning')
         return wallet
       }
       yield call(initContractKit)

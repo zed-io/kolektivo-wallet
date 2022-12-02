@@ -3,7 +3,6 @@ import { generateKeys, generateMnemonic, MnemonicStrength } from '@celo/utils/li
 import { privateKeyToAddress } from '@celo/utils/lib/address'
 import { UnlockableWallet } from '@celo/wallet-base'
 import { RpcWalletErrors } from '@celo/wallet-rpc/lib/rpc-wallet'
-import { NativeModules } from 'react-native'
 import * as bip39 from 'react-native-bip39'
 import { call, delay, put, race, select, spawn, take, takeLatest } from 'redux-saga/effects'
 import { setAccountCreationTime, setPromptForno } from 'src/account/actions'
@@ -13,7 +12,8 @@ import { showError } from 'src/alert/actions'
 import { GethEvents, NetworkEvents, SettingsEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { ErrorMessages } from 'src/app/ErrorMessages'
-import { getMnemonicLanguage, storeMnemonic } from 'src/backup/utils'
+import { getMnemonicLanguage, storeCapsuleKeyShare, storeMnemonic } from 'src/backup/utils'
+import { CapsuleWallet } from 'src/capsule/CapsuleWallet'
 import { features } from 'src/flags'
 import { cancelGethSaga } from 'src/geth/actions'
 import { UNLOCK_DURATION } from 'src/geth/consts'
@@ -51,13 +51,7 @@ import {
 import { blockIsFresh, getLatestBlock } from 'src/web3/utils'
 import { RootState } from '../redux/reducers'
 
-const { SignerModule } = NativeModules
-
 const TAG = 'web3/saga'
-
-const protocolId = SignerModule.getProtocolId()
-Logger.debug(TAG, 'CAPSULE ', protocolId)
-Logger.debug(TAG, 'CAPSULE ', SignerModule.createAccount(protocolId))
 
 const MNEMONIC_BIT_LENGTH = MnemonicStrength.s256_24words
 // The timeout for web3 to complete syncing and the latestBlock to be > 0
@@ -174,6 +168,33 @@ export function* waitWeb3LastBlock() {
   }
 }
 
+export function* getOrCreateCapsuleAccount() {
+  // TODO
+  // const account: string = yield select(currentAccountSelector)
+  // if (account) {
+  //   Logger.debug(
+  //     TAG + '@getOrCreateCapsuleAccount',
+  //     'Tried to create account twice, returning the existing one'
+  //   )
+  //   return account
+  // }
+
+  try {
+    Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Creating a new account')
+
+    // TODO need to first write public address getter in sdk
+    const accountAddress: string = yield call(createAndAssignCapsuleAccount)
+    if (!accountAddress) {
+      throw new Error('Failed to assign account from key share')
+    }
+
+    return accountAddress
+  } catch (error) {
+    Logger.error(TAG + '@getOrCreateAccount', 'Error creating account')
+    throw new Error(ErrorMessages.ACCOUNT_SETUP_FAILED)
+  }
+}
+
 export function* getOrCreateAccount() {
   const account: string = yield select(currentAccountSelector)
   if (account) {
@@ -261,6 +282,36 @@ export function* assignAccountFromPrivateKey(privateKey: string, mnemonic: strin
     return account
   } catch (e) {
     Logger.error(TAG + '@assignAccountFromPrivateKey', 'Error assigning account', e)
+    throw e
+  }
+}
+
+export function* createAndAssignCapsuleAccount() {
+  try {
+    Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Attempting to create wallet')
+    const wallet: CapsuleWallet = yield call(getWallet)
+    Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Got wallet')
+    let account = ''
+    try {
+      account = yield call([wallet, wallet.addAccount])
+      const privateKeyShare: string = wallet.getKeyshare(account)
+      yield call(storeCapsuleKeyShare, privateKeyShare, account)
+    } catch (e) {
+      if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
+        Logger.warn(TAG + '@createAndAssignCapsuleAccount', 'Attempted to import same account')
+      } else {
+        Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error importing raw key')
+        throw e
+      }
+    }
+
+    Logger.debug(TAG + '@createAndAssignCapsuleAccount', `Added to wallet: ${account}`)
+    yield put(setAccount(account))
+    yield put(setAccountCreationTime(Date.now()))
+    // yield call(createAccountDek, mnemonic)
+    return account
+  } catch (e) {
+    Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error assigning account', e)
     throw e
   }
 }

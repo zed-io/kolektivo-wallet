@@ -42,7 +42,7 @@ public class MainApplication
     protected List<ReactPackage> getPackages() {
       @SuppressWarnings("UnnecessaryLocalVariable")
       List<ReactPackage> packages = new PackageList(this).getPackages();
-      packages.add(new SignerPackage());
+      packages.add(new CapsuleSignerPackage());
       return packages;
     }
 

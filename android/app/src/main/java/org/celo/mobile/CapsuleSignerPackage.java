@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SignerPackage implements ReactPackage {
+public class CapsuleSignerPackage implements ReactPackage {
 
   @Override
   public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
@@ -19,7 +19,7 @@ public class SignerPackage implements ReactPackage {
   public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
     List<NativeModule> modules = new ArrayList<>();
 
-    modules.add(new SignerModule(reactContext));
+    modules.add(new CapsuleSignerModule(reactContext));
 
     return modules;
   }
