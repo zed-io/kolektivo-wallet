@@ -24,14 +24,21 @@ export class CapsuleSigner implements Signer {
   }
 
   async generateKeyshare(): Promise<string> {
-    let walletId = 'a044a28f-2dbb-451d-baa5-fa68a9c71bb5'
-    let protocolId = 'c35dba1c-d56d-400e-bb02-0f658e795531'
-    Logger.debug(TAG, 'getOrCreateCapsuleAccount ', protocolId)
-    let privateKeyShare = await CapsuleSignerModule.createAccount(walletId, protocolId)
-    Logger.debug(TAG, 'CAPSULE KEYGEN', privateKeyShare)
-    this.keyshare = privateKeyShare
-    this.setAccount()
-    return privateKeyShare
+    let walletId = 'a86cc334-3efb-49ba-85c3-21e80667089f'
+    let protocolId = '55c82cb3-e4db-46b9-9e0b-8d8d922863c7'
+    Logger.debug(TAG, 'generateKeyshare ', protocolId)
+
+    const keyshares = await Promise.all([
+      CapsuleSignerModule.createAccount(walletId, protocolId, 'USER'),
+      CapsuleSignerModule.createAccount(walletId, protocolId, 'RECOVERY'),
+    ])
+    let userPrivateKeyshare = keyshares[0]
+    let recoveryPrivateKeyShare = keyshares[1]
+    Logger.debug(TAG, 'CAPSULE KEYGEN ', userPrivateKeyshare)
+    Logger.debug(TAG, 'CAPSULE KEYGEN ', recoveryPrivateKeyShare)
+    this.keyshare = userPrivateKeyshare
+    // this.setAccount()
+    return userPrivateKeyshare
   }
 
   getKeyshare(): string | undefined {

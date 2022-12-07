@@ -2,6 +2,7 @@ package org.celo.mobile;
 
 import android.util.Log;
 import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -16,8 +17,6 @@ public class CapsuleSignerModule extends ReactContextBaseJavaModule {
 
   String ids = "[\"USER\",\"RECOVERY\",\"CAPSULE\"]";
   int threshold = 2;
-  String userId = "USER";
-  String recoveryId = "RECOVERY";
   String serverUrl = "http://mpcnetworkloadbalancer-348316826.us-west-1.elb.amazonaws.com";
   String configBase =
     "{\"ServerUrl\": \"%s\", \"WalletId\": \"%s\", \"Id\":\"%s\", \"Ids\":%s, \"Threshold\":1}";
@@ -37,14 +36,11 @@ public class CapsuleSignerModule extends ReactContextBaseJavaModule {
    * @param protocolId
    * @return
    */
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String createAccount(String walletId, String protocolId) {
-    String userStr = String.format(configBase, serverUrl, walletId, userId, ids);
-    String recoveryStr = String.format(configBase, serverUrl, walletId, recoveryId, ids);
-
-    // Run DKG as both user and recovery
-    // Signer.createAccount(serverUrl, recoveryStr, protocolId);
-    return Signer.createAccount(serverUrl, userStr, protocolId);
+  @ReactMethod
+  public void createAccount(String walletId, String protocolId, String id, Promise promise) {
+    String signerConfig = String.format(configBase, serverUrl, walletId, id, ids);
+    String serializedSigner = Signer.createAccount(serverUrl, signerConfig, protocolId);
+    promise.resolve(serializedSigner);
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
