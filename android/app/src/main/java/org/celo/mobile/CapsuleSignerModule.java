@@ -39,8 +39,14 @@ public class CapsuleSignerModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createAccount(String walletId, String protocolId, String id, Promise promise) {
     String signerConfig = String.format(configBase, serverUrl, walletId, id, ids);
-    String serializedSigner = Signer.createAccount(serverUrl, signerConfig, protocolId);
-    promise.resolve(serializedSigner);
+    (
+      new Thread(
+        () -> {
+          String res = Signer.createAccount(serverUrl, signerConfig, protocolId);
+          promise.resolve(res);
+        }
+      )
+    ).start();
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)

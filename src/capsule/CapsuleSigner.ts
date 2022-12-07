@@ -24,8 +24,8 @@ export class CapsuleSigner implements Signer {
   }
 
   async generateKeyshare(): Promise<string> {
-    let walletId = 'a86cc334-3efb-49ba-85c3-21e80667089f'
-    let protocolId = '55c82cb3-e4db-46b9-9e0b-8d8d922863c7'
+    let walletId = '175241aa-0a3d-4a09-a492-54a1ee2058dd'
+    let protocolId = '3822a041-ce56-4346-ab61-aa1b51b8d4cc'
     Logger.debug(TAG, 'generateKeyshare ', protocolId)
 
     const keyshares = await Promise.all([
