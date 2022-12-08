@@ -7,6 +7,7 @@ import axios from 'axios'
 import * as ethUtil from 'ethereumjs-util'
 import { NativeModules } from 'react-native'
 import Logger from 'src/utils/Logger'
+// import { createWallet } from '@capsule/client/src/client/client'
 
 const { CapsuleSignerModule } = NativeModules
 
