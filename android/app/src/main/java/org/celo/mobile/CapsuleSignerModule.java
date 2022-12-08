@@ -49,13 +49,32 @@ public class CapsuleSignerModule extends ReactContextBaseJavaModule {
     ).start();
   }
 
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getAddress(String serializedSigner) {
-    return Signer.getAddress(serializedSigner);
+  @ReactMethod
+  public void getAddress(String serializedSigner, Promise promise) {
+    (
+      new Thread(
+        () -> {
+          String res = Signer.getAddress(serializedSigner);
+          promise.resolve(res);
+        }
+      )
+    ).start();
   }
 
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String sendTransaction(String protocolId, String serializedSigner, String transaction) {
-    return Signer.sendTransaction(serverUrl, serializedSigner, "hello world", protocolId);
+  @ReactMethod
+  public void sendTransaction(
+    String protocolId,
+    String serializedSigner,
+    String transaction,
+    Promise promise
+  ) {
+    (
+      new Thread(
+        () -> {
+          String res = Signer.sendTransaction(serverUrl, serializedSigner, transaction, protocolId);
+          promise.resolve(res);
+        }
+      )
+    ).start();
   }
 }

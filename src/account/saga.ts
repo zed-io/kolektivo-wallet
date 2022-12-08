@@ -94,7 +94,7 @@ function* initializeAccount() {
   try {
     ValoraAnalytics.track(OnboardingEvents.initialize_account_start)
     yield call(getOrCreateCapsuleAccount)
-    //yield call(generateSignedMessage)
+    yield call(generateSignedMessage)
     yield put(refreshAllBalances())
     Logger.debug(TAG + '@initializeAccount', 'Account creation success')
     ValoraAnalytics.track(OnboardingEvents.initialize_account_complete)

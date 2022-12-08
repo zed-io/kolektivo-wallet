@@ -26,13 +26,14 @@ export class CapsuleWallet extends RemoteWallet<CapsuleSigner> implements Unlock
   }
 
   async addAccount(privateKey: string): Promise<string> {
-    const signer = new CapsuleSigner(privateKey)
+    const signer = new CapsuleSigner()
     if (!privateKey) {
       Logger.info(`${TAG}@addAccount`, `Creating a new account`)
       privateKey = await signer.generateKeyshare()
       Logger.info(`${TAG}@addAccount`, privateKey)
     } else {
       Logger.info(`${TAG}@addAccount`, `Adding a previously created account`)
+      signer.loadKeyshare(privateKey)
     }
 
     if (this.hasAccount(signer.getNativeKey())) {
