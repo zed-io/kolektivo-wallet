@@ -12,12 +12,7 @@ import { showError } from 'src/alert/actions'
 import { GethEvents, NetworkEvents, SettingsEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { ErrorMessages } from 'src/app/ErrorMessages'
-import {
-  getMnemonicLanguage,
-  getStoredCapsuleKeyShare,
-  storeCapsuleKeyShare,
-  storeMnemonic,
-} from 'src/backup/utils'
+import { getMnemonicLanguage, storeCapsuleKeyShare, storeMnemonic } from 'src/backup/utils'
 import { CapsuleWallet } from 'src/capsule/CapsuleWallet'
 import { features } from 'src/flags'
 import { cancelGethSaga } from 'src/geth/actions'
@@ -175,28 +170,28 @@ export function* waitWeb3LastBlock() {
 
 export function* getOrCreateCapsuleAccount() {
   // TODO
-  const account: string = yield select(currentAccountSelector)
-  if (account) {
-    Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Account exists, loading keyshare')
-    let privateKeyShare: string | null = ''
-    privateKeyShare = yield call(getStoredCapsuleKeyShare, account)
-    if (privateKeyShare != null) {
-      const wallet: CapsuleWallet = yield call(getWallet)
-      try {
-        yield call([wallet, wallet.addAccount, privateKeyShare])
-      } catch (e) {
-        if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
-          Logger.warn(TAG + '@createAndAssignCapsuleAccount', 'Attempted to import same account')
-        } else {
-          Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error importing raw key')
-          throw e
-        }
-      }
-    }
+  // const account: string = yield select(currentAccountSelector)
+  // if (account) {
+  //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Account exists, loading keyshare')
+  //   let privateKeyShare: string | null = ''
+  //   privateKeyShare = yield call(getStoredCapsuleKeyShare, account)
+  //   if (privateKeyShare != null) {
+  //     const wallet: CapsuleWallet = yield call(getWallet)
+  //     try {
+  //       yield call([wallet, wallet.addAccount, privateKeyShare])
+  //     } catch (e) {
+  //       if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
+  //         Logger.warn(TAG + '@createAndAssignCapsuleAccount', 'Attempted to import same account')
+  //       } else {
+  //         Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error importing raw key')
+  //         throw e
+  //       }
+  //     }
+  //   }
 
-    Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Loaded keyshare')
-    return account
-  }
+  //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Loaded keyshare')
+  //   return account
+  // }
 
   try {
     Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Creating a new account')

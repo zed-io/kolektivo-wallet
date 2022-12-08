@@ -2,6 +2,7 @@ import { ensureLeading0x, normalizeAddressWith0x } from '@celo/base/lib/address'
 import { CeloTx, RLPEncodedTx, Signer } from '@celo/connect'
 import { EIP712TypedData, generateTypedDataHash } from '@celo/utils/lib/sign-typed-data-utils'
 import { encodeTransaction, extractSignature, rlpEncodedTx } from '@celo/wallet-base'
+// const http = require('http');
 import axios from 'axios'
 import * as ethUtil from 'ethereumjs-util'
 import { NativeModules } from 'react-native'
@@ -16,7 +17,7 @@ const TAG = 'geth/CapsuleSigner'
 export class CapsuleSigner implements Signer {
   private account: string = ''
   private keyshare: string | undefined = undefined
-  private walletId: string = 'f75a516a-2a39-4ff1-a7ae-994824db59eb'
+  private userId = 'fc347001-7ec1-4977-a109-e838b5f01c0b'
 
   async loadKeyshare(keyshare: string) {
     this.keyshare = keyshare
@@ -24,11 +25,11 @@ export class CapsuleSigner implements Signer {
   }
 
   async generateKeyshare(): Promise<string> {
-    //const walletInfo = await this.createWallet('fc347001-7ec1-4977-a109-e838b5f01c0b')
-    const walletInfo = {
-      walletId: this.walletId,
-      protocolId: '8e1ead21-a214-49c8-b645-923cd479e4c3',
-    }
+    const walletInfo = await this.createWallet(this.userId)
+    // const walletInfo = {
+    //   walletId: this.walletId,
+    //   protocolId: '379bd4f0-c328-4d3a-ae8f-e4723f625453',
+    // }
     Logger.debug(TAG, 'generateKeyshare ', walletInfo.walletId)
     Logger.debug(TAG, 'generateKeyshare ', walletInfo.protocolId)
 
@@ -46,25 +47,60 @@ export class CapsuleSigner implements Signer {
     return userPrivateKeyshare
   }
 
-  private async createWallet(userId: string): Promise<WalletInfo> {
+  // private async createWallet(userId: string): Promise<any> {
+  //   const baseRequest = axios.create({
+  //     baseURL: 'http://UserManagementLoadBalancer-461184073.us-west-1.elb.amazonaws.com',
+  //   })
+  //   const res = await baseRequest.post<any>(`/users/${userId}/wallets`)
+  //   return res.data
+  // }
+
+  private async createWallet(userId: string): Promise<any> {
     const baseRequest = axios.create({
       baseURL: 'http://UserManagementLoadBalancer-461184073.us-west-1.elb.amazonaws.com',
     })
-    const res = await baseRequest.post<any>(`/users/${userId}/wallets`)
-    return res.data
+    try {
+      const res = await baseRequest.post<any>(`/users/${userId}/wallets`)
+      //Logger.debug(TAG, 'CREATED WALLET', JSON.stringify(res.data))
+      return res.data
+    } catch (err) {
+      Logger.debug(TAG, 'AXIOS ERROR', err)
+    }
+  }
+
+  private async getWallet(userId: string, address: string): Promise<any> {
+    const response = await this.getWallets(userId)
+    for (let i = 0; i < response.wallets.length; i++) {
+      const wallet = response.wallets[i]
+      if (wallet.address && wallet.address.toLowerCase() == address.toLowerCase()) {
+        console.log(wallet.id)
+        return wallet.id
+      }
+    }
+    return undefined
+  }
+
+  private async getWallets(userId: string): Promise<any> {
+    const baseRequest = axios.create({
+      baseURL: 'http://UserManagementLoadBalancer-461184073.us-west-1.elb.amazonaws.com',
+    })
+    try {
+      const res = await baseRequest.get<any>(`/users/${userId}/wallets`)
+      return res.data
+    } catch (err) {
+      Logger.debug(TAG, 'CAPSULE ERROR ', err)
+    }
   }
 
   private async prepSignMessage(userId: string, walletId: string, tx: string): Promise<any> {
-    const body = { transaction: tx }
-    const config = { headers: { 'Content-Type': 'application/json' } }
+    const body = { message: tx }
     const baseRequest = axios.create({
       baseURL: 'http://UserManagementLoadBalancer-461184073.us-west-1.elb.amazonaws.com',
     })
     try {
       const res = await baseRequest.post<any>(
-        `/users/${userId}/wallets/${walletId}/sign`,
-        body,
-        config
+        `/users/${userId}/wallets/${walletId}/messages/sign`,
+        body
       )
       return res.data
     } catch (err) {
@@ -135,19 +171,21 @@ export class CapsuleSigner implements Signer {
     Logger.info(`${TAG}@signTypedData`, address + ` Signing typed data`)
     const hash = generateTypedDataHash(typedData)
     const tx = hash.toString('base64')
-    Logger.info(`${TAG}@signTypedData`, tx)
-    const res = await this.prepSignMessage(
-      'fc347001-7ec1-4977-a109-e838b5f01c0b',
-      this.walletId,
-      tx
-    )
-    //const protocolId = 'c7beb85b-fe49-4ace-8144-bc90b34b9cd3'
+    Logger.info(`${TAG}@signTypedData transaction `, tx)
+
+    const walletId = await this.getWallet(this.userId, address)
+    Logger.info(`${TAG}@signTypedData`, 'walletId ' + walletId)
+
+    const res = await this.prepSignMessage(this.userId, walletId, tx)
     Logger.info(`${TAG}@signTypedData`, 'protocolId ' + res.protocolId)
+    Logger.info(`${TAG}@signTypedData`, 'keyshare ' + this.keyshare)
+    Logger.info(`${TAG}@signTypedData`, `transaction ` + tx)
     const signatureBase64 = await CapsuleSignerModule.sendTransaction(
       res.protocolId,
       this.keyshare,
       tx
     )
+    Logger.info(`${TAG}@signTypedData`, `signatureBase64 ` + signatureBase64)
     return ethUtil.fromRpcSig(this.base64ToHex(signatureBase64))
   }
 
