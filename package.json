@@ -218,7 +218,8 @@
     "uuid": "^8.3.0",
     "victory-native": "^34.1.0",
     "vm-browserify": "^1.1.2",
-    "web3": "1.3.0"
+    "web3": "1.3.0",
+    "@capsule/client": "capsule-org/demo-dapp-backend#@osdnk/ts-client"
   },
   "devDependencies": {
     "@actions/github": "^5.0.0",
