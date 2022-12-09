@@ -2,7 +2,6 @@ import { CeloTx } from '@celo/connect'
 import { EIP712TypedData } from '@celo/utils/lib/sign-typed-data-utils'
 import { UnlockableWallet } from '@celo/wallet-base'
 import { RemoteWallet } from '@celo/wallet-remote'
-import * as ethUtil from 'ethereumjs-util'
 import { ErrorMessages } from 'src/app/ErrorMessages'
 import { CapsuleSigner } from 'src/capsule/CapsuleSigner'
 import Logger from 'src/utils/Logger'
@@ -81,7 +80,7 @@ export class CapsuleWallet extends RemoteWallet<CapsuleSigner> implements Unlock
       `Signing typed DATA: ${JSON.stringify({ address, typedData })}`
     )
     const signer = this.getSigner(address)
-    const { v, r, s } = await signer.signTypedData(typedData, address)
-    return ethUtil.toRpcSig(v, r, s)
+    await signer.signTypedData(typedData, address)
+    return 'TODO' // ethUtil.toRpcSig(v, r, s)
   }
 }

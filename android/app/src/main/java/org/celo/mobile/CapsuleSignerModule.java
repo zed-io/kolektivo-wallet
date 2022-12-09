@@ -15,7 +15,7 @@ import signer.Signer;
 public class CapsuleSignerModule extends ReactContextBaseJavaModule {
   static final String TAG = "CapsuleSignerModule";
 
-  String ids = "[\"USER\",\"RECOVERY\",\"CAPSULE\"]";
+  String ids = "[\"USER\",\"CAPSULE\",\"RECOVERY\"]";
   int threshold = 2;
   String serverUrl = "http://mpcnetworkloadbalancer-348316826.us-west-1.elb.amazonaws.com";
   String configBase =

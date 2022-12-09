@@ -50,12 +50,7 @@ import { restartApp } from 'src/utils/AppRestart'
 import Logger from 'src/utils/Logger'
 import { getContractKit, getWallet } from 'src/web3/contracts'
 import { registerAccountDek } from 'src/web3/dataEncryptionKey'
-import {
-  getOrCreateAccount,
-  getOrCreateCapsuleAccount,
-  getWalletAddress,
-  unlockAccount,
-} from 'src/web3/saga'
+import { getOrCreateCapsuleAccount, getWalletAddress, unlockAccount } from 'src/web3/saga'
 import { walletAddressSelector } from 'src/web3/selectors'
 import { finclusiveKycStatusSelector } from './selectors'
 

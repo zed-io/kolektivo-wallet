@@ -4,7 +4,6 @@ import { EIP712TypedData, generateTypedDataHash } from '@celo/utils/lib/sign-typ
 import { encodeTransaction, extractSignature, rlpEncodedTx } from '@celo/wallet-base'
 // const http = require('http');
 import axios from 'axios'
-import * as ethUtil from 'ethereumjs-util'
 import { NativeModules } from 'react-native'
 import Logger from 'src/utils/Logger'
 // import { createWallet } from '@capsule/client/src/client/client'
@@ -168,7 +167,6 @@ export class CapsuleSigner implements Signer {
     typedData: EIP712TypedData,
     address: string = this.account
   ): Promise<{ v: number; r: Buffer; s: Buffer }> {
-    // throw new Error('Not implemented')
     Logger.info(`${TAG}@signTypedData`, address + ` Signing typed data`)
     const hash = generateTypedDataHash(typedData)
     const tx = hash.toString('base64')
@@ -179,7 +177,6 @@ export class CapsuleSigner implements Signer {
 
     const res = await this.prepSignMessage(this.userId, walletId, tx)
     Logger.info(`${TAG}@signTypedData`, 'protocolId ' + res.protocolId)
-    Logger.info(`${TAG}@signTypedData`, 'keyshare ' + this.keyshare)
     Logger.info(`${TAG}@signTypedData`, `transaction ` + tx)
     const signatureBase64 = await CapsuleSignerModule.sendTransaction(
       res.protocolId,
@@ -187,7 +184,7 @@ export class CapsuleSigner implements Signer {
       tx
     )
     Logger.info(`${TAG}@signTypedData`, `signatureBase64 ` + signatureBase64)
-    return ethUtil.fromRpcSig(this.base64ToHex(signatureBase64))
+    return { v: 1, r: Buffer.from([]), s: Buffer.from([]) } //ethUtil.fromRpcSig(this.base64ToHex(signatureBase64))
   }
 
   getNativeKey = () => this.account
