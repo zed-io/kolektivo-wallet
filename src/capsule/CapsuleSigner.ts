@@ -2,11 +2,10 @@ import { ensureLeading0x, normalizeAddressWith0x } from '@celo/base/lib/address'
 import { CeloTx, RLPEncodedTx, Signer } from '@celo/connect'
 import { EIP712TypedData, generateTypedDataHash } from '@celo/utils/lib/sign-typed-data-utils'
 import { encodeTransaction, extractSignature, rlpEncodedTx } from '@celo/wallet-base'
-// const http = require('http');
 import axios from 'axios'
 import { NativeModules } from 'react-native'
 import Logger from 'src/utils/Logger'
-// import { createWallet } from '@capsule/client/src/client/client'
+import { createWallet } from '@capsule/client/src/client/client'
 
 const { CapsuleSignerModule } = NativeModules
 
@@ -25,11 +24,7 @@ export class CapsuleSigner implements Signer {
   }
 
   async generateKeyshare(): Promise<string> {
-    const walletInfo = await this.createWallet(this.userId)
-    // const walletInfo = {
-    //   walletId: this.walletId,
-    //   protocolId: '379bd4f0-c328-4d3a-ae8f-e4723f625453',
-    // }
+    const walletInfo = await createWallet(this.userId)
     Logger.debug(TAG, 'generateKeyshare ', walletInfo.walletId)
     Logger.debug(TAG, 'generateKeyshare ', walletInfo.protocolId)
 
@@ -37,35 +32,14 @@ export class CapsuleSigner implements Signer {
       CapsuleSignerModule.createAccount(walletInfo.walletId, walletInfo.protocolId, 'USER'),
       CapsuleSignerModule.createAccount(walletInfo.walletId, walletInfo.protocolId, 'RECOVERY'),
     ])
-    let userPrivateKeyshare = keyshares[0]
-    let recoveryPrivateKeyShare = keyshares[1]
+    const userPrivateKeyshare = keyshares[0]
+    const recoveryPrivateKeyShare = keyshares[1]
     Logger.debug(TAG, 'CAPSULE KEYGEN ', userPrivateKeyshare)
     Logger.debug(TAG, 'CAPSULE KEYGEN ', recoveryPrivateKeyShare)
     this.keyshare = userPrivateKeyshare
     await this.setAccount()
     Logger.debug(TAG, 'CAPSULE account address ', this.account)
     return userPrivateKeyshare
-  }
-
-  // private async createWallet(userId: string): Promise<any> {
-  //   const baseRequest = axios.create({
-  //     baseURL: 'http://UserManagementLoadBalancer-461184073.us-west-1.elb.amazonaws.com',
-  //   })
-  //   const res = await baseRequest.post<any>(`/users/${userId}/wallets`)
-  //   return res.data
-  // }
-
-  private async createWallet(userId: string): Promise<any> {
-    const baseRequest = axios.create({
-      baseURL: 'http://UserManagementLoadBalancer-461184073.us-west-1.elb.amazonaws.com',
-    })
-    try {
-      const res = await baseRequest.post<any>(`/users/${userId}/wallets`)
-      //Logger.debug(TAG, 'CREATED WALLET', JSON.stringify(res.data))
-      return res.data
-    } catch (err) {
-      Logger.debug(TAG, 'AXIOS ERROR', err)
-    }
   }
 
   private async getWallet(userId: string, address: string): Promise<any> {
