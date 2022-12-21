@@ -13,6 +13,14 @@ const userManagementClient = new Client({
   userManagementHost: 'http://usermanagementloadbalancer-461184073.us-west-1.elb.amazonaws.com/',
 })
 
+// userManagementClient.createUser({
+//   email: "michal+911@usecapsule.com"
+// }).then(r => console.log("USER: " + JSON.stringify(r))).catch(e => console.log("USER ERROR:" + e))
+
+// userManagementClient.verifyEmail("7d040fec-825a-4ac9-bb5c-281e3af87d8e", {
+//   verificationCode: "170510"
+// }).then(r => console.log("VERIFY USER: " + JSON.stringify(r))).catch(e => console.log("VERIFY USER ERROR:" + e))
+
 const TAG = 'geth/CapsuleSigner'
 /**
  * Implements the signer interface using the CapsuleSignerModule
