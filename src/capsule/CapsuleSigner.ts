@@ -3,7 +3,6 @@ import { ensureLeading0x, normalizeAddressWith0x } from '@celo/base/lib/address'
 import { CeloTx, RLPEncodedTx, Signer } from '@celo/connect'
 import { EIP712TypedData, generateTypedDataHash } from '@celo/utils/lib/sign-typed-data-utils'
 import { encodeTransaction, extractSignature, rlpEncodedTx } from '@celo/wallet-base'
-import axios from 'axios'
 import { fromRpcSig } from 'ethereumjs-util'
 import { NativeModules } from 'react-native'
 import Logger from 'src/utils/Logger'
@@ -48,40 +47,19 @@ export class CapsuleSigner implements Signer {
   }
 
   private async getWallet(userId: string, address: string): Promise<any> {
-    const response = await this.getWallets(userId)
+    const response = await userManagementClient.getWallets(userId)
     for (let i = 0; i < response.wallets.length; i++) {
       const wallet = response.wallets[i]
       if (wallet.address && wallet.address.toLowerCase() == address.toLowerCase()) {
-        console.log(wallet.id)
         return wallet.id
       }
     }
     return undefined
   }
 
-  private async getWallets(userId: string): Promise<any> {
-    const baseRequest = axios.create({
-      baseURL: 'http://UserManagementLoadBalancer-461184073.us-west-1.elb.amazonaws.com',
-    })
-    try {
-      const res = await baseRequest.get<any>(`/users/${userId}/wallets`)
-      return res.data
-    } catch (err) {
-      Logger.debug(TAG, 'CAPSULE ERROR ', err)
-    }
-  }
-
   private async prepSignMessage(userId: string, walletId: string, tx: string): Promise<any> {
-    const body = { message: tx }
-    const baseRequest = axios.create({
-      baseURL: 'http://UserManagementLoadBalancer-461184073.us-west-1.elb.amazonaws.com',
-    })
     try {
-      const res = await baseRequest.post<any>(
-        `/users/${userId}/wallets/${walletId}/messages/sign`,
-        body
-      )
-      return res.data
+      return await userManagementClient.preSignMessage(userId, walletId, tx)
     } catch (err) {
       Logger.debug(TAG, 'CAPSULE ERROR ', err)
     }
