@@ -1,4 +1,4 @@
-import { createWallet } from '@capsule/client/src/client/client'
+import Client from '@capsule/client'
 import { ensureLeading0x, normalizeAddressWith0x } from '@celo/base/lib/address'
 import { CeloTx, RLPEncodedTx, Signer } from '@celo/connect'
 import { EIP712TypedData, generateTypedDataHash } from '@celo/utils/lib/sign-typed-data-utils'
@@ -9,6 +9,10 @@ import { NativeModules } from 'react-native'
 import Logger from 'src/utils/Logger'
 
 const { CapsuleSignerModule } = NativeModules
+
+const userManagementClient = new Client({
+  userManagementHost: 'http://usermanagementloadbalancer-461184073.us-west-1.elb.amazonaws.com/',
+})
 
 const TAG = 'geth/CapsuleSigner'
 /**
@@ -25,7 +29,7 @@ export class CapsuleSigner implements Signer {
   }
 
   async generateKeyshare(): Promise<string> {
-    const walletInfo = await createWallet(this.userId)
+    const walletInfo = await userManagementClient.createWallet(this.userId)
     Logger.debug(TAG, 'generateKeyshare ', walletInfo.walletId)
     Logger.debug(TAG, 'generateKeyshare ', walletInfo.protocolId)
 
