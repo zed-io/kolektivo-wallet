@@ -56,8 +56,7 @@ export class CapsuleSigner implements Signer {
 
   private async getWallet(userId: string, address: string): Promise<any> {
     const response = await userManagementClient.getWallets(userId)
-    for (let i = 0; i < response.wallets.length; i++) {
-      const wallet = response.wallets[i]
+    for (const wallet of response.data.wallets) {
       if (wallet.address && wallet.address.toLowerCase() == address.toLowerCase()) {
         return wallet.id
       }
