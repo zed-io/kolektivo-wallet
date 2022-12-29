@@ -1,4 +1,3 @@
-import Client from '@capsule/client'
 import { ensureLeading0x, normalizeAddressWith0x } from '@celo/base/lib/address'
 import { CeloTx, RLPEncodedTx, Signer } from '@celo/connect'
 import { EIP712TypedData, generateTypedDataHash } from '@celo/utils/lib/sign-typed-data-utils'
@@ -6,12 +5,9 @@ import { encodeTransaction, extractSignature, rlpEncodedTx } from '@celo/wallet-
 import { fromRpcSig } from 'ethereumjs-util'
 import { NativeModules } from 'react-native'
 import Logger from 'src/utils/Logger'
+import userManagementClient from './UserManagementClient'
 
 const { CapsuleSignerModule } = NativeModules
-
-const userManagementClient = new Client({
-  userManagementHost: 'http://usermanagementloadbalancer-461184073.us-west-1.elb.amazonaws.com/',
-})
 
 // userManagementClient.createUser({
 //   email: "michal+911@usecapsule.com"
