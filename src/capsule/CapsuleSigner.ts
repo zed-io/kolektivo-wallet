@@ -5,6 +5,7 @@ import { encodeTransaction, extractSignature, rlpEncodedTx } from '@celo/wallet-
 import { fromRpcSig } from 'ethereumjs-util'
 import { NativeModules } from 'react-native'
 import Logger from 'src/utils/Logger'
+import { PrivateKeyStorage, PrivateKeyStorageReactNative } from './PrivateKeyStorage'
 import userManagementClient from './UserManagementClient'
 
 const { CapsuleSignerModule } = NativeModules
@@ -21,14 +22,16 @@ const TAG = 'geth/CapsuleSigner'
 /**
  * Implements the signer interface using the CapsuleSignerModule
  */
-export class CapsuleSigner implements Signer {
+export abstract class CapsuleBaseSigner implements Signer {
   private account: string = ''
-  private keyshare: string | undefined = undefined
   private userId = 'fc347001-7ec1-4977-a109-e838b5f01c0b'
+  private keyshareStorage: PrivateKeyStorage | undefined
+  protected abstract getPrivateKeyStorage(account: string): PrivateKeyStorage
 
   async loadKeyshare(keyshare: string) {
-    this.keyshare = keyshare
-    await this.setAccount()
+    await this.setAccount(keyshare)
+    this.keyshareStorage = this.getPrivateKeyStorage(this.account)
+    await this.keyshareStorage.setPrivateKey(keyshare)
   }
 
   async generateKeyshare(): Promise<string> {
@@ -44,8 +47,6 @@ export class CapsuleSigner implements Signer {
     const recoveryPrivateKeyShare = keyshares[1]
     Logger.debug(TAG, 'CAPSULE KEYGEN ', userPrivateKeyshare)
     Logger.debug(TAG, 'CAPSULE KEYGEN ', recoveryPrivateKeyShare)
-    this.keyshare = userPrivateKeyshare
-    await this.setAccount()
     Logger.debug(TAG, 'CAPSULE account address ', this.account)
     return userPrivateKeyshare
   }
@@ -68,17 +69,22 @@ export class CapsuleSigner implements Signer {
     }
   }
 
-  getKeyshare(): string | undefined {
-    return this.keyshare
+  async getKeyshare(): Promise<string | undefined> {
+    return await this.keyshareStorage?.getPrivateKey()
   }
 
-  async setAccount() {
-    const address = await CapsuleSignerModule.getAddress(this.keyshare)
+  public setNativeKey(nativeKey: string) {
+    this.account = nativeKey
+    this.keyshareStorage = this.getPrivateKeyStorage(this.account)
+  }
+
+  async setAccount(keyshare: string) {
+    const address = await CapsuleSignerModule.getAddress(keyshare)
     this.account = normalizeAddressWith0x(address)
   }
 
   async signRawTransaction(tx: CeloTx) {
-    if (!this.keyshare || !this.account) {
+    if (!this.keyshareStorage?.getPrivateKey() || !this.account) {
       throw new Error(
         'Cannot signRawTransaction from CapsuleSigner before keygeneration or initialization'
       )
@@ -108,7 +114,7 @@ export class CapsuleSigner implements Signer {
     Logger.debug(TAG, 'signTransaction Capsule protocolId', protocolId)
     Logger.debug(TAG, 'signTransaction Capsule tx', this.hexToBase64(encodedTx.rlpEncode))
     const signedTxBase64 = await CapsuleSignerModule.sendTransaction(
-      this.keyshare,
+      this.keyshareStorage?.getPrivateKey(),
       protocolId,
       this.hexToBase64(encodedTx.rlpEncode)
     )
@@ -138,11 +144,8 @@ export class CapsuleSigner implements Signer {
     const res = await this.prepSignMessage(this.userId, walletId, tx)
     Logger.info(`${TAG}@signTypedData`, 'protocolId ' + res.protocolId)
     Logger.info(`${TAG}@signTypedData`, `transaction ` + tx)
-    const signatureHex = await CapsuleSignerModule.sendTransaction(
-      res.protocolId,
-      this.keyshare,
-      tx
-    )
+    const keyshare = await this.keyshareStorage?.getPrivateKey()
+    const signatureHex = await CapsuleSignerModule.sendTransaction(res.protocolId, keyshare, tx)
 
     Logger.info(
       `${TAG}@signTypedData`,
@@ -171,5 +174,11 @@ export class CapsuleSigner implements Signer {
 
   base64ToHex(base64: string) {
     return ensureLeading0x(Buffer.from(base64, 'base64').toString('hex'))
+  }
+}
+
+export class CapsuleReactNativeSigner extends CapsuleBaseSigner {
+  protected getPrivateKeyStorage(account: string): PrivateKeyStorage {
+    return new PrivateKeyStorageReactNative(account)
   }
 }

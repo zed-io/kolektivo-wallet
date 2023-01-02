@@ -4,56 +4,42 @@ import { UnlockableWallet } from '@celo/wallet-base'
 import { RemoteWallet } from '@celo/wallet-remote'
 import * as ethUtil from 'ethereumjs-util'
 import { ErrorMessages } from 'src/app/ErrorMessages'
-import { CapsuleSigner } from 'src/capsule/CapsuleSigner'
+import { CapsuleBaseSigner, CapsuleReactNativeSigner } from 'src/capsule/CapsuleSigner'
 import Logger from 'src/utils/Logger'
-import { ChallengeStorageDefault } from './ChallengeStorage'
-import userManagementClient from './UserManagementClient'
+import { ReactNativeSignersStorage, SignersStorage } from './SignersStorage'
+import { ChallengeReactNativeStorage, ChallengeStorage } from './ChallengeStorage'
+import BiometricSessionManager from './BiometricSessionManager'
 
 const TAG = 'geth/CapsuleWallet'
 
-export class CapsuleWallet extends RemoteWallet<CapsuleSigner> implements UnlockableWallet {
+export abstract class CapsuleBaseWallet
+  extends RemoteWallet<CapsuleBaseSigner>
+  implements UnlockableWallet {
+  protected abstract getSignersStorage(): SignersStorage
+  protected abstract getCapsuleSigner(): CapsuleBaseSigner
+  protected abstract getChallengeStorage(userId: string): ChallengeStorage
+  private signersStorage = this.getSignersStorage()
   // TODO remove me
   private userId = 'c67b0766-f339-4d86-9c82-fe2410b28460'
-  private biometricStorage = new ChallengeStorageDefault(this.userId)
+  // @ts-ignore
+  private biometricSessionManager = new BiometricSessionManager(
+    this.userId,
+    this.getChallengeStorage(this.userId)
+  )
 
-  public async setBiometrics() {
-    return await userManagementClient.addBiometrics(this.userId, {
-      publicKey: await this.biometricStorage.getPublicKey(),
-    })
-  }
-
-  private cookie: string | undefined
-
-  public async refreshBiometricsIfNeeded() {
-    if (typeof this.cookie === 'string') {
-      // this is how cookie is represented. We do parsing "manually" to avoid employing additional libs
-      // Example cookie: capsule.sid=s%3Ad324cb79-96c8-4995-868b-4774ae2004ce.RZ2H%2BbendbOVXEBJ2tKVLatSh24SOxxQ%2F7A51lfdSoM; Path=/; Expires=Fri, 30 Dec 2022 18:31:47 GMT; HttpOnly; SameSite=Strict
-      const expDate = this.cookie
-        ?.split?.(';')
-        ?.find((entry) => entry.trim().startsWith('Expires'))
-        ?.split?.('=')?.[1]
-      const isValid = expDate && new Date(expDate).valueOf() - Date.now() > 30000 // 30 seconds threshold
-      if (isValid) {
-        return
-      }
+  async loadAccountSigners(): Promise<Map<string, CapsuleBaseSigner>> {
+    const addressToSigner = new Map<string, CapsuleBaseSigner>()
+    const nativeKeys = await this.signersStorage.getAccounts()
+    for (const nativeKey of nativeKeys) {
+      const signer = this.getCapsuleSigner()
+      signer.setNativeKey(nativeKey)
+      addressToSigner.set(nativeKey, signer)
     }
-    const challenge = await userManagementClient.getBiometricsChallenge(this.userId)
-    const message = challenge.data.challenge
-    const signature = await this.biometricStorage.signChallenge(message)
-    const response = await userManagementClient.verifyBiometricsChallenge(this.userId, {
-      signature,
-    })
-    this.cookie = response.headers['set-cookie'][0]
+    return addressToSigner
   }
 
-  // Called on init to load existing wallets
-  // Not applicable for CapsuleWallet
-  async loadAccountSigners(): Promise<Map<string, CapsuleSigner>> {
-    return new Map<string, CapsuleSigner>()
-  }
-
-  getKeyshare(address: string): string {
-    const keyshare = this.getSigner(address).getKeyshare()
+  async getKeyshare(address: string): Promise<string> {
+    const keyshare = await this.getSigner(address).getKeyshare()
     if (!keyshare) {
       Logger.error(`${TAG}@addAccount`, `Missing private key`)
       throw new Error(ErrorMessages.CAPSULE_UNEXPECTED_ADDRESS)
@@ -61,15 +47,16 @@ export class CapsuleWallet extends RemoteWallet<CapsuleSigner> implements Unlock
     return keyshare!
   }
 
-  async addAccount(privateKey: string): Promise<string> {
-    const signer = new CapsuleSigner()
+  async addAccount(privateKey?: string): Promise<string> {
+    const signer = this.getCapsuleSigner()
     if (!privateKey) {
       Logger.info(`${TAG}@addAccount`, `Creating a new account`)
       privateKey = await signer.generateKeyshare()
       Logger.info(`${TAG}@addAccount`, privateKey)
+      await signer.loadKeyshare(privateKey)
     } else {
       Logger.info(`${TAG}@addAccount`, `Adding a previously created account`)
-      signer.loadKeyshare(privateKey)
+      await signer.loadKeyshare(privateKey)
     }
 
     if (this.hasAccount(signer.getNativeKey())) {
@@ -78,7 +65,9 @@ export class CapsuleWallet extends RemoteWallet<CapsuleSigner> implements Unlock
 
     this.addSigner(signer.getNativeKey(), signer)
     Logger.info(`${TAG}@addAccount`, `Account added`)
-    return signer.getNativeKey()
+    const nativeKey = signer.getNativeKey()
+    await this.signersStorage.addAccount(nativeKey)
+    return nativeKey
   }
 
   // TODO generate a session token for the wallet
@@ -121,3 +110,19 @@ export class CapsuleWallet extends RemoteWallet<CapsuleSigner> implements Unlock
     return ethUtil.toRpcSig(v, r, s)
   }
 }
+
+class CapsuleReactNativeWallet extends CapsuleBaseWallet {
+  getCapsuleSigner(): CapsuleBaseSigner {
+    return new CapsuleReactNativeSigner()
+  }
+
+  getSignersStorage(): SignersStorage {
+    return new ReactNativeSignersStorage()
+  }
+
+  getChallengeStorage(userId: string): ChallengeStorage {
+    return new ChallengeReactNativeStorage(userId)
+  }
+}
+
+export { CapsuleReactNativeWallet as CapsuleWallet }
