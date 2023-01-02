@@ -9,6 +9,7 @@ import Logger from 'src/utils/Logger'
 import { ReactNativeSignersStorage, SignersStorage } from './SignersStorage'
 import { ChallengeReactNativeStorage, ChallengeStorage } from './ChallengeStorage'
 import BiometricSessionManager from './BiometricSessionManager'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const TAG = 'geth/CapsuleWallet'
 
@@ -16,22 +17,43 @@ export abstract class CapsuleBaseWallet
   extends RemoteWallet<CapsuleBaseSigner>
   implements UnlockableWallet {
   protected abstract getSignersStorage(): SignersStorage
-  protected abstract getCapsuleSigner(): CapsuleBaseSigner
+  protected abstract getCapsuleSigner(userId: string): CapsuleBaseSigner
   protected abstract getChallengeStorage(userId: string): ChallengeStorage
+  protected abstract getUserId(): Promise<string>
   private signersStorage = this.getSignersStorage()
-  // TODO remove me
-  private userId = 'c67b0766-f339-4d86-9c82-fe2410b28460'
+  // // @ts-ignore
+  private biometricSessionManager: BiometricSessionManager | undefined
+
+  // We initialize the manager late to ensure the userID is available.
+  private async initBiometricSessionManagerIfNeeded() {
+    if (!this.biometricSessionManager) {
+      const userId = await this.getUserId()
+      if (!userId) {
+        throw Error('UserId not available during initializing biometrics')
+      }
+      this.biometricSessionManager = new BiometricSessionManager(
+        userId,
+        this.getChallengeStorage(userId)
+      )
+    }
+  }
+  public async initBiometrics() {
+    await this.initBiometricSessionManagerIfNeeded()
+    await this.biometricSessionManager!.setBiometrics()
+  }
+
   // @ts-ignore
-  private biometricSessionManager = new BiometricSessionManager(
-    this.userId,
-    this.getChallengeStorage(this.userId)
-  )
+  private async ensureSessionActive() {
+    await this.initBiometricSessionManagerIfNeeded()
+    await this.biometricSessionManager!.refreshBiometricsIfNeeded()
+  }
 
   async loadAccountSigners(): Promise<Map<string, CapsuleBaseSigner>> {
     const addressToSigner = new Map<string, CapsuleBaseSigner>()
     const nativeKeys = await this.signersStorage.getAccounts()
     for (const nativeKey of nativeKeys) {
-      const signer = this.getCapsuleSigner()
+      const userId = await this.getUserId()
+      const signer = this.getCapsuleSigner(userId)
       signer.setNativeKey(nativeKey)
       addressToSigner.set(nativeKey, signer)
     }
@@ -48,7 +70,8 @@ export abstract class CapsuleBaseWallet
   }
 
   async addAccount(privateKey?: string): Promise<string> {
-    const signer = this.getCapsuleSigner()
+    const userId = await this.getUserId()
+    const signer = this.getCapsuleSigner(userId)
     if (!privateKey) {
       Logger.info(`${TAG}@addAccount`, `Creating a new account`)
       privateKey = await signer.generateKeyshare()
@@ -111,9 +134,11 @@ export abstract class CapsuleBaseWallet
   }
 }
 
+export const USER_ID_TAG = '@CAPSULE/USER_ID'
+
 class CapsuleReactNativeWallet extends CapsuleBaseWallet {
-  getCapsuleSigner(): CapsuleBaseSigner {
-    return new CapsuleReactNativeSigner()
+  getCapsuleSigner(userId: string): CapsuleBaseSigner {
+    return new CapsuleReactNativeSigner(userId)
   }
 
   getSignersStorage(): SignersStorage {
@@ -122,6 +147,10 @@ class CapsuleReactNativeWallet extends CapsuleBaseWallet {
 
   getChallengeStorage(userId: string): ChallengeStorage {
     return new ChallengeReactNativeStorage(userId)
+  }
+
+  async getUserId(): Promise<string> {
+    return (await AsyncStorage.getItem(USER_ID_TAG)) as string
   }
 }
 

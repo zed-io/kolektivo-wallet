@@ -24,7 +24,7 @@ const TAG = 'geth/CapsuleSigner'
  */
 export abstract class CapsuleBaseSigner implements Signer {
   private account: string = ''
-  private userId = 'fc347001-7ec1-4977-a109-e838b5f01c0b'
+  private readonly userId: string
   private keyshareStorage: PrivateKeyStorage | undefined
   protected abstract getPrivateKeyStorage(account: string): PrivateKeyStorage
 
@@ -32,6 +32,10 @@ export abstract class CapsuleBaseSigner implements Signer {
     await this.setAccount(keyshare)
     this.keyshareStorage = this.getPrivateKeyStorage(this.account)
     await this.keyshareStorage.setPrivateKey(keyshare)
+  }
+
+  constructor(userId: string) {
+    this.userId = userId
   }
 
   async generateKeyshare(): Promise<string> {
