@@ -17,7 +17,10 @@ export abstract class CapsuleBaseWallet
   extends RemoteWallet<CapsuleBaseSigner>
   implements UnlockableWallet {
   protected abstract getSignersStorage(): SignersStorage
-  protected abstract getCapsuleSigner(userId: string): CapsuleBaseSigner
+  protected abstract getCapsuleSigner(
+    userId: string,
+    ensureSessionActive: () => Promise<void>
+  ): CapsuleBaseSigner
   protected abstract getChallengeStorage(userId: string): ChallengeStorage
   protected abstract getUserId(): Promise<string>
   private signersStorage = this.getSignersStorage()
@@ -37,6 +40,7 @@ export abstract class CapsuleBaseWallet
       )
     }
   }
+
   public async initBiometrics() {
     await this.initBiometricSessionManagerIfNeeded()
     await this.biometricSessionManager!.setBiometrics()
@@ -53,7 +57,7 @@ export abstract class CapsuleBaseWallet
     const nativeKeys = await this.signersStorage.getAccounts()
     for (const nativeKey of nativeKeys) {
       const userId = await this.getUserId()
-      const signer = this.getCapsuleSigner(userId)
+      const signer = this.getCapsuleSigner(userId, () => this.ensureSessionActive())
       signer.setNativeKey(nativeKey)
       addressToSigner.set(nativeKey, signer)
     }
@@ -71,7 +75,7 @@ export abstract class CapsuleBaseWallet
 
   async addAccount(privateKey?: string): Promise<string> {
     const userId = await this.getUserId()
-    const signer = this.getCapsuleSigner(userId)
+    const signer = this.getCapsuleSigner(userId, () => this.ensureSessionActive())
     if (!privateKey) {
       Logger.info(`${TAG}@addAccount`, `Creating a new account`)
       privateKey = await signer.generateKeyshare()
@@ -137,8 +141,8 @@ export abstract class CapsuleBaseWallet
 export const USER_ID_TAG = '@CAPSULE/USER_ID'
 
 class CapsuleReactNativeWallet extends CapsuleBaseWallet {
-  getCapsuleSigner(userId: string): CapsuleBaseSigner {
-    return new CapsuleReactNativeSigner(userId)
+  getCapsuleSigner(userId: string, ensureSessionActive: () => Promise<void>): CapsuleBaseSigner {
+    return new CapsuleReactNativeSigner(userId, ensureSessionActive)
   }
 
   getSignersStorage(): SignersStorage {
