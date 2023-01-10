@@ -7,15 +7,16 @@
 #import <Foundation/Foundation.h>
 #import "CapsuleSignerModule.h"
 #import <Signer/Signer.h>
+#import <CommonCrypto/CommonCrypto.h>
 
 static NSString *configBase = @"{\"ServerUrl\": \"%@\", \"WalletId\": \"%@\", \"Id\":\"%@\", \"Ids\":%@, \"Threshold\":1}";
 
 static NSString *ids = @"[\"USER\",\"CAPSULE\",\"RECOVERY\"]";
 
-static NSString *serverUrl = @"http://mpcnetworkloadbalancer-348316826.us-west-1.elb.amazonaws.com";
+@implementation CapsuleSignerModule {
+  NSString *_serverUrl;
+}
 
-
-@implementation CapsuleSignerModule
 + (BOOL)requiresMainQueueSetup
 {
   return YES;
@@ -26,6 +27,11 @@ static NSString *serverUrl = @"http://mpcnetworkloadbalancer-348316826.us-west-1
 }
 
 RCT_EXPORT_MODULE();
+
+- (void) setServerUrl: (NSString *) serverUrl {
+  _serverUrl = serverUrl;
+  
+}
 
 // Get Address
 - (void) invokeSignerGetAddress:(NSDictionary*)params
@@ -57,7 +63,7 @@ RCT_EXPORT_METHOD(getAddress:(NSString *)serializedSigner
   NSString* protocolId = [params objectForKey:@"protocolId"];
   RCTPromiseResolveBlock resolve = [params objectForKey:@"resolve"];
   
-  NSString* res = SignerSendTransaction(serverUrl, serializedSigner, transaction, protocolId);
+  NSString* res = SignerSendTransaction(_serverUrl, serializedSigner, transaction, protocolId);
   resolve(res);
 }
 
@@ -84,7 +90,7 @@ RCT_EXPORT_METHOD(sendTransaction:(NSString*)protocolId
   NSString* protocolId = [params objectForKey:@"protocolId"];
   NSString* signerConfig = [params objectForKey:@"signerConfig"];
   RCTPromiseResolveBlock resolve = [params objectForKey:@"resolve"];
-  NSString* res = SignerCreateAccount(serverUrl,signerConfig, protocolId);
+  NSString* res = SignerCreateAccount(_serverUrl,signerConfig, protocolId);
   
   resolve(res);
 }
@@ -95,12 +101,14 @@ RCT_EXPORT_METHOD(createAccount:(NSString *)walletId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-  NSString* signerConfig = [NSString stringWithFormat: configBase, serverUrl, walletId, userId, ids];
+  NSString* signerConfig = [NSString stringWithFormat: configBase, _serverUrl, walletId, userId, ids];
   NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
                           protocolId, @"protocolId",
                           resolve, @"resolve",
                           signerConfig, @"signerConfig",
                           nil];
+  
+  
   [self performSelectorInBackground:@selector(invokeSignerCreateAccount:)
                          withObject:params];
 }

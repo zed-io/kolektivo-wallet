@@ -1,7 +1,8 @@
 import Client from '@capsule/client/client'
+import { userManagementServer } from './config'
 
 const userManagementClient = new Client({
-  userManagementHost: 'http://usermanagementloadbalancer-461184073.us-west-1.elb.amazonaws.com/',
+  userManagementHost: userManagementServer,
 })
 
 export default userManagementClient

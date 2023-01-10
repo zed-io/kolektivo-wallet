@@ -16,8 +16,7 @@ public class CapsuleSignerModule extends ReactContextBaseJavaModule {
   static final String TAG = "CapsuleSignerModule";
 
   String ids = "[\"USER\",\"CAPSULE\",\"RECOVERY\"]";
-  int threshold = 2;
-  String serverUrl = "http://mpcnetworkloadbalancer-348316826.us-west-1.elb.amazonaws.com";
+  String serverUrl;
   String configBase =
     "{\"ServerUrl\": \"%s\", \"WalletId\": \"%s\", \"Id\":\"%s\", \"Ids\":%s, \"Threshold\":1}";
 
@@ -28,6 +27,11 @@ public class CapsuleSignerModule extends ReactContextBaseJavaModule {
   @Override
   public String getName() {
     return "CapsuleSignerModule";
+  }
+
+  @ReactMethod
+  public void setServerUrl(String serverUrl) {
+    this.serverUrl = serverUrl;
   }
 
   /**
