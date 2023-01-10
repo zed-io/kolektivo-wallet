@@ -1,8 +1,9 @@
-import { PrivateKeyStorage, PrivateKeyStorageReactNative } from '../PrivateKeyStorage'
+import { PrivateKeyStorage } from '../PrivateKeyStorage'
 import { CapsuleBaseSigner } from '../CapsuleSigner'
+import { ReactNativePrivateKeyStorage } from './ReactNativePrivateKeyStorage'
 
 export class ReactNativeCapsuleSigner extends CapsuleBaseSigner {
   protected getPrivateKeyStorage(account: string): PrivateKeyStorage {
-    return new PrivateKeyStorageReactNative(account)
+    return new ReactNativePrivateKeyStorage(account)
   }
 }
