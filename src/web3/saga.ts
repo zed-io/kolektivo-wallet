@@ -13,7 +13,7 @@ import { GethEvents, NetworkEvents, SettingsEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { ErrorMessages } from 'src/app/ErrorMessages'
 import { getMnemonicLanguage, storeCapsuleKeyShare, storeMnemonic } from 'src/backup/utils'
-import { CapsuleWallet, USER_ID_TAG } from 'src/capsule/CapsuleWallet'
+import { CapsuleWallet } from 'src/capsule/react-native/ReactNativeCapsuleWallet'
 import { features } from 'src/flags'
 import { cancelGethSaga } from 'src/geth/actions'
 import { UNLOCK_DURATION } from 'src/geth/consts'
@@ -53,6 +53,7 @@ import { RootState } from '../redux/reducers'
 import userManagementClient from '../capsule/UserManagementClient'
 import { v4 as uuidv4 } from 'uuid'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { USER_ID_TAG } from '../capsule/react-native/ReactNativeCapsuleWallet'
 
 const TAG = 'web3/saga'
 
@@ -309,6 +310,7 @@ async function createFakeAccount() {
   const { userId } = await userManagementClient.createUser({
     email: `test-${uuidv4()}@test.usecapsule.com`,
   })
+  console.log('MMMMM')
   Logger.debug('userId', userId)
   await AsyncStorage.setItem(USER_ID_TAG, userId)
 
@@ -326,7 +328,9 @@ export function* createAndAssignCapsuleAccount() {
     let account = ''
     try {
       yield call([wallet, wallet.initBiometrics])
-      account = yield call([wallet, wallet.addAccount])
+      account = yield call([wallet, wallet.addAccount], undefined, (recoveryKeyshare) =>
+        Logger.info(`RECOVERY: ${recoveryKeyshare}`)
+      )
       void wallet.getKeyshare(account).then((privateKeyShare) => {
         void storeCapsuleKeyShare(privateKeyShare, account)
       })
