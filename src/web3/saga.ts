@@ -310,7 +310,6 @@ async function createFakeAccount() {
   const { userId } = await userManagementClient.createUser({
     email: `test-${uuidv4()}@test.usecapsule.com`,
   })
-  console.log('MMMMM')
   Logger.debug('userId', userId)
   await AsyncStorage.setItem(USER_ID_TAG, userId)
 
