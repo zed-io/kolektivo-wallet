@@ -28,9 +28,8 @@ static NSString *ids = @"[\"USER\",\"CAPSULE\",\"RECOVERY\"]";
 
 RCT_EXPORT_MODULE();
 
-- (void) setServerUrl: (NSString *) serverUrl {
+RCT_EXPORT_METHOD(setServerUrl: (NSString *) serverUrl) {
   _serverUrl = serverUrl;
-  
 }
 
 // Get Address
