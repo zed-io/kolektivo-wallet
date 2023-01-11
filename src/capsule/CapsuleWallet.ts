@@ -6,9 +6,9 @@ import * as ethUtil from 'ethereumjs-util'
 import { ErrorMessages } from 'src/app/ErrorMessages'
 import { CapsuleBaseSigner } from 'src/capsule/CapsuleSigner'
 import Logger from 'src/utils/Logger'
-import { SignersStorage } from './SignersStorage'
-import { ChallengeStorage } from './ChallengeStorage'
 import BiometricSessionManager from './BiometricSessionManager'
+import { ChallengeStorage } from './ChallengeStorage'
+import { SignersStorage } from './SignersStorage'
 
 const TAG = 'geth/CapsuleWallet'
 
@@ -20,12 +20,12 @@ export abstract class CapsuleBaseWallet
 
   // ------------- Platform-specific functionalities -------------
   /**
-   * get instance of persistent storage for signers
+   * Get instance of persistent storage for signers
    * @protected
    */
   protected abstract getSignersStorage(): SignersStorage
   /**
-   * get signer instance from the userId and
+   * Get signer instance from the userId
    * @param userId
    * @param ensureSessionActive helper to use by signer if the session is expired
    * @protected
@@ -36,7 +36,7 @@ export abstract class CapsuleBaseWallet
   ): CapsuleBaseSigner
 
   /**
-   * get storage instance for persisting biometrics and signing messages.
+   * Get storage instance for persisting biometrics and signing messages.
    * @param userId
    * @protected
    */
