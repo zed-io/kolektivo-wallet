@@ -6,9 +6,9 @@ import * as ethUtil from 'ethereumjs-util'
 import { ErrorMessages } from 'src/app/ErrorMessages'
 import { CapsuleBaseSigner } from 'src/capsule/CapsuleSigner'
 import Logger from 'src/utils/Logger'
-import { SignersStorage } from './SignersStorage'
-import { ChallengeStorage } from './ChallengeStorage'
 import BiometricSessionManager from './BiometricSessionManager'
+import { ChallengeStorage } from './ChallengeStorage'
+import { SignersStorage } from './SignersStorage'
 
 const TAG = 'geth/CapsuleWallet'
 
