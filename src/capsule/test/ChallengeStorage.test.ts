@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Logger from '../../utils/Logger'
 import crypto from 'crypto'
 import elliptic from 'elliptic'
-import { ReactNativeChallengeStorage } from '../react-native/ReactNativeChallengeStorage'
+import { ReactNativeSessionStorage } from '../react-native/ReactNativeSessionStorage'
 const ecl = new elliptic.ec('p256')
 
 const completeFlowWithServer = async () => {
@@ -15,14 +15,16 @@ const completeFlowWithServer = async () => {
     email: `test-${uuidv4()}@test.usecapsule.com`,
   })
   await userManagementClient.verifyEmail(userId, { verificationCode: '123456' })
-  const storage = new ReactNativeChallengeStorage(userId)
+  const storage = new ReactNativeSessionStorage(userId)
 
-  await userManagementClient.addBiometrics(userId, { publicKey: await storage.getPublicKey() })
-  const challenge = await userManagementClient.getBiometricsChallenge(userId)
+  await userManagementClient.addSessionPublicKey(userId, {
+    publicKey: await storage.getPublicKey(),
+  })
+  const challenge = await userManagementClient.getSessionChallenge(userId)
   const message = challenge.data.challenge
   const signature = await storage.signChallenge(message)
 
-  const res = await userManagementClient.verifyBiometricsChallenge(userId, {
+  const res = await userManagementClient.verifySessionChallenge(userId, {
     signature,
   })
   if (res.status === 200) {
@@ -33,9 +35,9 @@ const completeFlowWithServer = async () => {
 }
 
 const completeFlowOffline = async () => {
-  const storage = new ReactNativeChallengeStorage('123')
+  const storage = new ReactNativeSessionStorage('123')
   const message = '1d52c368-d91c-46f4-b449-fa142c8b812d'
-  void (await storage.getPublicKey()) // we cannot sign without biometric initialized.
+  void (await storage.getPublicKey()) // we cannot sign without session key initialized.
   const signature = await storage.signChallenge(message)
   const publicKeyHex = await storage.getPublicKey()
   const publicKey = ecl.keyFromPublic(publicKeyHex, 'hex')
