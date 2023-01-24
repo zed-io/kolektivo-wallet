@@ -701,11 +701,9 @@ export function MainStackScreen() {
       initialRoute = Screens.Language
     } else if (!name || !acceptedTerms || pincodeType === PincodeType.Unset) {
       // User didn't go far enough in onboarding, start again from education
-      initialRoute = Screens.OnboardingEducationScreen
+      initialRoute = Screens.CapsuleOAuth
     } else if (!account) {
-      initialRoute = choseToRestoreAccount
-        ? Screens.ImportWallet
-        : Screens.OnboardingEducationScreen
+      initialRoute = choseToRestoreAccount ? Screens.ImportWallet : Screens.CapsuleOAuth
     } else if (!hasSeenVerificationNux) {
       initialRoute = Screens.VerificationEducationScreen
     } else {

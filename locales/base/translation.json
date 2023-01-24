@@ -1365,5 +1365,8 @@
   "foodForestDetails": {
     "area": "{{area}} m²",
     "age": "{{years}} years {{months}} months {{days}} days"
-  }
+  },
+  "email": "E-mail",
+  "password": "Password",
+  "password2": "Confirm Password"
 }
