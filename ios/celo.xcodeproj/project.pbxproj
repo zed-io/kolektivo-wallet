@@ -106,7 +106,7 @@
 		52986FC436824EF4ACA173A6 /* Kaleko105HeavyOblique.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kaleko105HeavyOblique.ttf; path = ../fonts/Kaleko105HeavyOblique.ttf; sourceTree = "<group>"; };
 		542981E56D26EC8415ABBA8B /* Pods_celo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_celo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		552D44B34D6F40AC8FCE6DD7 /* Kaleko105LightOblique.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kaleko105LightOblique.ttf; path = ../fonts/Kaleko105LightOblique.ttf; sourceTree = "<group>"; };
-		66E52F1D294A014000AAA1B6 /* signer.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = signer.xcframework; path = "../../go-sdk/signer/signer.xcframework"; sourceTree = "<group>"; };
+		66E52F1D294A014000AAA1B6 /* signer.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = signer.xcframework; path = "../go-sdk/signer/signer.xcframework"; sourceTree = "<group>"; };
 		66E52F1F294A03E500AAA1B6 /* CapsuleSignerModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CapsuleSignerModule.h; sourceTree = "<group>"; };
 		66E52F20294A041B00AAA1B6 /* CapsuleSignerModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CapsuleSignerModule.m; sourceTree = "<group>"; };
 		6844FCD42570513C0057A74F /* QBImagePicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = QBImagePicker.storyboard; path = "../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePicker/QBImagePicker.storyboard"; sourceTree = "<group>"; };
@@ -742,9 +742,9 @@
 				"${BUILT_PRODUCTS_DIR}/react-native-camera/react_native_camera.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-config/react_native_config.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-contacts/react_native_contacts.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-device-crypto/react_native_device_crypto.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-fast-crypto/react_native_fast_crypto.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-geolocation/react_native_geolocation.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-geth/react_native_geth.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-html-to-pdf/react_native_html_to_pdf.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-keep-awake/react_native_keep_awake.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-mail/react_native_mail.framework",
@@ -854,9 +854,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_camera.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_config.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_contacts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_device_crypto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_fast_crypto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_geolocation.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_geth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_html_to_pdf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_keep_awake.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_mail.framework",
