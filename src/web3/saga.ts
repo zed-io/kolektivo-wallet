@@ -12,7 +12,8 @@ import { showError } from 'src/alert/actions'
 import { GethEvents, NetworkEvents, SettingsEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { ErrorMessages } from 'src/app/ErrorMessages'
-import { getMnemonicLanguage, storeMnemonic } from 'src/backup/utils'
+import { getMnemonicLanguage, storeCapsuleKeyShare, storeMnemonic } from 'src/backup/utils'
+import { CapsuleWallet } from 'src/capsule/react-native/ReactNativeCapsuleWallet'
 import { features } from 'src/flags'
 import { cancelGethSaga } from 'src/geth/actions'
 import { UNLOCK_DURATION } from 'src/geth/consts'
@@ -49,6 +50,10 @@ import {
 } from 'src/web3/selectors'
 import { blockIsFresh, getLatestBlock } from 'src/web3/utils'
 import { RootState } from '../redux/reducers'
+import { v4 as uuidv4 } from 'uuid'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { USER_ID_TAG } from '../capsule/react-native/ReactNativeCapsuleWallet'
+import { createUser, verifyEmail } from '../capsule/helpers'
 
 const TAG = 'web3/saga'
 
@@ -167,6 +172,47 @@ export function* waitWeb3LastBlock() {
   }
 }
 
+export function* getOrCreateCapsuleAccount() {
+  // TODO
+  // const account: string = yield select(currentAccountSelector)
+  // if (account) {
+  //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Account exists, loading keyshare')
+  //   let privateKeyShare: string | null = ''
+  //   privateKeyShare = yield call(getStoredCapsuleKeyShare, account)
+  //   if (privateKeyShare != null) {
+  //     const wallet: CapsuleWallet = yield call(getWallet)
+  //     try {
+  //       yield call([wallet, wallet.addAccount, privateKeyShare])
+  //     } catch (e) {
+  //       if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
+  //         Logger.warn(TAG + '@createAndAssignCapsuleAccount', 'Attempted to import same account')
+  //       } else {
+  //         Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error importing raw key')
+  //         throw e
+  //       }
+  //     }
+  //   }
+
+  //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Loaded keyshare')
+  //   return account
+  // }
+
+  try {
+    Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Creating a new account')
+
+    // TODO need to first write public address getter in sdk
+    const accountAddress: string = yield call(createAndAssignCapsuleAccount)
+    if (!accountAddress) {
+      throw new Error('Failed to assign account from key share')
+    }
+
+    return accountAddress
+  } catch (error) {
+    Logger.error(TAG + '@getOrCreateAccount', 'Error creating account')
+    throw new Error(ErrorMessages.ACCOUNT_SETUP_FAILED)
+  }
+}
+
 export function* getOrCreateAccount() {
   const account: string = yield select(currentAccountSelector)
   if (account) {
@@ -254,6 +300,56 @@ export function* assignAccountFromPrivateKey(privateKey: string, mnemonic: strin
     return account
   } catch (e) {
     Logger.error(TAG + '@assignAccountFromPrivateKey', 'Error assigning account', e)
+    throw e
+  }
+}
+
+// TODO
+// That should be replace with a real flow to input the email and verify
+async function createFakeAccount() {
+  const { userId } = await createUser({
+    email: `test-${uuidv4()}@test.usecapsule.com`,
+  })
+  Logger.debug('userId', userId)
+  await AsyncStorage.setItem(USER_ID_TAG, userId)
+
+  // That is a workaround to simulate verification of test users
+  await verifyEmail(userId, { verificationCode: '123456' })
+  Logger.debug('Verified!')
+}
+
+export function* createAndAssignCapsuleAccount() {
+  try {
+    yield call(createFakeAccount)
+    Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Attempting to create wallet')
+    const wallet: CapsuleWallet = yield call(getWallet)
+    Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Got wallet')
+    let account = ''
+    try {
+      yield call([wallet, wallet.initSessionManagement])
+      account = yield call([wallet, wallet.addAccount], undefined, (recoveryKeyshare) =>
+        // TODO: send it e.g., via e-mail to the user
+        Logger.info(`RECOVERY: ${recoveryKeyshare}`)
+      )
+      void wallet.getKeyshare(account).then((privateKeyShare) => {
+        void storeCapsuleKeyShare(privateKeyShare, account)
+      })
+    } catch (e) {
+      if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
+        Logger.warn(TAG + '@createAndAssignCapsuleAccount', 'Attempted to import same account')
+      } else {
+        Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error importing raw key')
+        throw e
+      }
+    }
+
+    Logger.debug(TAG + '@createAndAssignCapsuleAccount', `Added to wallet: ${account}`)
+    yield put(setAccount(account))
+    yield put(setAccountCreationTime(Date.now()))
+    // yield call(createAccountDek, mnemonic)
+    return account
+  } catch (e) {
+    Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error assigning account', e)
     throw e
   }
 }
