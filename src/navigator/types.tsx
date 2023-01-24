@@ -95,6 +95,7 @@ export type StackParamList = {
   [Screens.BidaliScreen]: { currency?: Currency }
   [Screens.CashInSuccess]: { provider?: string }
   [Screens.CapsuleOAuth]: { isExistingUser?: boolean }
+  [Screens.CapsuleEmailVerification]: undefined
   [Screens.ConsumerIncentivesHomeScreen]: undefined
   [Screens.DappKitAccountAuth]: {
     dappKitRequest: AccountAuthRequest

@@ -29,6 +29,7 @@ import BackupComplete from 'src/backup/BackupComplete'
 import BackupForceScreen from 'src/backup/BackupForceScreen'
 import BackupPhrase, { navOptionsForBackupPhrase } from 'src/backup/BackupPhrase'
 import BackupQuiz, { navOptionsForQuiz } from 'src/backup/BackupQuiz'
+import CapsuleEmailVerificationScreen from 'src/CapsuleEmailVerificationScreen'
 import BackButton from 'src/components/BackButton'
 import CancelButton from 'src/components/CancelButton'
 import ConsumerIncentivesHomeScreen from 'src/consumerIncentives/ConsumerIncentivesHomeScreen'
@@ -301,6 +302,11 @@ const nuxScreens = (Navigator: typeof Stack) => (
       name={Screens.CapsuleOAuth}
       component={CapsuleOAuthScreen}
       options={CapsuleOAuthScreen.navigationOptions}
+    />
+    <Navigator.Screen
+      name={Screens.CapsuleEmailVerification}
+      component={CapsuleEmailVerificationScreen}
+      options={CapsuleEmailVerificationScreen.navigationOptions}
     />
   </>
 )

@@ -12,6 +12,7 @@ export enum Screens {
   BidaliScreen = 'BidaliScreen',
   CashInSuccess = 'CashInSuccess',
   CapsuleOAuth = 'CapsuleOAuth',
+  CapsuleEmailVerification = 'CapsuleEmailVerification',
   ConnectPhoneNumberScreen = 'ConnectPhoneNumberScreen',
   ConsumerIncentivesHomeScreen = 'ConsumerIncentivesHomeScreen',
   DappKitAccountAuth = 'DappKitAccountAuth',
