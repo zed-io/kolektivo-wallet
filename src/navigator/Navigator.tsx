@@ -6,6 +6,7 @@ import SplashScreen from 'react-native-splash-screen'
 import AccountKeyEducation from 'src/account/AccountKeyEducation'
 import AccounSetupFailureScreen from 'src/account/AccountSetupFailureScreen'
 import BankAccounts from 'src/account/BankAccounts'
+import CapsuleOAuthScreen from 'src/account/CapsuleOAuthScreen'
 import ConnectPhoneNumberScreen from 'src/account/ConnectPhoneNumberScreen'
 import GoldEducation from 'src/account/GoldEducation'
 import Licenses from 'src/account/Licenses'
@@ -295,6 +296,11 @@ const nuxScreens = (Navigator: typeof Stack) => (
       name={Screens.OnboardingSuccessScreen}
       component={OnboardingSuccessScreen}
       options={OnboardingSuccessScreen.navigationOptions}
+    />
+    <Navigator.Screen
+      name={Screens.CapsuleOAuth}
+      component={CapsuleOAuthScreen}
+      options={CapsuleOAuthScreen.navigationOptions}
     />
   </>
 )
