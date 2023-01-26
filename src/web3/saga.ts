@@ -50,10 +50,6 @@ import {
 } from 'src/web3/selectors'
 import { blockIsFresh, getLatestBlock } from 'src/web3/utils'
 import { RootState } from '../redux/reducers'
-import { v4 as uuidv4 } from 'uuid'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { USER_ID_TAG } from '../capsule/react-native/ReactNativeCapsuleWallet'
-import { createUser, verifyEmail } from '../capsule/helpers'
 
 const TAG = 'web3/saga'
 
@@ -304,23 +300,8 @@ export function* assignAccountFromPrivateKey(privateKey: string, mnemonic: strin
   }
 }
 
-// TODO
-// That should be replace with a real flow to input the email and verify
-async function createFakeAccount() {
-  const { userId } = await createUser({
-    email: `test-${uuidv4()}@test.usecapsule.com`,
-  })
-  Logger.debug('userId', userId)
-  await AsyncStorage.setItem(USER_ID_TAG, userId)
-
-  // That is a workaround to simulate verification of test users
-  await verifyEmail(userId, { verificationCode: '123456' })
-  Logger.debug('Verified!')
-}
-
 export function* createAndAssignCapsuleAccount() {
   try {
-    yield call(createFakeAccount)
     Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Attempting to create wallet')
     const wallet: CapsuleWallet = yield call(getWallet)
     Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Got wallet')

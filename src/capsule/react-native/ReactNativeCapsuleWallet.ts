@@ -1,11 +1,11 @@
+import { store } from 'src/redux/store'
 import { CapsuleBaseSigner } from '../CapsuleSigner'
-import { SignersStorage } from '../SignersStorage'
-import { SessionStorage } from '../SessionStorage'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CapsuleBaseWallet } from '../CapsuleWallet'
+import { SessionStorage } from '../SessionStorage'
+import { SignersStorage } from '../SignersStorage'
 import { ReactNativeCapsuleSigner } from './ReactNativeCapsuleSigner'
-import { ReactNativeSignersStorage } from './ReactNativeSignersStorage'
 import { ReactNativeSessionStorage } from './ReactNativeSessionStorage'
+import { ReactNativeSignersStorage } from './ReactNativeSignersStorage'
 
 export const USER_ID_TAG = '@CAPSULE/USER_ID'
 
@@ -23,7 +23,7 @@ export class ReactNativeCapsuleWallet extends CapsuleBaseWallet {
   }
 
   async getUserId(): Promise<string> {
-    return (await AsyncStorage.getItem(USER_ID_TAG)) as string
+    return store.getState().web3.capsuleAccountId as string
   }
 }
 
