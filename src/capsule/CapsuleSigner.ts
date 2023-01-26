@@ -5,7 +5,7 @@ import { EIP712TypedData, generateTypedDataHash } from '@celo/utils/lib/sign-typ
 import { encodeTransaction, extractSignature, rlpEncodedTx } from '@celo/wallet-base'
 import * as ethUtil from 'ethereumjs-util'
 import { fromRpcSig } from 'ethereumjs-util'
-import { Logger } from 'Logger'
+import { Logger } from './Logger'
 import { NativeModules } from 'react-native'
 import { base64ToHex, hexToBase64 } from './helpers'
 import { PrivateKeyStorage } from './PrivateKeyStorage'
@@ -70,13 +70,11 @@ export abstract class CapsuleBaseSigner implements Signer {
     this.keyshareStorage = this.getPrivateKeyStorage(this.account)
     try {
       await this.keyshareStorage.setPrivateKey(keyshare)
-    }
-    catch (error) {
+    } catch (error) {
       if (error instanceof Error) {
-        this.logger?.error(TAG, "Failed to set keyshare", error)
-      }
-      else {
-        this.logger?.error(TAG, "Unexpected error in storing keyshare")
+        this.logger?.error(TAG, 'Failed to set keyshare', error)
+      } else {
+        this.logger?.error(TAG, 'Unexpected error in storing keyshare')
       }
       throw error
     }
@@ -101,13 +99,11 @@ export abstract class CapsuleBaseSigner implements Signer {
   public async getKeyshare(): Promise<string | null | undefined> {
     try {
       return await this.keyshareStorage?.getPrivateKey()
-    }
-    catch (error) {
+    } catch (error) {
       if (error instanceof Error) {
-        this.logger?.error(TAG, "Failed to get keyshare", error)
-      }
-      else {
-        this.logger?.error(TAG, "Unexpected error in retreiving keyshare")
+        this.logger?.error(TAG, 'Failed to get keyshare', error)
+      } else {
+        this.logger?.error(TAG, 'Unexpected error in retreiving keyshare')
       }
       return undefined
     }

@@ -3,13 +3,13 @@ import { EIP712TypedData } from '@celo/utils/lib/sign-typed-data-utils'
 import { UnlockableWallet } from '@celo/wallet-base'
 import { RemoteWallet } from '@celo/wallet-remote'
 import * as ethUtil from 'ethereumjs-util'
-import { ErrorMessages } from 'ErrorMessages'
-import { CapsuleBaseSigner } from 'CapsuleSigner'
+import { ErrorMessages } from './ErrorMessages'
+import { CapsuleBaseSigner } from './CapsuleSigner'
 import { SignersStorage } from './SignersStorage'
 import { SessionStorage } from './SessionStorage'
 import SessionManager from './SessionManager'
-import { ConsoleLogger } from 'Logger'
-import { DEBUG_MODE_ENABLED } from 'config'
+import { ConsoleLogger } from './Logger'
+import { DEBUG_MODE_ENABLED } from './config'
 
 const TAG = 'geth/CapsuleWallet'
 
@@ -125,6 +125,7 @@ export abstract class CapsuleBaseWallet
    * @dev overrides WalletBase.signTypedData
    */
   public async signTypedData(address: string, typedData: EIP712TypedData): Promise<string> {
+    this.getAccounts()
     this.logger?.info(
       `${TAG}@signTypedData`,
       `Signing typed DATA: ${JSON.stringify({ address, typedData })}`
