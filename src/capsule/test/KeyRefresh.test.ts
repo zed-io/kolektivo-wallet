@@ -20,7 +20,7 @@ const keyRefreshFlow = async () => {
     recoveryShare = share
   })
 
-  const userShare = wallet.getKeyshare(address)
+  const userShare = await wallet.getKeyshare(address)
 
   let newRecoveryShare = ''
 
@@ -28,7 +28,7 @@ const keyRefreshFlow = async () => {
     newRecoveryShare = share
   })
 
-  const newUserShare = wallet.getKeyshare(address)
+  const newUserShare = await wallet.getKeyshare(address)
 
   if (
     userShare !== newUserShare &&
