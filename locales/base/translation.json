@@ -1366,7 +1366,14 @@
     "area": "{{area}} m²",
     "age": "{{years}} years {{months}} months {{days}} days"
   },
-  "email": "E-mail",
-  "password": "Password",
-  "password2": "Confirm Password"
+  "signUp": {
+    "emailLabel": "What's your email?",
+    "emailPlaceholder": "john@kolektivo.cw",
+    "initialPrompt": "To get started, please enter your email address and we'll send you a one-time passcode to verify your account and secure your financial information.",
+    "whatsNext": "Once you've entered your email, we'll send a one-time passcode to your email. Enter that passcode in the next screen to verify your account, secure your financial information, and start making payments.",
+    "verifyLabel": "What's your secret code?",
+    "verifyPlaceholder": "123456",
+    "verifyInfo": "We've sent a one-time passcode to your email. Enter that passcode here to verify your account and secure your financial data.",
+    "resend": "Resend"
+  }
 }

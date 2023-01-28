@@ -6,6 +6,7 @@ import SplashScreen from 'react-native-splash-screen'
 import AccountKeyEducation from 'src/account/AccountKeyEducation'
 import AccounSetupFailureScreen from 'src/account/AccountSetupFailureScreen'
 import BankAccounts from 'src/account/BankAccounts'
+import CapsuleEmailVerificationScreen from 'src/account/CapsuleEmailVerificationScreen'
 import CapsuleOAuthScreen from 'src/account/CapsuleOAuthScreen'
 import ConnectPhoneNumberScreen from 'src/account/ConnectPhoneNumberScreen'
 import GoldEducation from 'src/account/GoldEducation'
@@ -29,7 +30,6 @@ import BackupComplete from 'src/backup/BackupComplete'
 import BackupForceScreen from 'src/backup/BackupForceScreen'
 import BackupPhrase, { navOptionsForBackupPhrase } from 'src/backup/BackupPhrase'
 import BackupQuiz, { navOptionsForQuiz } from 'src/backup/BackupQuiz'
-import CapsuleEmailVerificationScreen from 'src/account/CapsuleEmailVerificationScreen'
 import BackButton from 'src/components/BackButton'
 import CancelButton from 'src/components/CancelButton'
 import ConsumerIncentivesHomeScreen from 'src/consumerIncentives/ConsumerIncentivesHomeScreen'
@@ -701,7 +701,7 @@ export function MainStackScreen() {
       initialRoute = Screens.Language
     } else if (!name || !acceptedTerms || pincodeType === PincodeType.Unset) {
       // User didn't go far enough in onboarding, start again from education
-      initialRoute = Screens.CapsuleOAuth
+      initialRoute = Screens.OnboardingEducationScreen
     } else if (!account) {
       initialRoute = choseToRestoreAccount ? Screens.ImportWallet : Screens.CapsuleOAuth
     } else if (!hasSeenVerificationNux) {

@@ -12,30 +12,33 @@ export const useCapsule = () => {
   const dispatch = useDispatch()
   const capsuleAccountId = useSelector(capsuleAccountSelector)
 
-  const authenticate = async (email: string): Promise<void> => {
+  const authenticateWithCapsule = async (email: string): Promise<void> => {
+    Logger.debug(TAG, '@authenticateWithCapsule', 'Initiate auth', email)
     try {
       const { userId } = await createUser({ email })
       if (userId) {
+        Logger.debug(TAG, '@authenticateWithCapsule', 'User Id', userId)
         dispatch(initiateCapsuleAuth(userId, false))
-        // @todo Navigate to email verification
+        navigate(Screens.CapsuleEmailVerification)
       }
     } catch (error) {
-      Logger.error(TAG, '@authenticate', error as any)
+      Logger.error(TAG, '@authenticateWithCapsule', error as any)
     }
   }
 
-  const verify = async (code: string): Promise<void> => {
+  const verifyWithCapsule = async (code: string): Promise<void> => {
+    Logger.debug(TAG, '@verifyWithCapsule', 'Payload', JSON.stringify({ capsuleAccountId, code }))
     try {
       if (capsuleAccountId) {
         const response = await verifyEmail(capsuleAccountId, { verificationCode: code })
-        Logger.debug(TAG, '@verify', 'response', JSON.stringify(response))
+        Logger.debug(TAG, '@verifyWithCapsule', 'response', JSON.stringify(response))
         dispatch(initiateCapsuleAuth(capsuleAccountId, true))
-        navigate(Screens.NameAndPicture)
+        // navigate(Screens.NameAndPicture)
       }
     } catch (error) {
-      Logger.error(TAG, '@verify', error as any)
+      Logger.error(TAG, '@verifyWithCapsule', error as any)
     }
   }
 
-  return [authenticate, verify]
+  return { authenticateWithCapsule, verifyWithCapsule }
 }
