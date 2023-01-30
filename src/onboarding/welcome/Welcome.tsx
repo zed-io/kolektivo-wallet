@@ -26,7 +26,7 @@ export default function Welcome() {
 
   const navigateNext = ({ isExistingUser }: { isExistingUser: boolean }) => {
     if (!acceptedTerms) {
-      navigate(Screens.RegulatoryTerms)
+      navigate(Screens.RegulatoryTerms, { isExistingUser })
     } else {
       navigate(Screens.CapsuleOAuth, { isExistingUser })
     }

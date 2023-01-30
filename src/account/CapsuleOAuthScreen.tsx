@@ -1,16 +1,19 @@
 // @ts-nocheck
 import { StackScreenProps, useHeaderHeight } from '@react-navigation/stack'
 import React, { useLayoutEffect, useState } from 'react'
+import { useAsync } from 'react-async-hook'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useDispatch } from 'react-redux'
+import { initializeAccount } from 'src/account/actions'
 import BackButton from 'src/components/BackButton'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import Logo, { LogoTypes } from 'src/icons/Logo'
 import { nuxNavigationOptions } from 'src/navigator/Headers'
 import { Screens } from 'src/navigator/Screens'
 import { StackParamList } from 'src/navigator/types'
+import { waitUntilSagasFinishLoading } from 'src/redux/sagas'
 import Colors from 'src/styles/colors'
 import fontStyles from 'src/styles/fonts'
 import { useCapsule } from 'src/web3/hooks'
@@ -43,6 +46,11 @@ function CapsuleOAuthScreen({ route, navigation }: Props) {
       headerLeft: () => <BackButton color={Colors.light} />,
     })
   }, [navigation, route.params])
+
+  useAsync(async () => {
+    await waitUntilSagasFinishLoading()
+    dispatch(initializeAccount())
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>

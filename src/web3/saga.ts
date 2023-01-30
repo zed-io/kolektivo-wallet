@@ -170,42 +170,46 @@ export function* waitWeb3LastBlock() {
 
 export function* getOrCreateCapsuleAccount() {
   // TODO
-  // const account: string = yield select(currentAccountSelector)
-  // if (account) {
-  //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Account exists, loading keyshare')
-  //   let privateKeyShare: string | null = ''
-  //   privateKeyShare = yield call(getStoredCapsuleKeyShare, account)
-  //   if (privateKeyShare != null) {
-  //     const wallet: CapsuleWallet = yield call(getWallet)
-  //     try {
-  //       yield call([wallet, wallet.addAccount, privateKeyShare])
-  //     } catch (e) {
-  //       if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
-  //         Logger.warn(TAG + '@createAndAssignCapsuleAccount', 'Attempted to import same account')
-  //       } else {
-  //         Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error importing raw key')
-  //         throw e
-  //       }
-  //     }
-  //   }
-
-  //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Loaded keyshare')
-  //   return account
-  // }
-
-  try {
-    Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Creating a new account')
-
-    // TODO need to first write public address getter in sdk
-    const accountAddress: string = yield call(createAndAssignCapsuleAccount)
-    if (!accountAddress) {
-      throw new Error('Failed to assign account from key share')
+  // @note Account already exists
+  const account: string = yield select(currentAccountSelector)
+  if (account) {
+    //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Account exists, loading keyshare')
+    //   let privateKeyShare: string | null = ''
+    //   privateKeyShare = yield call(getStoredCapsuleKeyShare, account)
+    //   if (privateKeyShare != null) {
+    //     const wallet: CapsuleWallet = yield call(getWallet)
+    //     try {
+    //       yield call([wallet, wallet.addAccount, privateKeyShare])
+    //     } catch (e) {
+    //       if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
+    //         Logger.warn(TAG + '@createAndAssignCapsuleAccount', 'Attempted to import same account')
+    //       } else {
+    //         Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error importing raw key')
+    //         throw e
+    //       }
+    //     }
+    //   }
+    //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Loaded keyshare')
+    //   return account
+  } else {
+    // @note Account does not exist, needs to be set up
+    let hasLoggedIn: boolean = false
+    while (!hasLoggedIn) {
+      Logger.debug(TAG, '@getOrCreateCapsuleAccount', 'Waiting on Capsule SDK Authentication')
+      const { verified } = yield take(Actions.CAPSULE_AUTHENTICATE)
+      hasLoggedIn = verified
     }
-
-    return accountAddress
-  } catch (error) {
-    Logger.error(TAG + '@getOrCreateAccount', 'Error creating account')
-    throw new Error(ErrorMessages.ACCOUNT_SETUP_FAILED)
+    try {
+      Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Creating a new account')
+      const accountAddress: string = yield call(createAndAssignCapsuleAccount)
+      if (!accountAddress) {
+        throw new Error('Failed to assign account from key share')
+      }
+      return accountAddress
+    } catch (error) {
+      Logger.error(TAG + '@getOrCreateAccount', 'Error creating account')
+      throw new Error(ErrorMessages.ACCOUNT_SETUP_FAILED)
+    }
   }
 }
 
@@ -304,8 +308,8 @@ export function* createAndAssignCapsuleAccount() {
   try {
     Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Attempting to create wallet')
     const wallet: CapsuleWallet = yield call(getWallet)
-    Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Got wallet')
-    let account = ''
+    Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Capsule Wallet initialized')
+    let account: string
     try {
       yield call([wallet, wallet.initSessionManagement])
       account = yield call([wallet, wallet.addAccount], undefined, (recoveryKeyshare) =>
@@ -315,7 +319,12 @@ export function* createAndAssignCapsuleAccount() {
       void wallet.getKeyshare(account).then((privateKeyShare) => {
         void storeCapsuleKeyShare(privateKeyShare, account)
       })
-    } catch (e) {
+      Logger.debug(TAG + '@createAndAssignCapsuleAccount', `Added to wallet: ${account}`)
+      yield put(setAccount(account))
+      yield put(setAccountCreationTime(Date.now()))
+      // yield call(createAccountDek, mnemonic)
+      return account
+    } catch (e: any) {
       if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
         Logger.warn(TAG + '@createAndAssignCapsuleAccount', 'Attempted to import same account')
       } else {
@@ -323,12 +332,6 @@ export function* createAndAssignCapsuleAccount() {
         throw e
       }
     }
-
-    Logger.debug(TAG + '@createAndAssignCapsuleAccount', `Added to wallet: ${account}`)
-    yield put(setAccount(account))
-    yield put(setAccountCreationTime(Date.now()))
-    // yield call(createAccountDek, mnemonic)
-    return account
   } catch (e) {
     Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error assigning account', e)
     throw e
