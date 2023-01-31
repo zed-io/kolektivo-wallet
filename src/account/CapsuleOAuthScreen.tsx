@@ -56,11 +56,7 @@ function CapsuleOAuthScreen({ route, navigation }: Props) {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior="padding"
-        style={[
-          headerHeight ? { marginTop: headerHeight } : undefined,
-          styles.accessibleView,
-          insets && { marginBottom: insets.bottom },
-        ]}
+        style={[headerHeight ? { marginTop: headerHeight } : undefined, styles.accessibleView]}
       >
         <View style={styles.inputGroup}>
           <Text style={styles.emailLabel}>{t('signUp.emailLabel')}</Text>
@@ -75,12 +71,14 @@ function CapsuleOAuthScreen({ route, navigation }: Props) {
             onChangeText={onChangeEmail}
           />
         </View>
-        <Button
-          type={BtnTypes.BRAND_PRIMARY}
-          size={BtnSizes.FULL}
-          text={t('next')}
-          onPress={onSubmit}
-        />
+        <View style={styles.flexBottom}>
+          <Button
+            type={BtnTypes.BRAND_PRIMARY}
+            size={BtnSizes.FULL}
+            text={t('next')}
+            onPress={onSubmit}
+          />
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
@@ -99,6 +97,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexDirection: 'column',
     justifyContent: 'center',
+  },
+  flexBottom: {
+    flexGrow: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
   },
   emailLabel: {
     ...fontStyles.hero,

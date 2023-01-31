@@ -68,11 +68,7 @@ function CapsuleEmailVerificationScreen({ route, navigation }: Props) {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior="padding"
-        style={[
-          headerHeight ? { marginTop: headerHeight } : undefined,
-          styles.accessibleView,
-          insets && { marginBottom: insets.bottom },
-        ]}
+        style={[headerHeight ? { marginTop: headerHeight } : undefined, styles.accessibleView]}
       >
         <View style={styles.inputGroup}>
           <Text style={styles.verifyLabel}>{t('signUp.verifyLabel')}</Text>
