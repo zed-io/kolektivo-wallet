@@ -168,6 +168,14 @@ export function* waitWeb3LastBlock() {
   }
 }
 
+/**
+ * Get existing or create new Capsule Account using the Capsule SDK,
+ * assert that the server session is initialized.
+ *
+ * N.B. This saga will halt to create an account until the user is
+ * proves a valid login with the Capsule server by awaiting
+ * `yield take(Actions.CAPSULE_AUTHENTICATE)`.
+ */
 export function* getOrCreateCapsuleAccount() {
   // TODO
   // @note Account already exists
@@ -304,6 +312,16 @@ export function* assignAccountFromPrivateKey(privateKey: string, mnemonic: strin
   }
 }
 
+/**
+ * Initialize the in-memory wallet, and signer. This function initializes the
+ * session by registering the user's public key with the server.
+ *
+ * Once this is done, create an initial `account` address using multi-party computation
+ * from Capsule servers.
+ *
+ * N.B. When a new `account` is created, a `RECOVERY` keyshare is generated and
+ * is securely communicated to the user.
+ */
 export function* createAndAssignCapsuleAccount() {
   try {
     Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Attempting to create wallet')
