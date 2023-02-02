@@ -1,5 +1,5 @@
 import userManagementClient from '../UserManagementClient';
-import {TestCapsuleSigner} from './TestCapsuleSigner';
+import { TestCapsuleSigner } from './TestCapsuleSigner';
 import TestSignerModule from './TestSignerModule';
 
 describe('Capsule Signer tests', () => {
