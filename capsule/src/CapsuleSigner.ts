@@ -1,14 +1,10 @@
 import {
+  keyshareType,
   USER_NOT_AUTHENTICATED_ERROR,
   USER_NOT_MATCHING_ERROR,
 } from '@capsule/client';
-import { normalizeAddressWith0x } from '@celo/base/lib/address';
-import {
-  CeloTx,
-  EncodedTransaction,
-  RLPEncodedTx,
-  Signer,
-} from '@celo/connect';
+import {normalizeAddressWith0x} from '@celo/base/lib/address';
+import {CeloTx, RLPEncodedTx} from '@celo/connect';
 import {
   EIP712TypedData,
   generateTypedDataHash,
@@ -19,16 +15,15 @@ import {
   rlpEncodedTx,
 } from '@celo/wallet-base';
 import * as ethUtil from 'ethereumjs-util';
-import { fromRpcSig } from 'ethereumjs-util';
-import { logger } from './Logger';
-import { NativeModules } from 'react-native';
-import { base64ToHex, hexToBase64 } from './helpers';
-import { PrivateKeyStorage } from './PrivateKeyStorage';
+import {fromRpcSig} from 'ethereumjs-util';
+import {KeyContainer} from './KeyContainer';
+import {logger} from './Logger';
+import {base64ToHex, hexToBase64} from './helpers';
+import {PrivateKeyStorage} from './PrivateKeyStorage';
 import userManagementClient from './UserManagementClient';
+import {KeyType, SignerModule} from './SignerModule';
 
-const { CapsuleSignerModule } = NativeModules;
-
-const TAG = 'geth/CapsuleSigner';
+const TAG = 'Capsule/CapsuleSigner';
 
 /**
  * Wrapper for request to refresh cookie and retry on cookies-related failures
@@ -42,7 +37,7 @@ async function requestAndReauthenticate<T>(
   try {
     return await request();
   } catch (e: any) {
-    const { data } = e.response;
+    const {data} = e.response;
     if (
       data === USER_NOT_MATCHING_ERROR ||
       data === USER_NOT_AUTHENTICATED_ERROR
@@ -54,13 +49,8 @@ async function requestAndReauthenticate<T>(
   }
 }
 
-/**
- * Implements the signer interface using the CapsuleSignerModule
- */
-export abstract class CapsuleBaseSigner implements Signer {
-  private account: string | undefined;
+export abstract class CapsuleBaseSigner {
   private readonly userId: string;
-  private keyshareStorage: PrivateKeyStorage | undefined;
   private ensureSessionActive: () => Promise<void>;
 
   constructor(userId: string, ensureSessionActive: () => Promise<void>) {
@@ -70,88 +60,78 @@ export abstract class CapsuleBaseSigner implements Signer {
 
   // ------------- Platform-specific functionalities -------------
   /**
-   * get instance of the storage for setting and retrieving keyshare secret.
-   * @param account
+   * get the instance of the storage for setting and retrieving keyshare secret.
+   * @param address
    * @protected
    */
-  protected abstract getPrivateKeyStorage(account: string): PrivateKeyStorage;
+  protected abstract getPrivateKeyStorage(address: string): PrivateKeyStorage;
+
+  /**
+   * get the instance of the SignerModule for performing the MPC operations
+   */
+  protected abstract getSignerModule(): SignerModule;
 
   // ------------- Public methods -------------
 
-  async loadKeyshare(keyshare: string) {
-    await this.setAccount(keyshare);
-    if (!this.account) {
-      throw Error(
-        'loadKeyshare needs to be preceded with setting valid account id.'
-      );
-    }
-    this.keyshareStorage = this.getPrivateKeyStorage(this.account);
-    try {
-      await this.keyshareStorage.setPrivateKey(keyshare);
-    } catch (error) {
-      if (error instanceof Error) {
-        logger.error(TAG, 'Failed to set keyshare', error);
-      } else {
-        logger.error(TAG, 'Unexpected error in storing keyshare');
-      }
-      throw error;
-    }
-  }
-
   public async generateKeyshare(
-    onRecoveryKeyshare?: (keyshare: string) => void
+    onRecoveryKeyshare: (keyshare: string) => void
   ): Promise<string> {
     const walletInfo = await requestAndReauthenticate(
       () => userManagementClient.createWallet(this.userId),
       this.ensureSessionActive
     );
     const keyshares = await Promise.all([
-      CapsuleSignerModule.createAccount(
+      this.getSignerModule().createAccount(
         walletInfo.walletId,
         walletInfo.protocolId,
-        'USER',
+        KeyType.USER,
         this.userId
       ),
-      CapsuleSignerModule.createAccount(
+      this.getSignerModule().createAccount(
         walletInfo.walletId,
         walletInfo.protocolId,
-        'RECOVERY',
+        KeyType.RECOVERY,
         this.userId
       ),
     ]);
 
     const userPrivateKeyshare = keyshares[0];
     const recoveryPrivateKeyShare = keyshares[1];
-    onRecoveryKeyshare?.(recoveryPrivateKeyShare);
-    return userPrivateKeyshare;
+
+    return this.encryptAndUploadKeys(
+      userPrivateKeyshare,
+      recoveryPrivateKeyShare,
+      walletInfo.walletId,
+      onRecoveryKeyshare
+    );
   }
 
   public async refreshKeyshare(
-    recoveryKeyshare: string,
+    recoveryKey: string,
     address: string,
     onRecoveryKeyshare: (keyshare: string) => void
   ): Promise<string> {
-    const walletId = await this.getWallet(this.userId, address);
+    const recoveryKeyContainer = JSON.parse(recoveryKey);
+    const userKeyContainer = await this.getKeyContainer(address);
 
     const refreshResult = await requestAndReauthenticate(
-      () => userManagementClient.refreshKeys(this.userId, walletId),
+      () =>
+        userManagementClient.refreshKeys(
+          this.userId,
+          userKeyContainer.walletId
+        ),
       this.ensureSessionActive
     );
 
-    const userKeyshare = await this.getKeyshare();
-    if (!userKeyshare) {
-      throw new Error('No user keyshare provided');
-    }
-
     const keyshares = await Promise.all([
-      CapsuleSignerModule.refresh(
+      this.getSignerModule().refresh(
         refreshResult.data.protocolId,
-        recoveryKeyshare,
+        recoveryKeyContainer.keyshare,
         this.userId
       ),
-      CapsuleSignerModule.refresh(
+      this.getSignerModule().refresh(
         refreshResult.data.protocolId,
-        userKeyshare,
+        userKeyContainer.keyshare,
         this.userId
       ),
     ]);
@@ -159,58 +139,93 @@ export abstract class CapsuleBaseSigner implements Signer {
     const userPrivateKeyshare = keyshares[0];
     const recoveryPrivateKeyShare = keyshares[1];
 
-    this.keyshareStorage?.setPrivateKey(userPrivateKeyshare);
-    onRecoveryKeyshare(recoveryPrivateKeyShare);
-
-    return userPrivateKeyshare;
+    return this.encryptAndUploadKeys(
+      userPrivateKeyshare,
+      recoveryPrivateKeyShare,
+      userKeyContainer.walletId,
+      onRecoveryKeyshare
+    );
   }
 
-  public async getKeyshare(): Promise<string | null | undefined> {
-    try {
-      return await this.keyshareStorage?.getPrivateKey();
-    } catch (error) {
-      if (error instanceof Error) {
-        logger.error(TAG, 'Failed to get keyshare', error);
-      } else {
-        logger.error(TAG, 'Unexpected error in retreiving keyshare');
-      }
-      return undefined;
+  public async importKeyshare(keyshare: string): Promise<string> {
+    // TODO validate keyshare
+    const userKeyContainer: KeyContainer = JSON.parse(keyshare);
+    await this.setKeyContainer(userKeyContainer.address, userKeyContainer);
+    return userKeyContainer.address;
+  }
+
+  // Download the encrypted user key
+  // Use the provided recovery key to decrypt the user key
+  // Perform a key refresh
+  async recoverKeyshare(recoveryKeyshare: string) {
+    const recoveryKey: KeyContainer = JSON.parse(recoveryKeyshare);
+
+    // Get the encrypted keyshares from Capsule server
+    const encryptedUserBackup: string = await requestAndReauthenticate(
+      () =>
+        userManagementClient.getKeyshare(
+          this.userId,
+          recoveryKey.walletId,
+          keyshareType.USER
+        ),
+      this.ensureSessionActive
+    );
+    const userBackup = recoveryKey.decrypt(encryptedUserBackup);
+    if (!userBackup.success) {
+      const errorMsg = 'Failed to decrypt backup';
+      logger.error(TAG, errorMsg);
+      throw new Error(errorMsg);
     }
+    this.importKeyshare(userBackup.backup);
+
+    // TODO: Key Refresh
   }
 
-  public setNativeKey(nativeKey: string) {
-    this.account = nativeKey;
-    this.keyshareStorage = this.getPrivateKeyStorage(this.account);
-  }
+  async getRecoveryKey(
+    address: string,
+    onRecoveryKeyshare: (keyshare: string) => void
+  ) {
+    const userKeyContainer = await this.getKeyContainer(address);
+    // Get the encrypted keyshares from Capsule server
+    const encryptedRecoveryBackup: string = await requestAndReauthenticate(
+      () =>
+        userManagementClient.getKeyshare(
+          this.userId,
+          userKeyContainer.walletId,
+          keyshareType.RECOVERY
+        ),
+      this.ensureSessionActive
+    );
 
-  public async setAccount(keyshare: string) {
-    const address = await CapsuleSignerModule.getAddress(keyshare);
-    this.account = normalizeAddressWith0x(address);
-  }
-
-  public async signRawTransaction(tx: CeloTx): Promise<EncodedTransaction> {
-    if (!this.account) {
-      throw new Error(
-        'Cannot signRawTransaction from CapsuleSigner before keygeneration or initialization'
-      );
+    const recoveryBackup = userKeyContainer.decrypt(encryptedRecoveryBackup);
+    if (!recoveryBackup.success) {
+      const errorMsg = 'Failed to encrypt backups';
+      logger.error(TAG, errorMsg);
+      throw new Error(errorMsg);
     }
-    if (normalizeAddressWith0x(tx.from! as string) !== this.account) {
+    const serializedRecovery = JSON.stringify(recoveryBackup);
+    onRecoveryKeyshare?.(serializedRecovery);
+  }
+
+  public async signRawTransaction(address: string, tx: CeloTx) {
+    if (normalizeAddressWith0x(tx.from! as string) !== address) {
       throw new Error(
-        `CapsuleSigner(${this.account}) cannot sign tx with 'from' ${tx.from}`
+        `CapsuleSigner(${address}) cannot sign tx with 'from' ${tx.from}`
       );
     }
     const encodedTx = rlpEncodedTx(tx);
-    const signature = await this.signTransaction(0, encodedTx);
+    const signature = await this.signTransaction(address, 0, encodedTx);
     return encodeTransaction(encodedTx, signature);
   }
 
   public async signTransaction(
+    address: string,
     // addToV (chainId) is ignored here because geth will
     // build it based on its configuration
     _addToV: number,
     encodedTx: RLPEncodedTx
-  ): Promise<{ v: number; r: Buffer; s: Buffer }> {
-    const { gasPrice } = encodedTx.transaction;
+  ): Promise<{v: number; r: Buffer; s: Buffer}> {
+    const {gasPrice} = encodedTx.transaction;
     if (
       gasPrice === '0x0' ||
       gasPrice === '0x' ||
@@ -224,39 +239,37 @@ export abstract class CapsuleBaseSigner implements Signer {
       );
     }
 
-    const protocolId = CapsuleSignerModule.getProtocolId();
-    logger.debug(TAG, 'signTransaction Capsule protocolId', protocolId);
-    logger.debug(
-      TAG,
-      'signTransaction Capsule tx',
-      hexToBase64(encodedTx.rlpEncode)
-    );
-    const signedTxBase64 = await CapsuleSignerModule.sendTransaction(
-      this.getKeyshare(),
-      protocolId,
-      hexToBase64(encodedTx.rlpEncode),
+    const walletId = await this.getWallet(this.userId, address);
+    const tx = hexToBase64(encodedTx.rlpEncode);
+    const res = await this.preSignMessage(this.userId, walletId, tx);
+
+    logger.debug(TAG, 'signTransaction Capsule protocolId', res.protocolId);
+    logger.debug(TAG, 'signTransaction Capsule tx', tx);
+    const key: KeyContainer = await this.getKeyContainer(address);
+    const signedTxBase64 = await this.getSignerModule().sendTransaction(
+      key.keyshare,
+      res.protocolId,
+      tx,
       this.userId
     );
     return extractSignature(base64ToHex(signedTxBase64));
   }
 
   public async signPersonalMessage(
+    address: string,
     data: string
-  ): Promise<{ v: number; r: Buffer; s: Buffer }> {
-    if (!this.account) {
-      throw Error('signPersonalMessage invoked with incorrect address');
-    }
+  ): Promise<{v: number; r: Buffer; s: Buffer}> {
     logger.info(`${TAG}@signPersonalMessage`, `Signing ${data}`);
     const hash = ethUtil.hashPersonalMessage(
       Buffer.from(data.replace('0x', ''), 'hex')
     );
-    return this.signHash(hash.toString('base64'), this.account);
+    return this.signHash(hash.toString('base64'), address);
   }
 
   public async signTypedData(
-    typedData: EIP712TypedData,
-    address: string | undefined = this.account
-  ): Promise<{ v: number; r: Buffer; s: Buffer }> {
+    address: string,
+    typedData: EIP712TypedData
+  ): Promise<{v: number; r: Buffer; s: Buffer}> {
     if (!address) {
       throw Error('signTypedData invoked with incorrect address');
     }
@@ -265,24 +278,102 @@ export abstract class CapsuleBaseSigner implements Signer {
     return this.signHash(hash.toString('base64'), address);
   }
 
-  public getNativeKey(): string {
-    if (!this.account) {
-      throw new Error('Native key not set');
-    }
-    return this.account;
-  }
-
-  public async decrypt(_ciphertext: Buffer): Promise<Buffer> {
-    // TODO
-    return Buffer.from('', 'base64');
-  }
-
-  public async computeSharedSecret(_publicKey: string): Promise<Buffer> {
-    // TODO
-    return Buffer.from('', 'base64');
+  public async getKeyshare(address: string) {
+    const key: KeyContainer = await this.getKeyContainer(address);
+    return key.keyshare;
   }
 
   // --------------------------
+
+  private async encryptAndUploadKeys(
+    userKeyshare: string,
+    recoveryKeyshare: string,
+    walletId: string,
+    onRecoveryKeyshare: (keyshare: string) => void
+  ): Promise<string> {
+    const userAddress = normalizeAddressWith0x(
+      await this.getSignerModule().getAddress(userKeyshare)
+    );
+    const recoveryAddress = normalizeAddressWith0x(
+      await this.getSignerModule().getAddress(userKeyshare)
+    );
+    const userKeyContainer = new KeyContainer(
+      walletId,
+      userKeyshare,
+      userAddress
+    );
+    const recoveryPrivateKeyContainer = new KeyContainer(
+      walletId,
+      recoveryKeyshare,
+      recoveryAddress
+    );
+    const serializedRecovery = JSON.stringify(recoveryPrivateKeyContainer);
+    const serializedUser = JSON.stringify(userKeyContainer);
+    // Create a user backup that can be decrypted by recovery
+    const encryptedUserBackup = recoveryPrivateKeyContainer.encryptForSelf(
+      serializedUser
+    );
+    // Create a recovery backup that can be decrypted by user
+    const encryptedRecoveryBackup = userKeyContainer.encryptForSelf(
+      serializedRecovery
+    );
+    if (!encryptedUserBackup.success || !encryptedRecoveryBackup.success) {
+      const errorMsg = 'Failed to encrypt backups';
+      logger.error(TAG, errorMsg);
+      throw new Error(errorMsg);
+    }
+
+    // Upload the encrypted keyshares to Capsule server
+    await requestAndReauthenticate(
+      () =>
+        userManagementClient.uploadKeyshares(this.userId, walletId, [
+          {
+            encryptedShare: encryptedUserBackup.backup,
+            type: keyshareType.USER,
+          },
+          {
+            encryptedShare: encryptedRecoveryBackup.backup,
+            type: keyshareType.RECOVERY,
+          },
+        ]),
+      this.ensureSessionActive
+    );
+
+    logger.info('encryptAndUploadKeys success!');
+
+    // Set this after account setup has completed to ensure we're only tracking
+    // fully created accounts on the device
+    await this.setKeyContainer(userAddress, userKeyContainer);
+
+    onRecoveryKeyshare?.(serializedRecovery);
+    return userAddress;
+  }
+
+  private async setKeyContainer(address: string, keyContainer: KeyContainer) {
+    const serializedKeyContainer = JSON.stringify(keyContainer);
+    return this.getPrivateKeyStorage(address).setPrivateKey(
+      serializedKeyContainer
+    );
+  }
+
+  private async getKeyContainer(address: string): Promise<KeyContainer> {
+    try {
+      const keyContainer = await this.getPrivateKeyStorage(
+        address
+      ).getPrivateKey();
+      if (!keyContainer) {
+        throw new Error('Key is undefined in storage');
+      }
+      return JSON.parse(keyContainer);
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(TAG, 'Failed to get keyshare', error);
+      } else {
+        logger.error(TAG, 'Unexpected error in retreiving keyshare');
+      }
+      throw error;
+    }
+  }
 
   private async getWallet(userId: string, address: string): Promise<any> {
     const response = await requestAndReauthenticate(
@@ -317,17 +408,17 @@ export abstract class CapsuleBaseSigner implements Signer {
   private async signHash(
     hash: string,
     address: string
-  ): Promise<{ v: number; r: Buffer; s: Buffer }> {
+  ): Promise<{v: number; r: Buffer; s: Buffer}> {
     const walletId = await this.getWallet(this.userId, address);
     logger.info(`${TAG}@signHash`, 'walletId ' + walletId);
 
     const res = await this.preSignMessage(this.userId, walletId, hash);
     logger.info(`${TAG}@signHash`, 'protocolId ' + res.protocolId);
     logger.info(`${TAG}@signHash`, `hash ` + hash);
-    const keyshare = await this.getKeyshare();
-    const signatureHex = await CapsuleSignerModule.sendTransaction(
+    const keyContainer = await this.getKeyContainer(address);
+    const signatureHex = await this.getSignerModule().sendTransaction(
       res.protocolId,
-      keyshare,
+      keyContainer.keyshare,
       hash,
       this.userId
     );
@@ -339,6 +430,6 @@ export abstract class CapsuleBaseSigner implements Signer {
       JSON.stringify(fromRpcSig(signatureHex))
     );
     const signature = fromRpcSig(signatureHex);
-    return { v: signature.v, r: signature.r, s: signature.s };
+    return {v: signature.v, r: signature.r, s: signature.s};
   }
 }
