@@ -1,4 +1,4 @@
-import {SignerModule, keyType} from '../SignerModule';
+import { SignerModule, keyType } from '../SignerModule';
 
 class TestSignerModule implements SignerModule {
   createAccount(

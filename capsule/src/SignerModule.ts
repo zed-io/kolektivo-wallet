@@ -7,7 +7,7 @@ export interface SignerModule {
   createAccount(
     walletId: string,
     protocolId: string,
-    keyType: typeof KeyType[keyof typeof KeyType],
+    keyType: (typeof KeyType)[keyof typeof KeyType],
     userId: string
   ): Promise<string>;
   getAddress(keyshare: string): Promise<string>;
