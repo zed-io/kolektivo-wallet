@@ -7,6 +7,8 @@ import {SignersStorage} from './SignersStorage';
 import {SessionStorage} from './SessionStorage';
 import SessionManager from './SessionManager';
 import {logger} from './Logger';
+import userManagementClient from "./UserManagementClient";
+import {KeyType} from "./SignerModule";
 
 const TAG = 'geth/CapsuleWallet';
 
@@ -131,6 +133,17 @@ export abstract class CapsuleBaseWallet {
     logger.info(`${TAG}@importAccount`, `Keyshare succesfully imported`);
     await this.signersStorage.addAccount(address);
     return address;
+  }
+
+  public async recoverAccountFromRecoveryKeyshare(
+    recoveryKeyshare: string
+  ): Promise<string> {
+    const recoveryKeyshareParsed = JSON.parse(recoveryKeyshare);
+    const { walletId } = recoveryKeyshareParsed;
+
+    const result = userManagementClient.getKeyshare(await this.getUserId(), walletId, KeyType.RECOVERY)
+    console.log(result)
+    // this.addAccount(result.data)
   }
 
   /**
