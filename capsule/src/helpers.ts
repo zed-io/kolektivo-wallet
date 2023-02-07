@@ -27,7 +27,6 @@ export async function requestAndReauthenticate<T>(
     return await request();
   } catch (e: any) {
     const { data } = e.response;
-    console.log(e.response, data);
     if (
       data === USER_NOT_MATCHING_ERROR ||
       data === USER_NOT_AUTHENTICATED_ERROR ||
