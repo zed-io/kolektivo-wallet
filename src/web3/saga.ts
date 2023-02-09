@@ -1,7 +1,6 @@
 import { BlockHeader } from '@celo/connect'
 import { generateKeys, generateMnemonic, MnemonicStrength } from '@celo/utils/lib/account'
 import { privateKeyToAddress } from '@celo/utils/lib/address'
-import { UnlockableWallet } from '@celo/wallet-base'
 import { RpcWalletErrors } from '@celo/wallet-rpc/lib/rpc-wallet'
 import * as bip39 from 'react-native-bip39'
 import { call, delay, put, race, select, spawn, take, takeLatest } from 'redux-saga/effects'
@@ -13,7 +12,6 @@ import { GethEvents, NetworkEvents, SettingsEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { ErrorMessages } from 'src/app/ErrorMessages'
 import { getMnemonicLanguage, storeCapsuleKeyShare, storeMnemonic } from 'src/backup/utils'
-import { CapsuleWallet } from 'src/capsule/react-native/ReactNativeCapsuleWallet'
 import { features } from 'src/flags'
 import { cancelGethSaga } from 'src/geth/actions'
 import { UNLOCK_DURATION } from 'src/geth/consts'
@@ -49,6 +47,7 @@ import {
   walletAddressSelector,
 } from 'src/web3/selectors'
 import { blockIsFresh, getLatestBlock } from 'src/web3/utils'
+import { ZedWallet } from 'src/web3/wallet'
 import { RootState } from '../redux/reducers'
 
 const TAG = 'web3/saga'
@@ -282,7 +281,7 @@ export function* getOrCreateAccount() {
 export function* assignAccountFromPrivateKey(privateKey: string, mnemonic: string) {
   try {
     const account = privateKeyToAddress(privateKey)
-    const wallet: UnlockableWallet = yield call(getWallet)
+    const wallet: ZedWallet = yield call(getWallet)
     const password: string = yield call(getPasswordSaga, account, false, true)
 
     try {
@@ -325,12 +324,12 @@ export function* assignAccountFromPrivateKey(privateKey: string, mnemonic: strin
 export function* createAndAssignCapsuleAccount() {
   try {
     Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Attempting to create wallet')
-    const wallet: CapsuleWallet = yield call(getWallet)
+    const wallet: ZedWallet = yield call(getWallet)
     Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Capsule Wallet initialized')
     let account: string
     try {
       yield call([wallet, wallet.initSessionManagement])
-      account = yield call([wallet, wallet.addAccount], undefined, (recoveryKeyshare) =>
+      account = yield call([wallet, wallet.createAccount], (recoveryKeyshare) =>
         // TODO: send it e.g., via e-mail to the user
         Logger.info(`RECOVERY: ${recoveryKeyshare}`)
       )
@@ -416,7 +415,7 @@ export enum UnlockResult {
 export function* unlockAccount(account: string, force: boolean = false) {
   Logger.debug(TAG + '@unlockAccount', `Unlocking account: ${account}`)
 
-  const wallet: UnlockableWallet = yield call(getWallet)
+  const wallet: ZedWallet = yield call(getWallet)
   if (!force && wallet.isAccountUnlocked(account)) {
     return UnlockResult.SUCCESS
   }

@@ -716,7 +716,7 @@
   "welcome": {
     "title": "Step into the future of crypto with {{appName}}",
     "createAccount": "Create new account",
-    "restoreAccount": "Import my account"
+    "restoreAccount": "I have a Kolektivo account"
   },
   "accessContacts": {
     "disclosure": {

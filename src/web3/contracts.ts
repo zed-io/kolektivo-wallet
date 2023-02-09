@@ -70,18 +70,6 @@ async function initWallet() {
   return newWallet
 }
 
-function* initWeb3() {
-  const fornoMode = yield select(fornoSelector)
-  if (fornoMode) {
-    return new Web3(getHttpProvider(DEFAULT_FORNO_URL))
-  } else {
-    ValoraAnalytics.track(ContractKitEvents.init_contractkit_get_ipc_start)
-    const ipcProvider = getIpcProvider()
-    ValoraAnalytics.track(ContractKitEvents.init_contractkit_get_ipc_finish)
-    return new Web3(ipcProvider)
-  }
-}
-
 export function* initContractKit() {
   ValoraAnalytics.track(ContractKitEvents.init_contractkit_start)
   let retries = CONTRACT_KIT_RETRIES
@@ -106,7 +94,7 @@ export function* initContractKit() {
       Logger.info(`${TAG}@initContractKit`, 'Initializing wallet')
 
       wallet = yield call(initWallet)
-      const web3 = yield call(initWeb3)
+      const web3 = new Web3(getHttpProvider(DEFAULT_FORNO_URL))
 
       Logger.info(
         `${TAG}@initContractKit`,
@@ -178,10 +166,6 @@ export function* getContractKit(waitForSync: boolean = true) {
     } finally {
       initContractKitLock.release()
     }
-  }
-
-  if (waitForSync) {
-    yield call(waitForGethSync)
   }
 
   return contractKit

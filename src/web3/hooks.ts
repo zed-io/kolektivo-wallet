@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { createUser, verifyEmail } from '@usecapsule/react-native-wallet'
-import { navigate } from 'src/navigator/NavigationService'
+import { useDispatch, useSelector } from 'react-redux'
+import { navigate, navigateClearingStack } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
 import Logger from 'src/utils/Logger'
 import { initiateCapsuleAuth } from 'src/web3/actions'
@@ -33,7 +33,7 @@ export const useCapsule = () => {
         const response = await verifyEmail(capsuleAccountId, { verificationCode: code })
         Logger.debug(TAG, '@verifyWithCapsule', 'response', JSON.stringify(response))
         dispatch(initiateCapsuleAuth(capsuleAccountId, true))
-        // navigate(Screens.NameAndPicture)
+        navigateClearingStack(Screens.KeyshareProvisioningScreen)
       }
     } catch (error) {
       Logger.error(TAG, '@verifyWithCapsule', error as any)

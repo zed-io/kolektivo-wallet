@@ -34,6 +34,7 @@ export enum Screens {
   GoldEducation = 'GoldEducation',
   ImportWallet = 'ImportWallet',
   IncomingPaymentRequestListScreen = 'IncomingPaymentRequestListScreen',
+  KeyshareProvisioningScreen = 'KeyshareProvisioningScreen',
   Language = 'Language',
   LanguageModal = 'LanguageModal',
   Licenses = 'Licenses',

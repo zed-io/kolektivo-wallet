@@ -138,6 +138,7 @@ export type StackParamList = {
   [Screens.FiatExchangeCurrency]: {
     flow: FiatExchangeFlow
   }
+  [Screens.KeyshareProvisioningScreen]: undefined
   [Screens.MoonPayScreen]: {
     localAmount: number
     currencyCode: LocalCurrencyCode
