@@ -32,7 +32,7 @@ import {
   superchargeButtonTypeSelector,
 } from 'src/app/selectors'
 import { SuperchargeButtonType } from 'src/app/types'
-import BackupIntroduction from 'src/backup/BackupIntroduction'
+import MigrateIntroduction from 'src/backup/MigrateIntroduction'
 import AccountNumber from 'src/components/AccountNumber'
 import ContactCircleSelf from 'src/components/ContactCircleSelf'
 import PhoneNumberWithFlag from 'src/components/PhoneNumberWithFlag'
@@ -239,8 +239,8 @@ export default function DrawerNavigator() {
         />
       )}
       <Drawer.Screen
-        name={Screens.BackupIntroduction}
-        component={BackupIntroduction}
+        name={Screens.MigrateIntroduction}
+        component={MigrateIntroduction}
         options={{ title: t('accountKey'), drawerIcon: AccountKey }}
       />
       {features.SHOW_INVITE_MENU_ITEM && (

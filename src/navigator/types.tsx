@@ -187,6 +187,7 @@ export type StackParamList = {
   [Screens.Main]: undefined
   [Screens.Map]: { typeFilter: string | undefined }
   [Screens.MerchantPayment]: { referenceId: string; apiBase: string }
+  [Screens.MigrateIntroduction]: undefined
   [Screens.NuxInterests]:
     | {
         showSkipDialog?: boolean

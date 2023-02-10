@@ -28,6 +28,7 @@ import BackupComplete from 'src/backup/BackupComplete'
 import BackupForceScreen from 'src/backup/BackupForceScreen'
 import BackupPhrase, { navOptionsForBackupPhrase } from 'src/backup/BackupPhrase'
 import BackupQuiz, { navOptionsForQuiz } from 'src/backup/BackupQuiz'
+import MigrateIntroduction from 'src/backup/MigrateIntroduction'
 import BackButton from 'src/components/BackButton'
 import CancelButton from 'src/components/CancelButton'
 import ConsumerIncentivesHomeScreen from 'src/consumerIncentives/ConsumerIncentivesHomeScreen'
@@ -497,6 +498,12 @@ const consumerIncentivesScreens = (Navigator: typeof Stack) => (
   </>
 )
 
+const migrationScreens = (Navigator: typeof Stack) => (
+  <>
+    <Navigator.Screen name={Screens.MigrateIntroduction} component={MigrateIntroduction} />
+  </>
+)
+
 /**
  *
  * @param Navigator The main stack navigator
@@ -739,6 +746,7 @@ export function MainStackScreen() {
       {nuxScreens(Stack)}
       {verificationScreens(Stack)}
       {exchangeScreens(Stack)}
+      {migrationScreens(Stack)}
       {backupScreens(Stack)}
       {consumerIncentivesScreens(Stack)}
       {settingsScreens(Stack)}

@@ -43,6 +43,7 @@ export enum Screens {
   Main = 'Main',
   Map = 'Map',
   MerchantPayment = 'MerchantPayment',
+  MigrateIntroduction = 'MigrationEducation',
   MoonPayScreen = 'MoonPayScreen',
   XanpoolScreen = 'XanpoolScreen',
   NameAndPicture = 'NameAndPicture',

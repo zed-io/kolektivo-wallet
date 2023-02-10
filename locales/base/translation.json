@@ -1376,5 +1376,11 @@
     "verifyPlaceholder": "123456",
     "verifyInfo": "We've sent a one-time passcode to your email. Enter that passcode here to verify your account and secure your financial data.",
     "resend": "Resend"
+  },
+  "migrateUserKey": "Migrate your account",
+  "userKeyshareIntro": {
+    "title": "Migrating your user keyshare.",
+    "body": "Your user keyshare is yours, and yours alone. Please don't share it with anyone else.",
+    "action": "What does this mean?"
   }
 }

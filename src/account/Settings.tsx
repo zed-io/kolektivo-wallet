@@ -410,9 +410,25 @@ export class Account extends React.Component<Props, State> {
           changePin: true,
         })
       }
-    } catch (error) {
+    } catch (error: any) {
       ValoraAnalytics.track(SettingsEvents.change_pin_current_pin_error)
       Logger.error('NavigationService@onPress', 'PIN ensure error', error)
+    }
+  }
+
+  goToMigrate = async () => {
+    try {
+      // @note Analytics, start migrate
+      const hasMigrateEducated = false
+      if (hasMigrateEducated) {
+        // @todo Navigate to Migrate Final step
+      } else {
+        // @todo Navigate to Migrate Introduction
+        navigate(Screens.MigrateIntroduction)
+      }
+    } catch (error: any) {
+      // @todo Analytics, track error migrating
+      Logger.error('NavigationService@onPress', 'Migration error', error)
     }
   }
 
@@ -542,6 +558,11 @@ export class Account extends React.Component<Props, State> {
               value={this.props.requirePinOnAppOpen}
               onValueChange={this.handleRequirePinToggle}
               testID="requirePinOnAppOpenToggle"
+            />
+            <SettingsItemTextValue
+              title={t('migrateUserKey')}
+              onPress={this.goToMigrate}
+              testID="MigrateUserKey"
             />
             <SectionHead text={t('data')} style={styles.sectionTitle} />
             {/* For now disable the option to use the light client
