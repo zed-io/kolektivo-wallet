@@ -126,6 +126,9 @@ export type StackParamList = {
   [Screens.ExchangeTradeScreen]: {
     buyCelo: boolean
   }
+  [Screens.ExportUserKeyshare]: {
+    canGoBack: boolean
+  }
   [Screens.ExternalExchanges]: {
     isCashIn?: boolean
     currency: Currency
@@ -188,6 +191,7 @@ export type StackParamList = {
   [Screens.Map]: { typeFilter: string | undefined }
   [Screens.MerchantPayment]: { referenceId: string; apiBase: string }
   [Screens.MigrateIntroduction]: undefined
+  [Screens.MultiPartyEducationScreen]: undefined
   [Screens.NuxInterests]:
     | {
         showSkipDialog?: boolean

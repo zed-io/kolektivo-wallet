@@ -1379,8 +1379,27 @@
   },
   "migrateUserKey": "Migrate your account",
   "userKeyshareIntro": {
-    "title": "Migrating your user keyshare.",
-    "body": "Your user keyshare is yours, and yours alone. Please don't share it with anyone else.",
+    "title": "Migrating your Wallet.",
+    "body1": "Have you ever wondered how your funds are kept secure, and private?",
+    "body2": "Kolektivo Wallet uses bleeding-edge Multi-Party Computation technology to keep your assets safe, and to keep your wallet secure.",
     "action": "What does this mean?"
-  }
+  },
+  "mpcGuide": [
+    {
+      "title": "What is Multi-Party Computation?",
+      "text": "This process splits your private key into three keyshares. These keyshares keep your account secure, so that if one is lost or stolen, your funds are still safe."
+    },
+    {
+      "title": "3X Trustless",
+      "text": "Each of these three keys are securely stored in a different location, making it very difficult for your account to be stolen.\n\n Once there are two keyshares that are not compromised, your funds will remain secure."
+    },
+    {
+      "title": "Exporting the User Keyshare",
+      "text": "The user keyshare is part of this device now. When you created an account, we put one of those secure keyshares in your device's secure enclave. To move to a new device, you'll need to export it from this one."
+    },
+    {
+      "title": "Importing the User Keyshare",
+      "text": "On your new device or crypto wallet, you can import your user keyshare and gain access to your funds.\n\nRememebr that the user keyshare is one piece of the private key that provides access to your funds, so make sure to keep it safe."
+    }
+  ]
 }
