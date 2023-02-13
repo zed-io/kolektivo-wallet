@@ -28,9 +28,9 @@ import BackupComplete from 'src/backup/BackupComplete'
 import BackupForceScreen from 'src/backup/BackupForceScreen'
 import BackupPhrase, { navOptionsForBackupPhrase } from 'src/backup/BackupPhrase'
 import BackupQuiz, { navOptionsForQuiz } from 'src/backup/BackupQuiz'
-import ExportUserKeyshare, { navOptionsForExportUserKey } from 'src/backup/ExportUserKeyshare'
-import MigrateIntroduction from 'src/backup/MigrateIntroduction'
-import MultiPartyEducation from 'src/backup/MPCEducation'
+import ExportRecoveryKeyshare from 'src/backup/mpc/ExportRecoveryKeyshare'
+import ExportUserKeyshare from 'src/backup/mpc/ExportUserKeyshare'
+import KeyshareEducation from 'src/backup/mpc/KeyshareEducation'
 import BackButton from 'src/components/BackButton'
 import CancelButton from 'src/components/CancelButton'
 import ConsumerIncentivesHomeScreen from 'src/consumerIncentives/ConsumerIncentivesHomeScreen'
@@ -502,12 +502,8 @@ const consumerIncentivesScreens = (Navigator: typeof Stack) => (
 
 const migrationScreens = (Navigator: typeof Stack) => (
   <>
-    <Navigator.Screen name={Screens.MigrateIntroduction} component={MigrateIntroduction} />
-    <Navigator.Screen
-      name={Screens.ExportUserKeyshare}
-      component={ExportUserKeyshare}
-      options={navOptionsForExportUserKey}
-    />
+    <Navigator.Screen name={Screens.ExportUserKeyshare} component={ExportUserKeyshare} />
+    <Navigator.Screen name={Screens.ExportRecoveryKeyshare} component={ExportRecoveryKeyshare} />
   </>
 )
 
@@ -810,9 +806,9 @@ const modalAnimatedScreens = (Navigator: typeof Stack) => (
       options={sendConfirmationLegacyScreenNavOptions}
     />
     <Navigator.Screen
-      name={Screens.MultiPartyEducationScreen}
-      component={MultiPartyEducation}
-      options={MultiPartyEducation.navigationOptions}
+      name={Screens.KeyshareEducationScreen}
+      component={KeyshareEducation}
+      options={KeyshareEducation.navigationOptions}
     />
   </>
 )

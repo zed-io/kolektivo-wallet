@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js'
 import { LinkError } from 'react-native-plaid-link-sdk'
 import { KycStatus } from 'src/account/reducer'
 import { SendOrigin, WalletConnectPairingOrigin } from 'src/analytics/types'
+import { KeyshareType } from 'src/backup/mpc/hooks'
 import { EscrowedPayment } from 'src/escrow/actions'
 import { ExchangeConfirmationCardProps } from 'src/exchange/ExchangeConfirmationCard'
 import { CICOFlow, FiatExchangeFlow, ProviderInfo, SimplexQuote } from 'src/fiatExchanges/utils'
@@ -126,6 +127,7 @@ export type StackParamList = {
   [Screens.ExchangeTradeScreen]: {
     buyCelo: boolean
   }
+  [Screens.ExportRecoveryKeyshare]: undefined
   [Screens.ExportUserKeyshare]: {
     canGoBack: boolean
   }
@@ -176,6 +178,9 @@ export type StackParamList = {
   [Screens.IncomingPaymentRequestListScreen]: undefined
   [Screens.NameAndPicture]: undefined
   [Screens.EnableBiometry]: undefined
+  [Screens.KeyshareEducationScreen]: {
+    type: KeyshareType
+  }
   [Screens.Language]:
     | {
         nextScreen: keyof StackParamList
@@ -189,9 +194,12 @@ export type StackParamList = {
   [Screens.Licenses]: undefined
   [Screens.Main]: undefined
   [Screens.Map]: { typeFilter: string | undefined }
+  [Screens.ManageKeyshareScreen]:
+    | undefined
+    | {
+        navigatedFromSettings?: boolean
+      }
   [Screens.MerchantPayment]: { referenceId: string; apiBase: string }
-  [Screens.MigrateIntroduction]: undefined
-  [Screens.MultiPartyEducationScreen]: undefined
   [Screens.NuxInterests]:
     | {
         showSkipDialog?: boolean

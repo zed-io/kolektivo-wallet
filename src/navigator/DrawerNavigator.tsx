@@ -32,7 +32,7 @@ import {
   superchargeButtonTypeSelector,
 } from 'src/app/selectors'
 import { SuperchargeButtonType } from 'src/app/types'
-import MigrateIntroduction from 'src/backup/MigrateIntroduction'
+import ManageKeyshares from 'src/backup/mpc/ManageKeyshares'
 import AccountNumber from 'src/components/AccountNumber'
 import ContactCircleSelf from 'src/components/ContactCircleSelf'
 import PhoneNumberWithFlag from 'src/components/PhoneNumberWithFlag'
@@ -171,7 +171,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps<DrawerContentOpt
         )}
         <View style={styles.border} />
       </View>
-      <CustomDrawerItemList {...props} protectedRoutes={[Screens.BackupIntroduction]} />
+      <CustomDrawerItemList {...props} protectedRoutes={[Screens.ManageKeyshareScreen]} />
       <View style={styles.drawerBottom}>
         <Text style={fontStyles.label}>{t('address')}</Text>
         <AccountNumber address={account || ''} location={Screens.DrawerNavigator} />
@@ -239,9 +239,12 @@ export default function DrawerNavigator() {
         />
       )}
       <Drawer.Screen
-        name={Screens.MigrateIntroduction}
-        component={MigrateIntroduction}
-        options={{ title: t('accountKey'), drawerIcon: AccountKey }}
+        name={Screens.ManageKeyshareScreen}
+        component={ManageKeyshares}
+        options={{
+          title: t('accountKey'),
+          drawerIcon: AccountKey,
+        }}
       />
       {features.SHOW_INVITE_MENU_ITEM && (
         <Drawer.Screen

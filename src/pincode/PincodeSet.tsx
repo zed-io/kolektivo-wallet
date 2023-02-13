@@ -163,7 +163,7 @@ export class PincodeSet extends React.Component<Props, State> {
       this.props.skipVerification && this.props.setHasSeenVerificationNux(true)
       navigateHome()
     } else {
-      navigateClearingStack(Screens.NuxInterests)
+      navigateClearingStack(Screens.KeyshareProvisioningScreen)
     }
   }
 

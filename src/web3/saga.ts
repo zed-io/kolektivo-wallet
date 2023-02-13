@@ -4,7 +4,7 @@ import { privateKeyToAddress } from '@celo/utils/lib/address'
 import { RpcWalletErrors } from '@celo/wallet-rpc/lib/rpc-wallet'
 import * as bip39 from 'react-native-bip39'
 import { call, delay, put, race, select, spawn, take, takeLatest } from 'redux-saga/effects'
-import { setAccountCreationTime, setPromptForno } from 'src/account/actions'
+import { setAccountCreationTime, setPincodeSuccess, setPromptForno } from 'src/account/actions'
 import { generateSignedMessage } from 'src/account/saga'
 import { promptFornoIfNeededSelector } from 'src/account/selectors'
 import { showError } from 'src/alert/actions'
@@ -322,24 +322,30 @@ export function* assignAccountFromPrivateKey(privateKey: string, mnemonic: strin
  * is securely communicated to the user.
  */
 export function* createAndAssignCapsuleAccount() {
+  Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Create and Assign Capsule Account')
   try {
-    Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Attempting to create wallet')
     const wallet: ZedWallet = yield call(getWallet)
-    Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Capsule Wallet initialized')
     let account: string
     try {
       yield call([wallet, wallet.initSessionManagement])
       account = yield call([wallet, wallet.createAccount], (recoveryKeyshare) =>
-        // TODO: send it e.g., via e-mail to the user
-        Logger.info(`RECOVERY: ${recoveryKeyshare}`)
+        Logger.debug(
+          TAG,
+          '@createAndAssignCapsuleAccount',
+          `Generated recovery keyshare (keyshare=${recoveryKeyshare})`
+        )
       )
+      Logger.debug(TAG, '@createAndAssignCapsuleAccount', 'Waiting on Pincode to be set')
+      const passcode: string = yield call(getPasswordSaga, account, false, true)
+      if (!passcode) {
+        yield take(setPincodeSuccess)
+      }
       void wallet.getKeyshare(account).then((privateKeyShare) => {
         void storeCapsuleKeyShare(privateKeyShare, account)
       })
       Logger.debug(TAG + '@createAndAssignCapsuleAccount', `Added to wallet: ${account}`)
       yield put(setAccount(account))
       yield put(setAccountCreationTime(Date.now()))
-      // yield call(createAccountDek, mnemonic)
       return account
     } catch (e: any) {
       if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
@@ -349,10 +355,11 @@ export function* createAndAssignCapsuleAccount() {
         throw e
       }
     }
-  } catch (e) {
+  } catch (e: any) {
     Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error assigning account', e)
     throw e
   }
+  Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Completed creating Capsule Account')
 }
 
 /**

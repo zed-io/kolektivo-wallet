@@ -40,6 +40,7 @@ import {
   verificationPossibleSelector,
   walletConnectEnabledSelector,
 } from 'src/app/selectors'
+import { KeyshareType } from 'src/backup/mpc/hooks'
 import Dialog from 'src/components/Dialog'
 import SectionHead from 'src/components/SectionHead'
 import SessionId from 'src/components/SessionId'
@@ -416,20 +417,12 @@ export class Account extends React.Component<Props, State> {
     }
   }
 
-  goToMigrate = async () => {
-    try {
-      // @note Analytics, start migrate
-      const hasMigrateEducated = false
-      if (hasMigrateEducated) {
-        // @todo Navigate to Migrate Final step
-      } else {
-        // @todo Navigate to Migrate Introduction
-        navigate(Screens.MigrateIntroduction)
-      }
-    } catch (error: any) {
-      // @todo Analytics, track error migrating
-      Logger.error('NavigationService@onPress', 'Migration error', error)
-    }
+  goToManageKeyshares = async () => {
+    navigate(Screens.ManageKeyshareScreen)
+  }
+
+  goToKeyshareEducation = async (type: KeyshareType) => {
+    navigate(Screens.KeyshareEducationScreen, { type })
   }
 
   getLinkBankAccountSettingItem() {
@@ -559,10 +552,22 @@ export class Account extends React.Component<Props, State> {
               onValueChange={this.handleRequirePinToggle}
               testID="requirePinOnAppOpenToggle"
             />
+
+            <SectionHead text={t('security')} style={styles.sectionTitle} />
+            <SettingsItemTextValue
+              title={t('manageKeyshare')}
+              onPress={this.goToManageKeyshares}
+              testID="MigrateUserKey"
+            />
             <SettingsItemTextValue
               title={t('migrateUserKey')}
-              onPress={this.goToMigrate}
+              onPress={() => this.goToKeyshareEducation(KeyshareType.User)}
               testID="MigrateUserKey"
+            />
+            <SettingsItemTextValue
+              title={t('refreshRecoveryKey')}
+              onPress={() => this.goToKeyshareEducation(KeyshareType.Recovery)}
+              testID="MigrateRecoveryKey"
             />
             <SectionHead text={t('data')} style={styles.sectionTitle} />
             {/* For now disable the option to use the light client

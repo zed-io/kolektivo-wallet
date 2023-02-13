@@ -33,7 +33,7 @@ export const useCapsule = () => {
         const response = await verifyEmail(capsuleAccountId, { verificationCode: code })
         Logger.debug(TAG, '@verifyWithCapsule', 'response', JSON.stringify(response))
         dispatch(initiateCapsuleAuth(capsuleAccountId, true))
-        navigateClearingStack(Screens.KeyshareProvisioningScreen)
+        navigateClearingStack(Screens.NameAndPicture)
       }
     } catch (error) {
       Logger.error(TAG, '@verifyWithCapsule', error as any)
