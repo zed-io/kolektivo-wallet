@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useDispatch } from 'react-redux'
-import { initializeAccount } from 'src/account/actions'
 import BackButton from 'src/components/BackButton'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import Logo, { LogoTypes } from 'src/icons/Logo'
@@ -49,7 +48,6 @@ function CapsuleOAuthScreen({ route, navigation }: Props) {
 
   useAsync(async () => {
     await waitUntilSagasFinishLoading()
-    dispatch(initializeAccount())
   }, [])
 
   return (

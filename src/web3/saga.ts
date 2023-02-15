@@ -176,36 +176,10 @@ export function* waitWeb3LastBlock() {
  * `yield take(Actions.CAPSULE_AUTHENTICATE)`.
  */
 export function* getOrCreateCapsuleAccount() {
-  // TODO
-  // @note Account already exists
   const account: string = yield select(currentAccountSelector)
   if (account) {
-    //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Account exists, loading keyshare')
-    //   let privateKeyShare: string | null = ''
-    //   privateKeyShare = yield call(getStoredCapsuleKeyShare, account)
-    //   if (privateKeyShare != null) {
-    //     const wallet: CapsuleWallet = yield call(getWallet)
-    //     try {
-    //       yield call([wallet, wallet.addAccount, privateKeyShare])
-    //     } catch (e) {
-    //       if (e.message === ErrorMessages.CAPSULE_ACCOUNT_ALREADY_EXISTS) {
-    //         Logger.warn(TAG + '@createAndAssignCapsuleAccount', 'Attempted to import same account')
-    //       } else {
-    //         Logger.error(TAG + '@createAndAssignCapsuleAccount', 'Error importing raw key')
-    //         throw e
-    //       }
-    //     }
-    //   }
-    //   Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Loaded keyshare')
-    //   return account
+    return account
   } else {
-    // @note Account does not exist, needs to be set up
-    let hasLoggedIn: boolean = false
-    while (!hasLoggedIn) {
-      Logger.debug(TAG, '@getOrCreateCapsuleAccount', 'Waiting on Capsule SDK Authentication')
-      const { verified } = yield take(Actions.CAPSULE_AUTHENTICATE)
-      hasLoggedIn = verified
-    }
     try {
       Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Creating a new account')
       const accountAddress: string = yield call(createAndAssignCapsuleAccount)
@@ -217,64 +191,6 @@ export function* getOrCreateCapsuleAccount() {
       Logger.error(TAG + '@getOrCreateAccount', 'Error creating account')
       throw new Error(ErrorMessages.ACCOUNT_SETUP_FAILED)
     }
-  }
-}
-
-export function* getOrCreateAccount() {
-  const account: string = yield select(currentAccountSelector)
-  if (account) {
-    Logger.debug(
-      TAG + '@getOrCreateAccount',
-      'Tried to create account twice, returning the existing one'
-    )
-    return account
-  }
-
-  let privateKey: string | undefined
-  try {
-    Logger.debug(TAG + '@getOrCreateAccount', 'Creating a new account')
-
-    const mnemonicLanguage = getMnemonicLanguage(yield select(currentLanguageSelector))
-    let mnemonic: string = yield call(
-      generateMnemonic,
-      MNEMONIC_BIT_LENGTH,
-      mnemonicLanguage,
-      bip39
-    )
-
-    // Ensure no duplicates in mnemonic
-    const checkDuplicate = (someString: string) => {
-      return new Set(someString.split(' ')).size !== someString.split(' ').length
-    }
-    let duplicateInMnemonic = checkDuplicate(mnemonic)
-    while (duplicateInMnemonic) {
-      Logger.debug(TAG + '@getOrCreateAccount', 'Regenerating mnemonic to avoid duplicates')
-      mnemonic = yield call(generateMnemonic, MNEMONIC_BIT_LENGTH, mnemonicLanguage, bip39)
-      duplicateInMnemonic = checkDuplicate(mnemonic)
-    }
-
-    if (!mnemonic) {
-      throw new Error('Failed to generate mnemonic')
-    }
-
-    const keys = yield call(generateKeys, mnemonic, undefined, undefined, undefined, bip39)
-    privateKey = keys.privateKey
-    if (!privateKey) {
-      throw new Error('Failed to convert mnemonic to hex')
-    }
-
-    const accountAddress: string = yield call(assignAccountFromPrivateKey, privateKey, mnemonic)
-    if (!accountAddress) {
-      throw new Error('Failed to assign account from private key')
-    }
-
-    yield call(storeMnemonic, mnemonic, accountAddress)
-
-    return accountAddress
-  } catch (error) {
-    const sanitizedError = Logger.sanitizeError(error, privateKey)
-    Logger.error(TAG + '@getOrCreateAccount', 'Error creating account', sanitizedError)
-    throw new Error(ErrorMessages.ACCOUNT_SETUP_FAILED)
   }
 }
 
@@ -360,6 +276,64 @@ export function* createAndAssignCapsuleAccount() {
     throw e
   }
   Logger.debug(TAG + '@createAndAssignCapsuleAccount', 'Completed creating Capsule Account')
+}
+
+export function* getOrCreateAccount() {
+  const account: string = yield select(currentAccountSelector)
+  if (account) {
+    Logger.debug(
+      TAG + '@getOrCreateAccount',
+      'Tried to create account twice, returning the existing one'
+    )
+    return account
+  }
+
+  let privateKey: string | undefined
+  try {
+    Logger.debug(TAG + '@getOrCreateAccount', 'Creating a new account')
+
+    const mnemonicLanguage = getMnemonicLanguage(yield select(currentLanguageSelector))
+    let mnemonic: string = yield call(
+      generateMnemonic,
+      MNEMONIC_BIT_LENGTH,
+      mnemonicLanguage,
+      bip39
+    )
+
+    // Ensure no duplicates in mnemonic
+    const checkDuplicate = (someString: string) => {
+      return new Set(someString.split(' ')).size !== someString.split(' ').length
+    }
+    let duplicateInMnemonic = checkDuplicate(mnemonic)
+    while (duplicateInMnemonic) {
+      Logger.debug(TAG + '@getOrCreateAccount', 'Regenerating mnemonic to avoid duplicates')
+      mnemonic = yield call(generateMnemonic, MNEMONIC_BIT_LENGTH, mnemonicLanguage, bip39)
+      duplicateInMnemonic = checkDuplicate(mnemonic)
+    }
+
+    if (!mnemonic) {
+      throw new Error('Failed to generate mnemonic')
+    }
+
+    const keys = yield call(generateKeys, mnemonic, undefined, undefined, undefined, bip39)
+    privateKey = keys.privateKey
+    if (!privateKey) {
+      throw new Error('Failed to convert mnemonic to hex')
+    }
+
+    const accountAddress: string = yield call(assignAccountFromPrivateKey, privateKey, mnemonic)
+    if (!accountAddress) {
+      throw new Error('Failed to assign account from private key')
+    }
+
+    yield call(storeMnemonic, mnemonic, accountAddress)
+
+    return accountAddress
+  } catch (error) {
+    const sanitizedError = Logger.sanitizeError(error, privateKey)
+    Logger.error(TAG + '@getOrCreateAccount', 'Error creating account', sanitizedError)
+    throw new Error(ErrorMessages.ACCOUNT_SETUP_FAILED)
+  }
 }
 
 /**

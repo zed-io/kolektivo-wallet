@@ -1,10 +1,8 @@
-import { createUser, verifyEmail } from '@usecapsule/react-native-wallet'
+import { useAsync } from 'react-async-hook'
 import { useDispatch, useSelector } from 'react-redux'
-import { navigate, navigateClearingStack } from 'src/navigator/NavigationService'
-import { Screens } from 'src/navigator/Screens'
-import Logger from 'src/utils/Logger'
-import { initiateCapsuleAuth } from 'src/web3/actions'
+import { getWalletAsync } from 'src/web3/contracts'
 import { capsuleAccountSelector } from 'src/web3/selectors'
+import { ZedWallet } from 'src/web3/wallet'
 
 const TAG = 'useCapsule'
 
@@ -12,33 +10,23 @@ export const useCapsule = () => {
   const dispatch = useDispatch()
   const capsuleAccountId = useSelector(capsuleAccountSelector)
 
-  const authenticateWithCapsule = async (email: string): Promise<void> => {
-    Logger.debug(TAG, '@authenticateWithCapsule', 'Initiate auth', email)
-    try {
-      const { userId } = await createUser({ email })
-      if (userId) {
-        Logger.debug(TAG, '@authenticateWithCapsule', 'User Id', userId)
-        dispatch(initiateCapsuleAuth(userId, false))
-        navigate(Screens.CapsuleEmailVerification)
-      }
-    } catch (error) {
-      Logger.error(TAG, '@authenticateWithCapsule', error as any)
-    }
+  const authenticate = async (email: string) => {
+    // @todo Create user id with email
+    // @todo Cache email and id
+    // @todo Navigate to email verification
   }
 
-  const verifyWithCapsule = async (code: string): Promise<void> => {
-    Logger.debug(TAG, '@verifyWithCapsule', 'Payload', JSON.stringify({ capsuleAccountId, code }))
-    try {
-      if (capsuleAccountId) {
-        const response = await verifyEmail(capsuleAccountId, { verificationCode: code })
-        Logger.debug(TAG, '@verifyWithCapsule', 'response', JSON.stringify(response))
-        dispatch(initiateCapsuleAuth(capsuleAccountId, true))
-        navigateClearingStack(Screens.NameAndPicture)
-      }
-    } catch (error) {
-      Logger.error(TAG, '@verifyWithCapsule', error as any)
-    }
+  const verify = async (code: string) => {
+    // @todo Get email or id from cache
+    // @todo Verify the user and code
+    // @todo Navigate to Name and Picture
   }
 
-  return { authenticateWithCapsule, verifyWithCapsule }
+  const loginWithKeyshare = async (email: string, code: string) => {
+    // @todo Call recovery verification with email, code,
+    // @todo Cache email and id
+    // @todo Navigate to Keyshare Scan
+  }
+
+  return { authenticate, verify }
 }
