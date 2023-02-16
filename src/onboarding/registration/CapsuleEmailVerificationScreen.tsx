@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import BackButton from 'src/components/BackButton'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import NumberKeypad from 'src/components/NumberKeypad'
@@ -16,6 +16,7 @@ import Colors from 'src/styles/colors'
 import fontStyles from 'src/styles/fonts'
 import Logger from 'src/utils/Logger'
 import { useCapsule } from 'src/web3/hooks'
+import { capsuleAccountSelector } from 'src/web3/selectors'
 type RouteProps = StackScreenProps<StackParamList, Screens.CapsuleOAuth>
 type Props = RouteProps
 
@@ -23,8 +24,9 @@ const TAG = 'capsule/capsule'
 function CapsuleEmailVerificationScreen({ route, navigation }: Props) {
   const dispatch = useDispatch()
   const { t } = useTranslation()
+  const { email: cachedEmail } = useSelector(capsuleAccountSelector)
   const { isExistingUser } = route.params || {}
-  const { verifyWithCapsule } = useCapsule()
+  const { verify, loginWithKeyshare } = useCapsule()
 
   const insets = useSafeAreaInsets()
   const headerHeight = useHeaderHeight()
@@ -49,7 +51,11 @@ function CapsuleEmailVerificationScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     async function callVerification() {
-      return await verifyWithCapsule(code)
+      if (isExistingUser) {
+        await loginWithKeyshare(cachedEmail, code)
+      } else {
+        await verify(code)
+      }
     }
     if (code?.length >= 6) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises

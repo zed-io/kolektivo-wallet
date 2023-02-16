@@ -20,7 +20,7 @@ import DevSkipButton from 'src/components/DevSkipButton'
 import i18n, { withTranslation } from 'src/i18n'
 import { setHasSeenVerificationNux } from 'src/identity/actions'
 import { HeaderTitleWithSubtitle, nuxNavigationOptions } from 'src/navigator/Headers'
-import { navigate, navigateClearingStack, navigateHome } from 'src/navigator/NavigationService'
+import { navigate, navigateClearingStack } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
 import { StackParamList } from 'src/navigator/types'
 import {
@@ -149,19 +149,6 @@ export class PincodeSet extends React.Component<Props, State> {
       navigate(Screens.Settings)
     } else if (this.props.biometryEnabled) {
       navigate(Screens.EnableBiometry)
-    } else if (this.props.choseToRestoreAccount) {
-      navigate(Screens.ImportWallet)
-    } else if (
-      this.props.hideVerification ||
-      !this.props.route.params?.komenciAvailable ||
-      this.props.skipVerification
-    ) {
-      this.props.initializeAccount()
-      // Tell the app that the user has already seen verification so that it
-      // doesn't prompt for verification after the app is killed. This same function
-      // is called when the user manually skips verification on the verification screen.
-      this.props.skipVerification && this.props.setHasSeenVerificationNux(true)
-      navigateHome()
     } else {
       this.props.initializeAccount()
       navigateClearingStack(Screens.KeyshareProvisioningScreen)

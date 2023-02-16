@@ -63,6 +63,11 @@ export interface UpdateWeb3SyncProgressAction {
   }
 }
 
+export interface CompleteCapsuleAuthenticaiton {
+  type: Actions.CAPSULE_AUTHENTICATE
+  loginWithKeyshare: boolean
+}
+
 export interface SetCapsuleIdentityAction {
   type: Actions.SET_CAPSULE_IDENTITY
   capsuleEmail: string | null
@@ -138,6 +143,11 @@ export const setCapsuleIdentity = (capsuleEmail?: string, capsuleUserId?: string
   type: Actions.SET_CAPSULE_IDENTITY,
   capsuleEmail,
   capsuleUserId,
+})
+
+export const capsuleAuthComplete = (loginWithKeyshare: boolean) => ({
+  type: Actions.CAPSULE_AUTHENTICATE,
+  loginWithKeyshare,
 })
 
 export interface Web3SyncProgress {

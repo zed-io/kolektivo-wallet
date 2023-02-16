@@ -1418,5 +1418,6 @@
         "text": "On your new device or crypto wallet, you can import your user keyshare and gain access to your funds.\n\nRememebr that the user keyshare is one piece of the private key that provides access to your funds, so make sure to keep it safe."
       }
     ]
-  }
+  },
+  "welcomeBack": "We've missed you!"
 }

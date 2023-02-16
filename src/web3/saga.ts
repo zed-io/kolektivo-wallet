@@ -180,6 +180,11 @@ export function* getOrCreateCapsuleAccount() {
   if (account) {
     return account
   } else {
+    const passcode: string = yield call(getPasswordSaga, account, false, true)
+    if (!passcode) {
+      yield take(setPincodeSuccess)
+    }
+    // @todo Halt until determine whether using create or login with user keyshare
     try {
       Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Creating a new account')
       const accountAddress: string = yield call(createAndAssignCapsuleAccount)
@@ -252,10 +257,7 @@ export function* createAndAssignCapsuleAccount() {
         )
       )
       Logger.debug(TAG, '@createAndAssignCapsuleAccount', 'Waiting on Pincode to be set')
-      const passcode: string = yield call(getPasswordSaga, account, false, true)
-      if (!passcode) {
-        yield take(setPincodeSuccess)
-      }
+
       void wallet.getKeyshare(account).then((privateKeyShare) => {
         void storeCapsuleKeyShare(privateKeyShare, account)
       })

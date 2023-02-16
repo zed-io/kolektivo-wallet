@@ -74,6 +74,7 @@ import {
   noHeader,
   noHeaderGestureDisabled,
 } from 'src/navigator/Headers'
+import KeyshareNavigator from 'src/navigator/KeyshareNavigator'
 import { navigateBack, navigateToExchangeHome } from 'src/navigator/NavigationService'
 import QRNavigator from 'src/navigator/QRNavigator'
 import { Screens } from 'src/navigator/Screens'
@@ -718,7 +719,7 @@ export function MainStackScreen() {
       // User didn't go far enough in onboarding, start again from education
       initialRoute = Screens.OnboardingEducationScreen
     } else if (!account) {
-      initialRoute = choseToRestoreAccount ? Screens.ImportWallet : Screens.CapsuleOAuth
+      initialRoute = Screens.Welcome
     } else if (!name) {
       initialRoute = Screens.NameAndPicture
     } else if (pincodeType === PincodeType.Unset) {
@@ -769,6 +770,11 @@ const modalAnimatedScreens = (Navigator: typeof Stack) => (
       name={Screens.QRNavigator}
       component={QRNavigator}
       options={QRNavigator.navigationOptions}
+    />
+    <Navigator.Screen
+      name={Screens.KeyshareNavigator}
+      component={KeyshareNavigator}
+      options={KeyshareNavigator.navigationOptions}
     />
     <Navigator.Screen
       name={Screens.RegulatoryTerms}
