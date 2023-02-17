@@ -166,7 +166,7 @@ export abstract class CapsuleBaseSigner {
    */
   public async importKeyshare(keyshare: string): Promise<string> {
     // TODO validate keyshare
-    const userKeyContainer: KeyContainer = JSON.parse(keyshare);
+    const userKeyContainer: KeyContainer = KeyContainer.import(keyshare);
     await this.setKeyContainer(userKeyContainer.address, userKeyContainer);
     return userKeyContainer.address;
   }
@@ -312,7 +312,7 @@ export abstract class CapsuleBaseSigner {
    */
   public async getKeyshare(address: string) {
     const key: KeyContainer = await this.getKeyContainer(address);
-    return key.keyshare;
+    return JSON.stringify(key);
   }
 
   // --------------------------
