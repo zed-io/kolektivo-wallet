@@ -6,7 +6,7 @@ import {
   ReactNativeCapsuleWallet,
   USER_ID_TAG,
 } from '../react-native/ReactNativeCapsuleWallet';
-import { retrieveKeyshare, uploadKeyshare } from '../TransmissionUtils';
+import { retrieveKeyshare, uploadKeyshare } from '../transmissionUtils';
 
 export const transmissionFlow = async () => {
   const email = `test-${uuidv4()}@test.usecapsule.com`;
