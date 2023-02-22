@@ -22,7 +22,6 @@ const TAG = 'geth/CapsuleWallet';
  * may be used to manage multiple Capsule accounts.
  */
 export abstract class CapsuleBaseWallet {
-
   /**
    * Singleton instance for managing keys and performing crypto operations.
    */
@@ -234,10 +233,7 @@ export abstract class CapsuleBaseWallet {
     await this.importAccount(userShare);
     logger.info(TAG, 'Share imported!');
 
-    await this.refresh(
-      rawRecoveryKeyshare,
-      onNewRecoveryKeyshare
-    );
+    await this.refresh(rawRecoveryKeyshare, onNewRecoveryKeyshare);
 
     logger.info(TAG, 'Shares refreshed!');
     return recoveryKeyshare.address;

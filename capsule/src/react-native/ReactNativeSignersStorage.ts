@@ -5,7 +5,7 @@ const TAG = '@CAPSULE/ACCOUNTS';
 
 /**
  * React Native implementation of SignerStorage
- * Uses React Native async storage to track accounts. 
+ * Uses React Native async storage to track accounts.
  */
 export class ReactNativeSignersStorage extends SignersStorage {
   /**

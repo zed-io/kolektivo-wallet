@@ -119,7 +119,9 @@ export abstract class CapsuleBaseSigner {
     onRecoveryKeyshare: (keyshare: string) => void
   ): Promise<string> {
     const recoveryKeyContainer = JSON.parse(recoveryKey);
-    const userKeyContainer = await this.getKeyContainer(recoveryKeyContainer.address);
+    const userKeyContainer = await this.getKeyContainer(
+      recoveryKeyContainer.address
+    );
 
     const refreshResult = await requestAndReauthenticate(
       () =>
