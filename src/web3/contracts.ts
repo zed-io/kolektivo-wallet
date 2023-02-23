@@ -106,29 +106,16 @@ export function* initContractKit() {
       Logger.info(`${TAG}@initContractKit`, 'Initialized kit')
       ValoraAnalytics.track(ContractKitEvents.init_contractkit_finish)
       return
-    } catch (error) {
-      // if (isProviderConnectionError(error)) {
-      //   retries -= 1
-      //   Logger.warn(
-      //     `${TAG}@initContractKit`,
-      //     `Error initializing kit, could not connect to IPC. Retries remaining: ${retries}`,
-      //     error
-      //   )
-      //   if (retries <= 0) {
-      //     Logger.error(
-      //       `${TAG}@initContractKit`,
-      //       `Error initializing kit, could not connect to IPC.`,
-      //       error
-      //     )
-      //     break
-      //   }
-
-      //   destroyContractKit()
-      //   yield delay(KIT_INIT_RETRY_DELAY)
-      // } else {
+    } catch (error: any) {
+      retries -= 1
+      if (retries <= 0) {
+        Logger.error(
+          `${TAG}@initContractKit`,
+          `Error initializing kit, could not connect to IPC.`,
+          error
+        )
+      }
       Logger.error(`${TAG}@initContractKit`, 'Unexpected error initializing kit', error)
-      //   break
-      // }
     }
   }
 
