@@ -1,17 +1,25 @@
 import { createUser, verifyEmail } from '@usecapsule/react-native-wallet'
+import { CapsuleBaseWallet } from '@usecapsule/react-native-wallet/src/CapsuleWallet'
 import { login, verifyLogin } from '@usecapsule/react-native-wallet/src/helpers'
+import { uploadKeyshare } from '@usecapsule/react-native-wallet/src/transmissionUtils'
 import { useDispatch, useSelector } from 'react-redux'
-import { KeyshareType } from 'src/backup/mpc/hooks'
+import { initializeAccount } from 'src/account/actions'
+import { cachedKeyshareSecretSelector } from 'src/account/selectors'
+import { cacheKeyshareSecret } from 'src/import/actions'
 import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
 import Logger from 'src/utils/Logger'
 import { setCapsuleIdentity } from 'src/web3/actions'
-import { capsuleAccountSelector } from 'src/web3/selectors'
+import { getWalletAsync } from 'src/web3/contracts'
+import { accountAddressSelector, capsuleAccountSelector } from 'src/web3/selectors'
 
 const TAG = 'useCapsule'
 
 export const useCapsule = () => {
   const dispatch = useDispatch()
+  const address = useSelector(accountAddressSelector)
+  const keyshareSecret = useSelector(cachedKeyshareSecretSelector)
+
   const { email: cachedEmail, id: cachedId } = useSelector(capsuleAccountSelector)
 
   const authenticate = async (email: string) => {
@@ -27,6 +35,7 @@ export const useCapsule = () => {
   const verify = async (code: string) => {
     try {
       await verifyEmail(cachedId!, { verificationCode: code })
+      dispatch(initializeAccount())
       navigate(Screens.NameAndPicture)
     } catch (error: any) {
       Logger.error(TAG, '@authenticate Unable to verify', error)
@@ -38,8 +47,7 @@ export const useCapsule = () => {
       // @todo Call recovery veification with email, code,
       await login(email)
       const { data: loginResponse } = await verifyLogin(code)
-      dispatch(setCapsuleIdentity(email, loginResponse.id))
-      // @todo Navigate to QR Scanner
+      dispatch(setCapsuleIdentity(email, loginResponse.userId))
       navigate(Screens.KeyshareNavigator, {
         screen: Screens.KeyshareScanner,
       })
@@ -48,25 +56,20 @@ export const useCapsule = () => {
     }
   }
 
-  return { authenticate, verify, loginWithKeyshare }
-}
-
-/**
- * This hook is used to determine the validity and type of a
- * given keyshare that is scanned by the user.
- *
- * @returns { Function } processKeysharePayload(keyshare: any)
- */
-export const useKeyshare = () => {
-  /**
-   * This function takes a keyshare payload and returns the type
-   * of keyshare, or null if the keyshare is invalid.
-   * @param keyshare any
-   * @returns {KeyshareType} type
-   */
-  const processKeysharePayload = (keyshare: any) => {
-    return KeyshareType.User
+  const generateKeyshareSecret = async () => {
+    try {
+      if (keyshareSecret) {
+        return keyshareSecret
+      }
+      const wallet: CapsuleBaseWallet = await getWalletAsync()
+      if (!address) throw new Error('Account not yet initialized.')
+      const secret = await uploadKeyshare(wallet, address)
+      dispatch(cacheKeyshareSecret(secret))
+      return secret
+    } catch (error: any) {
+      Logger.error(`${TAG} @generateKeyshareSecret Failed`, error)
+    }
   }
 
-  return { processKeysharePayload }
+  return { authenticate, verify, loginWithKeyshare, generateKeyshareSecret }
 }

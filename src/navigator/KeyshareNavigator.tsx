@@ -13,6 +13,7 @@ import { check, PERMISSIONS, RESULTS } from 'react-native-permissions'
 import Animated, { call, greaterThan, onChange } from 'react-native-reanimated'
 import { ScrollPager } from 'react-native-tab-view'
 import { useDispatch } from 'react-redux'
+import { handleDetectedKeyshare } from 'src/import/actions'
 import { noHeader } from 'src/navigator/Headers'
 import { Screens } from 'src/navigator/Screens'
 import { KeyshareTabParamList } from 'src/navigator/types'
@@ -85,6 +86,7 @@ function AnimatedScannerScene({ route, position, ...props }: AnimatedScannerScen
     return { flex: 1, opacity, transform: [{ translateX, scale }] }
   }, [position])
 
+  const dispatch = useDispatch()
   // This only enables the camera when necessary.
   // There a special treatment for when we haven't asked the user for camera permission yet.
   // In that case we want to wait for the screen to be fully focused before enabling the camera so the
@@ -93,11 +95,10 @@ function AnimatedScannerScene({ route, position, ...props }: AnimatedScannerScen
   // react-native-camera.
   const enableCamera = isFocused || (isPartiallyVisible && (hasAskedCameraPermission || wasFocused))
 
-  const dispatch = useDispatch()
-
   const onBarCodeDetected = memoize(
     (qrCode: QrCode) => {
       Logger.debug('QRScanner', 'Bar code detected')
+      dispatch(handleDetectedKeyshare(qrCode))
     },
     (qrCode) => qrCode.data
   )
@@ -136,7 +137,7 @@ export default function KeyshareNavigator() {
       <Tab.Screen name={Screens.UserKeyshareCode} options={{ title: t('myCode') }}>
         {(props) => <UserKeyshare {...props} qrSvgRef={qrSvgRef} />}
       </Tab.Screen>
-      <Tab.Screen name={Screens.RecoveryKeyshareCode} options={{ title: t('myCode') }}>
+      <Tab.Screen name={Screens.RecoveryKeyshareCode} options={{ title: t('untitled') }}>
         {(props) => <RecoveryKeyshare {...props} qrSvgRef={qrSvgRef} />}
       </Tab.Screen>
       <Tab.Screen name={Screens.KeyshareScanner} options={{ title: t('scanCode') }}>

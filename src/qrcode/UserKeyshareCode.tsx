@@ -1,46 +1,49 @@
-import React, { useEffect, useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { useMemo } from 'react'
+import { useAsync } from 'react-async-hook'
+import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { shallowEqual, useSelector } from 'react-redux'
-import { AvatarSelf } from 'src/components/AvatarSelf'
+import { KeyshareType } from 'src/backup/mpc/hooks'
 import QRCode from 'src/qrcode/QRGen'
-import { UriData, urlFromUriData } from 'src/qrcode/schema'
-import { RootState } from 'src/redux/reducers'
+import { urlFromKeyshareData } from 'src/qrcode/schema'
 import { SVG } from 'src/send/actions'
 import colors from 'src/styles/colors'
-import fontStyles from 'src/styles/fonts'
 import variables from 'src/styles/variables'
-import { currentAccountSelector } from 'src/web3/selectors'
+import Logger from 'src/utils/Logger'
+import { useCapsule } from 'src/web3/hooks'
 
 interface Props {
-  isForScanToSend?: boolean
   content?: string
   qrSvgRef: React.MutableRefObject<SVG>
 }
 
-const mapStateToProps = (state: RootState): Partial<UriData> => ({
-  address: currentAccountSelector(state)!,
-  displayName: state.account.name || undefined,
-  e164PhoneNumber: state.account.e164PhoneNumber || undefined,
-})
+export default function UserKeyshareDisplay({ content, qrSvgRef }: Props) {
+  const { generateKeyshareSecret } = useCapsule()
 
-export default function UserKeyshareDisplay({ isForScanToSend, content, qrSvgRef }: Props) {
-  useEffect(() => {
-    // @todo Ensure pin, since this is secure data
-    // on failure, should navigate back to home (?)
+  const keyshareSecret = useAsync(async () => {
+    const secret = await generateKeyshareSecret()
+    return secret
   }, [])
 
-  const data = useSelector(mapStateToProps, shallowEqual)
-  const qrContent = useMemo(() => urlFromUriData(data), [
-    data.address,
-    data.displayName,
-    data.e164PhoneNumber,
-  ])
+  const qrContent = useMemo(
+    () =>
+      urlFromKeyshareData(
+        {
+          secret: keyshareSecret.result,
+        },
+        KeyshareType.User
+      ),
+    [keyshareSecret.result]
+  )
+
+  Logger.debug('Secret', JSON.stringify(qrContent))
+
   return (
     <SafeAreaView style={styles.container}>
-      {!isForScanToSend ? <AvatarSelf iconSize={64} displayNameStyle={fontStyles.h2} /> : undefined}
       <View style={styles.qrContainer}>
-        <QRCode value={content ?? qrContent} size={variables.width / 2} svgRef={qrSvgRef} />
+        {keyshareSecret.loading && <Text>Still retrieving secret.</Text>}
+        {!keyshareSecret.loading && (
+          <QRCode value={content ?? qrContent} size={variables.width / 2} svgRef={qrSvgRef} />
+        )}
       </View>
     </SafeAreaView>
   )

@@ -7,15 +7,16 @@ import { Lock } from '@celo/base/lib/lock'
 import { ContractKit, newKitFromWeb3 } from '@celo/contractkit'
 import { sleep } from '@celo/utils/lib/async'
 import { EIP712TypedData } from '@celo/utils/lib/sign-typed-data-utils'
+import { CapsuleBaseWallet } from '@usecapsule/react-native-wallet/src/CapsuleWallet'
 import { call, select } from 'redux-saga/effects'
 import { ContractKitEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { ErrorMessages } from 'src/app/ErrorMessages'
 import { DEFAULT_FORNO_URL } from 'src/config'
-import { waitForGethSync, waitForGethSyncAsync } from 'src/geth/saga'
+import { waitForGethSyncAsync } from 'src/geth/saga'
 import { navigateToError } from 'src/navigator/NavigationService'
 import Logger from 'src/utils/Logger'
-import { getHttpProvider, getIpcProvider } from 'src/web3/providers'
+import { getHttpProvider } from 'src/web3/providers'
 import { fornoSelector } from 'src/web3/selectors'
 import { ZedSignerStorage, ZedWallet } from 'src/web3/wallet'
 import Web3 from 'web3'
@@ -25,7 +26,7 @@ const TAG = 'web3/contracts'
 const CONTRACT_KIT_RETRIES = 3
 const WAIT_FOR_CONTRACT_KIT_RETRIES = 10
 
-let wallet: ZedWallet | undefined // GethNativeBridgeWallet | undefined
+let wallet: CapsuleBaseWallet | undefined // GethNativeBridgeWallet | undefined
 let contractKit: ContractKit | undefined
 
 const initContractKitLock = new Lock()

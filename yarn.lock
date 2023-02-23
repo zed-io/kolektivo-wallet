@@ -2267,7 +2267,7 @@
 
 "@capsule/client@github:capsule-org/user-management-client":
   version "0.0.1"
-  resolved "git+ssh://git@github.com/capsule-org/user-management-client.git#96ea1e5497e0ea572411c9c73a6f821e1239f8e8"
+  resolved "git+ssh://git@github.com/capsule-org/user-management-client.git#4a6f6ef7983f8790705d71f5e3416e716157c230"
   dependencies:
     axios "^0.27.2"
 
@@ -5534,10 +5534,10 @@
   resolved "https://registry.yarnpkg.com/@ungap/url-search-params/-/url-search-params-0.1.2.tgz#8ba8c0527543fe675d1c29ae0a2daca842e8ee4f"
   integrity sha512-WVk5+lJ+AoNLh2sIDMhnEAgLsVQuI067hWLJCzirErH1GYiy1gs09q4+XZxYWSvdAsslKsaO4q1iXXMx2c72dA==
 
-"@usecapsule/react-native-wallet@^0.1.7":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@usecapsule/react-native-wallet/-/react-native-wallet-0.1.9.tgz#727d2baefececd5ccfb118314760e7289d009371"
-  integrity sha512-iu9fJMehmGSrKJ7sCn+99PEBe1SsYRLbks5rRMI8tJg6COg30pGeQIyHPsOE3hrh+IhmwnM5feEsd6ZOPp3eAA==
+"@usecapsule/react-native-wallet@0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@usecapsule/react-native-wallet/-/react-native-wallet-0.1.10.tgz#29603b2e53a4272439a173f446b2ea60d23bd4cc"
+  integrity sha512-swEJhOvtJP5ULtfsSG35K22iuW0gKS5nG03JRvOwc2X2laSbJkzF669CkAKLvZPnqvBJK3KgKAdHLxMFgitzKQ==
   dependencies:
     "@capsule/client" capsule-org/user-management-client
     "@celo/base" "1.2.0"

@@ -5,7 +5,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import * as Keychain from 'react-native-keychain'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch } from 'react-redux'
-import { initializeAccount, setPincodeSuccess } from 'src/account/actions'
+import { setPincodeSuccess } from 'src/account/actions'
 import { PincodeType } from 'src/account/reducer'
 import { choseToRestoreAccountSelector } from 'src/account/selectors'
 import { OnboardingEvents } from 'src/analytics/Events'
@@ -91,7 +91,6 @@ export default function EnableBiometry({ navigation }: Props) {
       return
     }
     if (skipVerification) {
-      dispatch(initializeAccount())
       dispatch(setHasSeenVerificationNux(true))
       navigateHome()
       return

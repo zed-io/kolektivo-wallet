@@ -150,7 +150,6 @@ export class PincodeSet extends React.Component<Props, State> {
     } else if (this.props.biometryEnabled) {
       navigate(Screens.EnableBiometry)
     } else {
-      this.props.initializeAccount()
       navigateClearingStack(Screens.KeyshareProvisioningScreen)
     }
   }

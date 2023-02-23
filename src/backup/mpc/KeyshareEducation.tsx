@@ -5,7 +5,7 @@ import Education, { EmbeddedNavBar } from 'src/account/Education'
 import { KeyshareType, useKeyshareEducation } from 'src/backup/mpc/hooks'
 import { BtnTypes } from 'src/components/Button'
 import { noHeader } from 'src/navigator/Headers'
-import { ensurePincode, navigate } from 'src/navigator/NavigationService'
+import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
 import { StackParamList } from 'src/navigator/types'
 
@@ -21,13 +21,10 @@ const KeyshareEducation = ({ route }: Props) => {
 
   const onComplete = async () => {
     try {
-      const result = await ensurePincode()
-      if (!result) throw new Error('Invalid PIN')
-
       switch (educationType) {
         case KeyshareType.User:
-          navigate(Screens.ExportUserKeyshare, {
-            canGoBack: true,
+          navigate(Screens.KeyshareNavigator, {
+            screen: Screens.UserKeyshareCode,
           })
           break
         case KeyshareType.Recovery:

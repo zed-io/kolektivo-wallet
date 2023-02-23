@@ -178,12 +178,9 @@ export function* waitWeb3LastBlock() {
 export function* getOrCreateCapsuleAccount() {
   const account: string = yield select(currentAccountSelector)
   if (account) {
+    Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Account already exists.')
     return account
   } else {
-    const passcode: string = yield call(getPasswordSaga, account, false, true)
-    if (!passcode) {
-      yield take(setPincodeSuccess)
-    }
     // @todo Halt until determine whether using create or login with user keyshare
     try {
       Logger.debug(TAG + '@getOrCreateCapsuleAccount', 'Creating a new account')
@@ -256,8 +253,10 @@ export function* createAndAssignCapsuleAccount() {
           `Generated recovery keyshare (keyshare=${recoveryKeyshare})`
         )
       )
-      Logger.debug(TAG, '@createAndAssignCapsuleAccount', 'Waiting on Pincode to be set')
-
+      const passcode: string = yield call(getPasswordSaga, account, false, true)
+      if (!passcode) {
+        yield take(setPincodeSuccess)
+      }
       void wallet.getKeyshare(account).then((privateKeyShare) => {
         void storeCapsuleKeyShare(privateKeyShare, account)
       })

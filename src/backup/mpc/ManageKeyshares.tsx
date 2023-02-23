@@ -24,7 +24,7 @@ const ManageKeyshares = () => {
     // @todo nav to user keyshare education
   }
 
-  const goToRestoreKeyshare = () => {
+  const goToRecoveryKeyshare = () => {
     // @note has seen education?
     navigate(Screens.KeyshareEducationScreen, { type: KeyshareType.Recovery })
     // @todo nav to restore education
@@ -46,7 +46,7 @@ const ManageKeyshares = () => {
       <SettingsItemTextValue
         testID="RefreshRecoveryKeyshare"
         title={'Refresh Recovery Keyshare'}
-        onPress={goToRestoreKeyshare}
+        onPress={goToRecoveryKeyshare}
         showChevron
       />
     </SafeAreaView>

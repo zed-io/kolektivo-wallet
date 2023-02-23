@@ -416,7 +416,7 @@ export type QRTabParamList = {
 }
 
 export type KeyshareTabParamList = {
-  [Screens.UserKeyshareCode]: undefined
-  [Screens.RecoveryKeyshareCode]: undefined
-  [Screens.KeyshareScanner]: undefined
+  [Screens.UserKeyshareCode]: undefined | {}
+  [Screens.RecoveryKeyshareCode]: undefined | {}
+  [Screens.KeyshareScanner]: undefined | {}
 }

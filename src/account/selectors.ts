@@ -71,3 +71,5 @@ export const plaidParamsSelector = createSelector(
     }
   }
 )
+
+export const cachedKeyshareSecretSelector = (state: RootState) => state.imports.userKeyshareSecret
