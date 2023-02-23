@@ -424,7 +424,6 @@ export function* unlockAccount(account: string, force: boolean = false) {
 
 // Wait for geth to be connected and account ready
 export function* getConnectedAccount() {
-  yield call(waitForGethConnectivity)
   const account: string = yield call(getAccount)
   return account
 }
