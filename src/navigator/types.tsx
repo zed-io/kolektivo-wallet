@@ -127,10 +127,6 @@ export type StackParamList = {
   [Screens.ExchangeTradeScreen]: {
     buyCelo: boolean
   }
-  [Screens.ExportRecoveryKeyshare]: undefined
-  [Screens.ExportUserKeyshare]: {
-    canGoBack: boolean
-  }
   [Screens.ExternalExchanges]: {
     isCashIn?: boolean
     currency: Currency

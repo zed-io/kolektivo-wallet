@@ -28,8 +28,6 @@ import BackupComplete from 'src/backup/BackupComplete'
 import BackupForceScreen from 'src/backup/BackupForceScreen'
 import BackupPhrase, { navOptionsForBackupPhrase } from 'src/backup/BackupPhrase'
 import BackupQuiz, { navOptionsForQuiz } from 'src/backup/BackupQuiz'
-import ExportRecoveryKeyshare from 'src/backup/mpc/ExportRecoveryKeyshare'
-import ExportUserKeyshare from 'src/backup/mpc/ExportUserKeyshare'
 import KeyshareEducation from 'src/backup/mpc/KeyshareEducation'
 import BackButton from 'src/components/BackButton'
 import CancelButton from 'src/components/CancelButton'
@@ -501,13 +499,6 @@ const consumerIncentivesScreens = (Navigator: typeof Stack) => (
   </>
 )
 
-const migrationScreens = (Navigator: typeof Stack) => (
-  <>
-    <Navigator.Screen name={Screens.ExportUserKeyshare} component={ExportUserKeyshare} />
-    <Navigator.Screen name={Screens.ExportRecoveryKeyshare} component={ExportRecoveryKeyshare} />
-  </>
-)
-
 /**
  *
  * @param Navigator The main stack navigator
@@ -750,7 +741,6 @@ export function MainStackScreen() {
       {nuxScreens(Stack)}
       {verificationScreens(Stack)}
       {exchangeScreens(Stack)}
-      {migrationScreens(Stack)}
       {backupScreens(Stack)}
       {consumerIncentivesScreens(Stack)}
       {settingsScreens(Stack)}
