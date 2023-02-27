@@ -1,8 +1,15 @@
+import { RouteProp } from '@react-navigation/native'
 import React, { useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { shallowEqual, useSelector } from 'react-redux'
+import { KeyshareEvents } from 'src/analytics/Events'
 import { AvatarSelf } from 'src/components/AvatarSelf'
+import BackButton from 'src/components/BackButton'
+import i18n from 'src/i18n'
+import { emptyHeader } from 'src/navigator/Headers'
+import { Screens } from 'src/navigator/Screens'
+import { StackParamList } from 'src/navigator/types'
 import QRCode from 'src/qrcode/QRGen'
 import { UriData, urlFromUriData } from 'src/qrcode/schema'
 import { RootState } from 'src/redux/reducers'
@@ -39,6 +46,18 @@ export default function RecoveryKeyshareDisplay({ isForScanToSend, content, qrSv
       </View>
     </SafeAreaView>
   )
+}
+
+RecoveryKeyshareDisplay.navigationOptions = ({
+  route,
+}: {
+  route: RouteProp<StackParamList, Screens.UserKeyshareCode>
+}) => {
+  return {
+    ...emptyHeader,
+    headerLeft: () => <BackButton eventName={KeyshareEvents.export_user_keyshare_cancel} />,
+    headerTitle: i18n.t('recoveryKeyshare'),
+  }
 }
 
 const styles = StyleSheet.create({

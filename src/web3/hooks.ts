@@ -2,10 +2,9 @@ import { createUser, verifyEmail } from '@usecapsule/react-native-wallet'
 import { CapsuleBaseWallet } from '@usecapsule/react-native-wallet/src/CapsuleWallet'
 import { login, verifyLogin } from '@usecapsule/react-native-wallet/src/helpers'
 import { uploadKeyshare } from '@usecapsule/react-native-wallet/src/transmissionUtils'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeAccount } from 'src/account/actions'
-import { cachedKeyshareSecretSelector } from 'src/account/selectors'
-import { cacheKeyshareSecret } from 'src/import/actions'
 import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
 import Logger from 'src/utils/Logger'
@@ -15,11 +14,12 @@ import { accountAddressSelector, capsuleAccountSelector } from 'src/web3/selecto
 
 const TAG = 'useCapsule'
 
+export const SESSION_TIMEOUT = 5 * 60 * 1000
+
 export const useCapsule = () => {
   const dispatch = useDispatch()
   const address = useSelector(accountAddressSelector)
-  const keyshareSecret = useSelector(cachedKeyshareSecretSelector)
-
+  const [cachedSecret, setSecret] = useState<any>(null)
   const { email: cachedEmail, id: cachedId } = useSelector(capsuleAccountSelector)
 
   const authenticate = async (email: string) => {
@@ -48,28 +48,34 @@ export const useCapsule = () => {
       await login(email)
       const { data: loginResponse } = await verifyLogin(code)
       dispatch(setCapsuleIdentity(email, loginResponse.userId))
-      navigate(Screens.KeyshareNavigator, {
-        screen: Screens.KeyshareScanner,
-      })
+      navigate(Screens.KeyshareScanner)
     } catch (error: any) {
       Logger.error(TAG, '@loginWithKeyshare Unable to login', error)
     }
   }
 
-  const generateKeyshareSecret = async () => {
-    try {
-      if (keyshareSecret) {
-        return keyshareSecret
+  const encryptAndShareSecret = async () => {
+    const refreshSecret = async () => {
+      try {
+        const wallet: CapsuleBaseWallet = await getWalletAsync()
+        if (!address) throw new Error('Account not yet initialized.')
+        const secret = await uploadKeyshare(wallet, address)
+        setSecret(secret)
+      } catch (error: any) {
+        Logger.error(`${TAG} @encryptAndShareSecret Failed`, error)
       }
-      const wallet: CapsuleBaseWallet = await getWalletAsync()
-      if (!address) throw new Error('Account not yet initialized.')
-      const secret = await uploadKeyshare(wallet, address)
-      dispatch(cacheKeyshareSecret(secret))
-      return secret
-    } catch (error: any) {
-      Logger.error(`${TAG} @generateKeyshareSecret Failed`, error)
+    }
+    await refreshSecret()
+    return {
+      refreshSecret,
     }
   }
 
-  return { authenticate, verify, loginWithKeyshare, generateKeyshareSecret }
+  return {
+    authenticate,
+    verify,
+    loginWithKeyshare,
+    encryptAndShareSecret,
+    userKeyshareSecret: cachedSecret,
+  }
 }

@@ -23,11 +23,10 @@ const KeyshareEducation = ({ route }: Props) => {
     try {
       switch (educationType) {
         case KeyshareType.User:
-          navigate(Screens.KeyshareNavigator, {
-            screen: Screens.UserKeyshareCode,
-          })
+          navigate(Screens.UserKeyshareCode)
           break
         case KeyshareType.Recovery:
+          navigate(Screens.RecoveryKeyshareCode)
           break
         default:
           break

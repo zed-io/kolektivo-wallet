@@ -98,6 +98,9 @@ import PaymentRequestUnavailable, {
 } from 'src/paymentRequest/PaymentRequestUnavailable'
 import PincodeEnter from 'src/pincode/PincodeEnter'
 import PincodeSet from 'src/pincode/PincodeSet'
+import KeyshareScanner from 'src/qrcode/KeyshareScanner'
+import RecoveryKeyshareDisplay from 'src/qrcode/RecoveryKeyshareCode'
+import UserKeyshareDisplay from 'src/qrcode/UserKeyshareCode'
 import ReceiveAmount from 'src/receive'
 import { RootState } from 'src/redux/reducers'
 import { store } from 'src/redux/store'
@@ -532,6 +535,16 @@ const backupScreens = (Navigator: typeof Stack) => (
       component={AccounSetupFailureScreen}
       options={AccounSetupFailureScreen.navOptions}
     />
+    <Navigator.Screen
+      name={Screens.UserKeyshareCode}
+      component={UserKeyshareDisplay}
+      options={UserKeyshareDisplay.navigationOptions}
+    />
+    <Navigator.Screen
+      name={Screens.RecoveryKeyshareCode}
+      component={RecoveryKeyshareDisplay}
+      options={RecoveryKeyshareDisplay.navigationOptions}
+    />
   </>
 )
 
@@ -806,6 +819,7 @@ const modalAnimatedScreens = (Navigator: typeof Stack) => (
       component={KeyshareEducation}
       options={KeyshareEducation.navigationOptions}
     />
+    <Navigator.Screen name={Screens.KeyshareScanner} component={KeyshareScanner} />
   </>
 )
 

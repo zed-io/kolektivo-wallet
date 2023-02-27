@@ -1377,6 +1377,8 @@
     "verifyInfo": "We've sent a one-time passcode to your email. Enter that passcode here to verify your account and secure your financial data.",
     "resend": "Resend"
   },
+  "userKeyshare": "User Keyshare",
+  "recoveryKeyshare": "Recovery Keyshare",
   "migrateUserKey": "Migrate your account",
   "refreshRecoveryKey": "Refresh your backup key",
   "manageKeyshare": "Manage your Wallet Keys",

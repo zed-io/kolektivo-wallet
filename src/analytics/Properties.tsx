@@ -16,6 +16,7 @@ import {
   HomeEvents,
   IdentityEvents,
   InviteEvents,
+  KeyshareEvents,
   KolektivoNotificationEvents,
   NavigationEvents,
   NetworkEvents,
@@ -1252,6 +1253,11 @@ interface KolektivoNotificationEventsProperties {
   [KolektivoNotificationEvents.cico_prompt_complete]: undefined
 }
 
+interface KeyshareEventsProperties {
+  [KeyshareEvents.export_user_keyshare_cancel]: undefined
+  [KeyshareEvents.export_user_keyshare_timeout]: undefined
+}
+
 export type AnalyticsPropertiesList = AppEventsProperties &
   HomeEventsProperties &
   SettingsEventsProperties &
@@ -1277,4 +1283,5 @@ export type AnalyticsPropertiesList = AppEventsProperties &
   DappKitProperties &
   CICOEventsProperties &
   DappExplorerEventsProperties &
-  KolektivoNotificationEventsProperties
+  KolektivoNotificationEventsProperties &
+  KeyshareEventsProperties
