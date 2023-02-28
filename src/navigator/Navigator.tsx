@@ -72,7 +72,6 @@ import {
   noHeader,
   noHeaderGestureDisabled,
 } from 'src/navigator/Headers'
-import KeyshareNavigator from 'src/navigator/KeyshareNavigator'
 import { navigateBack, navigateToExchangeHome } from 'src/navigator/NavigationService'
 import QRNavigator from 'src/navigator/QRNavigator'
 import { Screens } from 'src/navigator/Screens'
@@ -774,11 +773,7 @@ const modalAnimatedScreens = (Navigator: typeof Stack) => (
       component={QRNavigator}
       options={QRNavigator.navigationOptions}
     />
-    <Navigator.Screen
-      name={Screens.KeyshareNavigator}
-      component={KeyshareNavigator}
-      options={KeyshareNavigator.navigationOptions}
-    />
+
     <Navigator.Screen
       name={Screens.RegulatoryTerms}
       component={RegulatoryTerms}

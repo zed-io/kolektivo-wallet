@@ -178,7 +178,6 @@ export type StackParamList = {
   [Screens.KeyshareEducationScreen]: {
     type: KeyshareType
   }
-  [Screens.KeyshareNavigator]: NestedNavigatorParams<KeyshareTabParamList> | undefined
   [Screens.Language]:
     | {
         nextScreen: keyof StackParamList
@@ -413,5 +412,3 @@ export type QRTabParamList = {
       }
     | undefined
 }
-
-export type KeyshareTabParamList = {}

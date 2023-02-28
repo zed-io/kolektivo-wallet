@@ -37,7 +37,6 @@ export enum Screens {
   ImportWallet = 'ImportWallet',
   IncomingPaymentRequestListScreen = 'IncomingPaymentRequestListScreen',
   KeyshareEducationScreen = 'KeyshareEducationScreen',
-  KeyshareNavigator = 'KeyshareNavigator',
   KeyshareScanner = 'KeyshareScannerScreen',
   KeyshareProvisioningScreen = 'KeyshareProvisioningScreen',
   Language = 'Language',
