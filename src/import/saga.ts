@@ -212,7 +212,7 @@ export function* importUserKeyshareSaga({ keyshareSecret }: ImportUserKeyshareSe
     const keyshare: string = yield call(retrieveKeyshare, secret)
     const account: string = yield call([wallet, wallet.importAccount], keyshare)
     const cachedKeyshare: string = yield call([wallet, wallet.getKeyshare], account)
-    if (keyshare === cachedKeyshare) {
+    if (keyshare !== cachedKeyshare) {
       throw new Error('Keyshare Import FAILED')
     }
     yield call(storeCapsuleKeyShare, cachedKeyshare, account)

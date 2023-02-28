@@ -140,6 +140,7 @@ export type StackParamList = {
     flow: FiatExchangeFlow
   }
   [Screens.KeyshareProvisioningScreen]: undefined
+  [Screens.KeyshareScanner]: undefined | {}
   [Screens.MoonPayScreen]: {
     localAmount: number
     currencyCode: LocalCurrencyCode
@@ -245,6 +246,7 @@ export type StackParamList = {
     onCancel?: () => void
   }
   [Screens.ReceiveAmount]: undefined
+  [Screens.RecoveryKeyshareCode]: undefined | {}
   [Screens.RegulatoryTerms]:
     | undefined
     | {
@@ -319,6 +321,7 @@ export type StackParamList = {
     reviewProps: ReviewProps
     confirmationProps: TransferConfirmationCardProps | ExchangeConfirmationCardProps
   }
+  [Screens.UserKeyshareCode]: undefined | {}
   [Screens.UpgradeScreen]: undefined
   [Screens.ValidateRecipientIntro]: {
     transactionData: TransactionDataInputLegacy | TransactionDataInput
@@ -411,8 +414,4 @@ export type QRTabParamList = {
     | undefined
 }
 
-export type KeyshareTabParamList = {
-  [Screens.UserKeyshareCode]: undefined | {}
-  [Screens.RecoveryKeyshareCode]: undefined | {}
-  [Screens.KeyshareScanner]: undefined | {}
-}
+export type KeyshareTabParamList = {}

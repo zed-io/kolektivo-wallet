@@ -819,7 +819,11 @@ const modalAnimatedScreens = (Navigator: typeof Stack) => (
       component={KeyshareEducation}
       options={KeyshareEducation.navigationOptions}
     />
-    <Navigator.Screen name={Screens.KeyshareScanner} component={KeyshareScanner} />
+    <Navigator.Screen
+      name={Screens.KeyshareScanner}
+      component={KeyshareScanner}
+      options={KeyshareScanner.navigationOptions}
+    />
   </>
 )
 
