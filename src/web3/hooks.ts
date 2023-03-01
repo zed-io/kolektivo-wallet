@@ -62,7 +62,7 @@ export const useCapsule = () => {
         const secret = await uploadKeyshare(wallet, address)
         setSecret(secret)
       } catch (error: any) {
-        Logger.error(`${TAG} @encryptAndShareSecret Failed`, error)
+        Logger.error(`${TAG} @encryptAndShareSecret Failed`, JSON.stringify(error))
       }
     }
     await refreshSecret()

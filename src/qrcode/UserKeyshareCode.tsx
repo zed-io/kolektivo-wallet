@@ -1,10 +1,13 @@
 import { RouteProp } from '@react-navigation/native'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useAsync } from 'react-async-hook'
 import { StyleSheet, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useDispatch } from 'react-redux'
+import { showError } from 'src/alert/actions'
 import { KeyshareEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
+import { ErrorMessages } from 'src/app/ErrorMessages'
 import { KeyshareType } from 'src/backup/mpc/hooks'
 import BackButton from 'src/components/BackButton'
 import i18n from 'src/i18n'
@@ -26,11 +29,35 @@ interface Props {
   qrSvgRef: React.MutableRefObject<SVG>
 }
 
+const KEYSHARE_RETRIES = 3
+const KEYSHARE_SECRET_RETRY_TIME = 5000
+
 export default function UserKeyshareDisplay({ content, qrSvgRef }: Props) {
+  const dispatch = useDispatch()
   const { encryptAndShareSecret, userKeyshareSecret } = useCapsule()
   const [startTime, setStartTime] = useState<number>(Date.now())
 
   const { result: capsule } = useAsync(async () => await encryptAndShareSecret(), [])
+
+  useEffect(() => {
+    if (userKeyshareSecret) return
+    let retries = 0
+    const interval = setInterval(async () => {
+      await capsule?.refreshSecret()
+      if (userKeyshareSecret) {
+        clearInterval(interval)
+      } else if (retries >= KEYSHARE_RETRIES) {
+        clearInterval(interval)
+        dispatch(showError(ErrorMessages.CAPSULE_KEYSHARE_ENCRYPTION_FAILED, 1000))
+      }
+      setStartTime(Date.now())
+      retries++
+    }, KEYSHARE_SECRET_RETRY_TIME)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [userKeyshareSecret])
 
   const qrContent = useMemo(
     () =>
@@ -56,7 +83,7 @@ export default function UserKeyshareDisplay({ content, qrSvgRef }: Props) {
       {userKeyshareSecret && (
         <QRCode value={content ?? qrContent} size={(variables.width * 2) / 3} svgRef={qrSvgRef} />
       )}
-      {startTime && (
+      {startTime && userKeyshareSecret && (
         // @note Modify the sizing of the timer pls
         <VerificationCountdown
           onFinish={refreshKeyshareSecret}

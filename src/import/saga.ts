@@ -19,13 +19,19 @@ import {
   race,
   select,
   spawn,
+  take,
   takeLeading,
 } from 'redux-saga/effects'
-import { initializeAccount, setAccountCreationTime, setBackupCompleted } from 'src/account/actions'
+import {
+  initializeAccount,
+  setAccountCreationTime,
+  setBackupCompleted,
+  setPincodeSuccess,
+} from 'src/account/actions'
 import { uploadNameAndPicture } from 'src/account/profileInfo'
 import { recoveringFromStoreWipeSelector } from 'src/account/selectors'
 import { showError } from 'src/alert/actions'
-import { AppEvents, OnboardingEvents } from 'src/analytics/Events'
+import { AppEvents, KeyshareEvents, OnboardingEvents } from 'src/analytics/Events'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
 import { ErrorMessages } from 'src/app/ErrorMessages'
 import { skipVerificationSelector } from 'src/app/selectors'
@@ -183,7 +189,7 @@ export function* importBackupPhraseSaga({ phrase, useEmptyWallet }: ImportBackup
     }
 
     yield put(importBackupPhraseSuccess())
-  } catch (error) {
+  } catch (error: any) {
     Logger.error(TAG + '@importBackupPhraseSaga', 'Error importing backup phrase', error)
     yield put(showError(ErrorMessages.IMPORT_BACKUP_FAILED))
     yield put(importBackupPhraseFailure())
@@ -195,12 +201,12 @@ export function* handleIncomingKeyshares(action: HandleKeyshareDetected) {
   const { data: keyshare } = action
 
   if (keyshare.data.startsWith('kolektivo://keyshare/User')) {
+    ValoraAnalytics.track(KeyshareEvents.import_user_keyshare_started)
     yield put(importUserKeyshare(keyshare.data))
   } else if (keyshare.data.startsWith('kolektivo://keyshare/Recovery')) {
     yield put(importRecoveryKeyshare(keyshare.data))
   }
-
-  navigate(Screens.KeyshareProvisioningScreen)
+  navigate(Screens.PincodeSet)
 }
 
 export function* importUserKeyshareSaga({ keyshareSecret }: ImportUserKeyshareSecretAction) {
@@ -211,18 +217,22 @@ export function* importUserKeyshareSaga({ keyshareSecret }: ImportUserKeyshareSe
     yield call([wallet, wallet.initSessionManagement])
     const keyshare: string = yield call(retrieveKeyshare, secret)
     const account: string = yield call([wallet, wallet.importAccount], keyshare)
+    yield take(setPincodeSuccess)
     const cachedKeyshare: string = yield call([wallet, wallet.getKeyshare], account)
     if (keyshare !== cachedKeyshare) {
       throw new Error('Keyshare Import FAILED')
     }
+
     yield call(storeCapsuleKeyShare, cachedKeyshare, account)
     if (!account) {
       throw new Error('User keyshare provided is invalid.')
     }
+    ValoraAnalytics.track(KeyshareEvents.import_user_keyshare_success)
     yield put(setAccount(account))
     yield put(setAccountCreationTime(Date.now()))
   } catch (error: any) {
     Logger.debug(TAG, '@importUserKeyshareSaga', error)
+    ValoraAnalytics.track(KeyshareEvents.import_user_keyshare_failure)
   }
 }
 

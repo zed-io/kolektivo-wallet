@@ -1256,6 +1256,9 @@ interface KolektivoNotificationEventsProperties {
 interface KeyshareEventsProperties {
   [KeyshareEvents.export_user_keyshare_cancel]: undefined
   [KeyshareEvents.export_user_keyshare_timeout]: undefined
+  [KeyshareEvents.import_user_keyshare_started]: undefined
+  [KeyshareEvents.import_user_keyshare_success]: undefined
+  [KeyshareEvents.import_user_keyshare_failure]: undefined
 }
 
 export type AnalyticsPropertiesList = AppEventsProperties &
