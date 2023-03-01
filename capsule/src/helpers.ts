@@ -1,10 +1,5 @@
 import { ensureLeading0x } from '@celo/base/lib/address';
 import userManagementClient from './UserManagementClient';
-import {
-  USER_NOT_AUTHENTICATED_ERROR,
-  USER_NOT_MATCHING_ERROR,
-  USER_NOT_VERIFIED,
-} from '@capsule/client/client';
 
 /**
  * Used to convert hex to base64 string.
@@ -25,7 +20,7 @@ export function base64ToHex(base64: string) {
 }
 
 /**
- * Wrapper for request to refresh cookie and retry on cookies-related failures
+ * Wrapper for request to refresh cookie and retry  failures
  * @param request request function
  * @param reauthenticate function to refresh session cookies
  */
@@ -35,17 +30,10 @@ export async function requestAndReauthenticate<T>(
 ): Promise<T> {
   try {
     return await request();
-  } catch (e: any) {
-    const { data } = e.response;
-    if (
-      data === USER_NOT_MATCHING_ERROR ||
-      data === USER_NOT_AUTHENTICATED_ERROR ||
-      data === USER_NOT_VERIFIED
-    ) {
-      await reauthenticate();
-      return await request();
-    }
-    throw e;
+  } catch (_: any) {
+    // TODO retry only on 403 and similar
+    await reauthenticate();
+    return await request();
   }
 }
 
