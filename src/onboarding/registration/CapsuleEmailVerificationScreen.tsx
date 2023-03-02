@@ -1,10 +1,8 @@
-// @ts-nocheck
 import { StackScreenProps, useHeaderHeight } from '@react-navigation/stack'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useDispatch, useSelector } from 'react-redux'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import BackButton from 'src/components/BackButton'
 import Button, { BtnSizes, BtnTypes } from 'src/components/Button'
 import NumberKeypad from 'src/components/NumberKeypad'
@@ -16,26 +14,18 @@ import Colors from 'src/styles/colors'
 import fontStyles from 'src/styles/fonts'
 import Logger from 'src/utils/Logger'
 import { useCapsule } from 'src/web3/hooks'
-import { capsuleAccountSelector } from 'src/web3/selectors'
 type RouteProps = StackScreenProps<StackParamList, Screens.CapsuleOAuth>
 type Props = RouteProps
 
 const TAG = 'capsule/capsule'
 function CapsuleEmailVerificationScreen({ route, navigation }: Props) {
-  const dispatch = useDispatch()
   const { t } = useTranslation()
-  const { email: cachedEmail } = useSelector(capsuleAccountSelector)
   const { isExistingUser } = route.params || {}
   const { verify, loginWithKeyshare } = useCapsule()
 
-  const insets = useSafeAreaInsets()
   const headerHeight = useHeaderHeight()
 
   const [code, setCode] = useState<string>()
-
-  const onChangeCode = (code: string) => {
-    setCode(code)
-  }
 
   const handleDigitPress = (digit: number) => {
     setCode(`${code ?? ''}${digit}`)
@@ -51,21 +41,19 @@ function CapsuleEmailVerificationScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     async function callVerification() {
+      if (!code) return
       if (isExistingUser) {
-        await loginWithKeyshare(cachedEmail, code)
+        await loginWithKeyshare(code)
       } else {
         await verify(code)
       }
     }
-    if (code?.length >= 6) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      callVerification()
-    }
+    void callVerification()
   }, [code])
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: <Logo type={LogoTypes.LIGHT} />,
+      headerTitle: () => <Logo type={LogoTypes.LIGHT} />,
       headerLeft: () => <BackButton color={Colors.light} />,
     })
   }, [navigation, route.params])

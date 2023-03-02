@@ -1,15 +1,19 @@
+import { StackScreenProps } from '@react-navigation/stack'
 import { isNull } from 'lodash'
 import React, { useEffect, useMemo } from 'react'
 import { Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
-import { navigate } from 'src/navigator/NavigationService'
+import { navigateClearingStack } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
+import { StackParamList } from 'src/navigator/types'
 import { accountAddressSelector } from 'src/web3/selectors'
 
 const TAG = 'onboarding/keyshare'
 
-const KeyshareProvisioningScreen = () => {
+type Props = {} & StackScreenProps<StackParamList, Screens.KeyshareProvisioningScreen>
+
+const KeyshareProvisioningScreen = (_props: Props) => {
   const account = useSelector(accountAddressSelector)
 
   const accountReady = useMemo(() => {
@@ -27,12 +31,7 @@ const KeyshareProvisioningScreen = () => {
   }
 
   const goToNextScreen = () => {
-    try {
-      // @note Go to Nux Interests
-      navigate(Screens.NuxInterests)
-    } catch (error) {
-      console.error(TAG, '@goToNextScreen', error)
-    }
+    navigateClearingStack(Screens.NuxInterests)
   }
 
   return (

@@ -98,4 +98,5 @@ export enum ErrorMessages {
   CAPSULE_ACCOUNT_ALREADY_EXISTS = 'capsuleAccountAlreadyExists',
   CAPSULE_UNEXPECTED_ADDRESS = 'capsuleUnexpectedAddress',
   CAPSULE_KEYSHARE_ENCRYPTION_FAILED = 'capsuleKeyshareEncryptionFailed',
+  CAPSULE_KEYSHARE_DECRYPTION_FAILED = 'capsuleKeyshareDecryptionFailed',
 }

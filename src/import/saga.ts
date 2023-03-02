@@ -23,10 +23,10 @@ import {
   takeLeading,
 } from 'redux-saga/effects'
 import {
+  Actions as AccountActions,
   initializeAccount,
   setAccountCreationTime,
   setBackupCompleted,
-  setPincodeSuccess,
 } from 'src/account/actions'
 import { uploadNameAndPicture } from 'src/account/profileInfo'
 import { recoveringFromStoreWipeSelector } from 'src/account/selectors'
@@ -51,6 +51,7 @@ import {
 } from 'src/import/actions'
 import { navigate, navigateClearingStack, navigateHome } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
+import { getPasswordSaga } from 'src/pincode/authentication'
 import { keyshareDataFromUrl } from 'src/qrcode/schema'
 import { fetchTokenBalanceInWeiWithRetry } from 'src/tokens/saga'
 import { Currency } from 'src/utils/currencies'
@@ -206,34 +207,51 @@ export function* handleIncomingKeyshares(action: HandleKeyshareDetected) {
   } else if (keyshare.data.startsWith('kolektivo://keyshare/Recovery')) {
     yield put(importRecoveryKeyshare(keyshare.data))
   }
-  navigate(Screens.PincodeSet)
 }
 
+/**
+ * Use the keyshare secret to decrypt the downloaded User Keyshare from Capsule,
+ * and initialize the Wallet and Account with the Keyshare
+ */
 export function* importUserKeyshareSaga({ keyshareSecret }: ImportUserKeyshareSecretAction) {
+  Logger.debug(TAG, '@importUserKeyshareSaga', 'Starting Decryption of User Keyshare')
   try {
     const { secret } = yield call(keyshareDataFromUrl, keyshareSecret)
-    Logger.debug(TAG, '@importUserKeyshareSaga', secret)
     const wallet: ZedWallet = yield call(getWallet)
     yield call([wallet, wallet.initSessionManagement])
     const keyshare: string = yield call(retrieveKeyshare, secret)
     const account: string = yield call([wallet, wallet.importAccount], keyshare)
-    yield take(setPincodeSuccess)
     const cachedKeyshare: string = yield call([wallet, wallet.getKeyshare], account)
     if (keyshare !== cachedKeyshare) {
       throw new Error('Keyshare Import FAILED')
     }
+    yield navigate(Screens.NameAndPicture)
+    yield call(attemptKeyshareStorage, account)
+  } catch (error: any) {
+    Logger.debug(TAG, '@importUserKeyshareSaga', JSON.stringify(error))
+    Logger.debug(TAG, '@importUserKeyshareSaga', JSON.stringify(error.response.data))
+    ValoraAnalytics.track(KeyshareEvents.import_user_keyshare_failure)
+    yield put(showError(ErrorMessages.CAPSULE_KEYSHARE_DECRYPTION_FAILED, 2000))
+  }
+  return
+}
 
-    yield call(storeCapsuleKeyShare, cachedKeyshare, account)
-    if (!account) {
-      throw new Error('User keyshare provided is invalid.')
-    }
+export function* attemptKeyshareStorage(account: string) {
+  Logger.debug(TAG, '@importUserKeyshareSaga', 'Starting Import of User Keyshare')
+  try {
+    yield take(AccountActions.SET_PINCODE_SUCCESS)
+    const wallet: ZedWallet = yield call(getWallet)
+    const keyshare: string = yield call([wallet, wallet.getKeyshare], account)
+    yield call(getPasswordSaga, account, false, true)
+    yield call(storeCapsuleKeyShare, keyshare, account)
     ValoraAnalytics.track(KeyshareEvents.import_user_keyshare_success)
     yield put(setAccount(account))
     yield put(setAccountCreationTime(Date.now()))
   } catch (error: any) {
-    Logger.debug(TAG, '@importUserKeyshareSaga', error)
-    ValoraAnalytics.track(KeyshareEvents.import_user_keyshare_failure)
+    Logger.debug(TAG, '@attemptKeyshareStorage', error)
+    yield put(showError(ErrorMessages.CAPSULE_KEYSHARE_DECRYPTION_FAILED, 2000))
   }
+  return
 }
 
 export function* importRecoveryKeyshareSaga({ keyshare }: ImportRecoveryKeyshareAction) {

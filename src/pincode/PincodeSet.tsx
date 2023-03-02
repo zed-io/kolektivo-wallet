@@ -149,6 +149,8 @@ export class PincodeSet extends React.Component<Props, State> {
       navigate(Screens.Settings)
     } else if (this.props.biometryEnabled) {
       navigate(Screens.EnableBiometry)
+    } else if (this.props.choseToRestoreAccount) {
+      navigateClearingStack(Screens.NuxInterests)
     } else {
       navigateClearingStack(Screens.KeyshareProvisioningScreen)
     }

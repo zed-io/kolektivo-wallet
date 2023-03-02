@@ -26,7 +26,7 @@ export const useCapsule = () => {
     try {
       const { userId } = await createUser({ email })
       dispatch(setCapsuleIdentity(email, userId))
-      navigate(Screens.CapsuleEmailVerification)
+      navigate(Screens.CapsuleEmailVerification, {})
     } catch (error: any) {
       Logger.error(TAG, '@authenticate Unable to authenticate', error)
     }
@@ -38,19 +38,33 @@ export const useCapsule = () => {
       dispatch(initializeAccount())
       navigate(Screens.NameAndPicture)
     } catch (error: any) {
-      Logger.error(TAG, '@authenticate Unable to verify', error)
+      Logger.error(TAG, '@verify Unable to verify', error)
     }
   }
 
-  const loginWithKeyshare = async (email: string, code: string) => {
+  const initiateLogin = async (email: string) => {
     try {
       // @todo Call recovery veification with email, code,
       await login(email)
+      dispatch(setCapsuleIdentity(email, cachedId || ''))
+      navigate(Screens.CapsuleEmailVerification, { isExistingUser: true })
+    } catch (error: any) {
+      Logger.error(TAG, '@loginWithKeyshare Unable to send code', error)
+      Logger.error(TAG, '@loginWithKeyshare Unable to send code', error.response.data)
+    }
+  }
+
+  const loginWithKeyshare = async (code: string) => {
+    try {
+      if (!cachedEmail) {
+        return
+      }
       const { data: loginResponse } = await verifyLogin(code)
-      dispatch(setCapsuleIdentity(email, loginResponse.userId))
+      dispatch(setCapsuleIdentity(cachedEmail, loginResponse.userId))
       navigate(Screens.KeyshareScanner)
     } catch (error: any) {
       Logger.error(TAG, '@loginWithKeyshare Unable to login', error)
+      Logger.error(TAG, '@loginWithKeyshare Unable to login', error.response.data)
     }
   }
 
@@ -74,6 +88,7 @@ export const useCapsule = () => {
   return {
     authenticate,
     verify,
+    initiateLogin,
     loginWithKeyshare,
     encryptAndShareSecret,
     userKeyshareSecret: cachedSecret,
