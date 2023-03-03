@@ -705,7 +705,6 @@ export function MainStackScreen() {
 
   React.useEffect(() => {
     const {
-      choseToRestoreAccount,
       language,
       name,
       acceptedTerms,
@@ -733,7 +732,7 @@ export function MainStackScreen() {
       initialRoute = Screens.DrawerNavigator
     }
 
-    setInitialRoute(Screens.CapsuleEmailVerification)
+    setInitialRoute(initialRoute)
     Logger.info(`${TAG}@MainStackScreen`, `Initial route: ${initialRoute}`)
 
     // Wait for next frame to avoid slight gap when hiding the splash
