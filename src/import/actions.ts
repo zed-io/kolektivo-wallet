@@ -4,7 +4,6 @@ export enum Actions {
   IMPORT_BACKUP_PHRASE = 'IMPORT/IMPORT_BACKUP_PHRASE',
   IMPORT_BACKUP_PHRASE_SUCCESS = 'IMPORT/IMPORT_BACKUP_PHRASE_SUCCESS',
   IMPORT_BACKUP_PHRASE_FAILURE = 'IMPORT/IMPORT_BACKUP_PHRASE_FAILURE',
-  KEYSHARE_SECRET = 'CAPSULE/KEYSHARE_SECRET',
   KEYSHARE_DETECTED = 'CAPSULE/KEYSHARE_DETECTED',
   IMPORT_USER_KEYSHARE = 'CAPSULE/IMPORT_USER_KEYSHARE',
   IMPORT_USER_KEYSHARE_SUCCESS = 'CAPSULE/USER_KEYSHARE_SUCCESS',
@@ -13,16 +12,6 @@ export enum Actions {
   IMPORT_RECOVERY_KEYSHARE_SUCCESS = 'CAPSULE/RECOVERY_KEYSHARE_SUCCESS',
   IMPORT_RECOVERY_KEYSHARE_FAILURE = 'CAPSULE/RECOVERY_KEYSHARE_FAILURE',
 }
-
-export interface KeyshareSecretGenerated {
-  type: Actions.KEYSHARE_SECRET
-  secret: string
-}
-
-export const cacheKeyshareSecret = (secret: string) => ({
-  type: Actions.KEYSHARE_SECRET,
-  secret,
-})
 
 export interface HandleKeyshareDetected {
   type: Actions.KEYSHARE_DETECTED
@@ -86,19 +75,19 @@ export const importBackupPhraseFailure = (): ImportBackupPhraseFailureAction => 
 })
 
 export interface ImportUserKeyshareSuccessAction {
-  type: Actions.IMPORT_BACKUP_PHRASE_SUCCESS
+  type: Actions.IMPORT_USER_KEYSHARE_SUCCESS
 }
 
 export const importUserKeyshareSuccess = (): ImportUserKeyshareSuccessAction => ({
-  type: Actions.IMPORT_BACKUP_PHRASE_SUCCESS,
+  type: Actions.IMPORT_USER_KEYSHARE_SUCCESS,
 })
 
 export interface ImportUserKeyshareFailureAction {
-  type: Actions.IMPORT_BACKUP_PHRASE_FAILURE
+  type: Actions.IMPORT_USER_KEYSHARE_FAILURE
 }
 
 export const importUserKeyshareFailure = (): ImportUserKeyshareFailureAction => ({
-  type: Actions.IMPORT_BACKUP_PHRASE_FAILURE,
+  type: Actions.IMPORT_USER_KEYSHARE_FAILURE,
 })
 
 export interface ImportRecoveryKeyshareSuccessAction {
@@ -121,10 +110,8 @@ export type ActionTypes =
   | ImportBackupPhraseAction
   | ImportBackupPhraseSuccessAction
   | ImportBackupPhraseFailureAction
-  | ImportUserKeyshareAction
   | ImportUserKeyshareSuccessAction
   | ImportUserKeyshareFailureAction
   | ImportRecoveryKeyshareAction
   | ImportRecoveryKeyshareSuccessAction
   | ImportRecoveryKeyshareFailureAction
-  | KeyshareSecretGenerated

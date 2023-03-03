@@ -238,14 +238,6 @@ export default function DrawerNavigator() {
           options={{ title: t('supercharge'), drawerIcon: MenuSupercharge, unmountOnBlur: true }}
         />
       )}
-      <Drawer.Screen
-        name={Screens.ManageKeyshareScreen}
-        component={ManageKeyshares}
-        options={{
-          title: t('accountKey'),
-          drawerIcon: AccountKey,
-        }}
-      />
       {features.SHOW_INVITE_MENU_ITEM && (
         <Drawer.Screen
           name={'InviteModal'}

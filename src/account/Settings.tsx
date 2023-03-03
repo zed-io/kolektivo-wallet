@@ -557,7 +557,7 @@ export class Account extends React.Component<Props, State> {
             <SettingsItemTextValue
               title={t('manageKeyshare')}
               onPress={this.goToManageKeyshares}
-              testID="MigrateUserKey"
+              testID="ManageKeyshares"
             />
             <SettingsItemTextValue
               title={t('migrateUserKey')}

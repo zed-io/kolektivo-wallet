@@ -1,12 +1,10 @@
 import { Actions, ActionTypes } from 'src/import/actions'
 
 export interface State {
-  userKeyshareSecret: string | null
   isImportingWallet: boolean
 }
 
 const initialState = {
-  userKeyshareSecret: null,
   isImportingWallet: false,
 }
 
@@ -22,11 +20,6 @@ export const reducer = (state: State | undefined = initialState, action: ActionT
       return {
         ...state,
         isImportingWallet: false,
-      }
-    case Actions.KEYSHARE_SECRET:
-      return {
-        ...state,
-        userKeyshareSecret: action.secret,
       }
     default:
       return state

@@ -27,8 +27,6 @@ export enum Screens {
   ExchangeHomeScreen = 'ExchangeHomeScreen',
   ExchangeReview = 'ExchangeReview',
   ExchangeTradeScreen = 'ExchangeTradeScreen',
-  ExportRecoveryKeyshare = 'ExportRecoveryKeyshare',
-  ExportUserKeyshare = 'ExportUserKeyshare',
   ExternalExchanges = 'ExternalExchanges',
   FiatExchange = 'FiatExchange',
   FiatExchangeAmount = 'FiatExchangeAmount',

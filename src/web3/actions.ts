@@ -11,7 +11,6 @@ export enum Actions {
   COMPLETE_WEB3_SYNC = 'WEB3/COMPLETE_WEB3_SYNC',
   REQUEST_SYNC_PROGRESS = 'WEB3/REQUEST_SYNC_PROGRESS',
   UPDATE_WEB3_SYNC_PROGRESS = 'WEB3/UPDATE_WEB3_SYNC_PROGRESS',
-  CAPSULE_AUTHENTICATE = 'CAPSULE/AUTHENTICATE',
   SET_CAPSULE_IDENTITY = 'CAPSULE/SET_IDENTITY',
 }
 
@@ -61,11 +60,6 @@ export interface UpdateWeb3SyncProgressAction {
     currentBlock: number
     highestBlock: number
   }
-}
-
-export interface CompleteCapsuleAuthenticaiton {
-  type: Actions.CAPSULE_AUTHENTICATE
-  loginWithKeyshare: boolean
 }
 
 export interface SetCapsuleIdentityAction {
@@ -143,11 +137,6 @@ export const setCapsuleIdentity = (capsuleEmail?: string, capsuleUserId?: string
   type: Actions.SET_CAPSULE_IDENTITY,
   capsuleEmail,
   capsuleUserId,
-})
-
-export const capsuleAuthComplete = (loginWithKeyshare: boolean) => ({
-  type: Actions.CAPSULE_AUTHENTICATE,
-  loginWithKeyshare,
 })
 
 export interface Web3SyncProgress {

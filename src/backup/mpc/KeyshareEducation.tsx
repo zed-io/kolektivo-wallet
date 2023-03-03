@@ -20,19 +20,15 @@ const KeyshareEducation = ({ route }: Props) => {
   const steps = useKeyshareEducation(educationType)
 
   const onComplete = async () => {
-    try {
-      switch (educationType) {
-        case KeyshareType.User:
-          navigate(Screens.UserKeyshareCode)
-          break
-        case KeyshareType.Recovery:
-          navigate(Screens.RecoveryKeyshareCode)
-          break
-        default:
-          break
-      }
-    } catch (error) {
-      console.error(TAG, '@onComplete', 'Unable to export keyshare.', error)
+    switch (educationType) {
+      case KeyshareType.User:
+        navigate(Screens.UserKeyshareCode)
+        break
+      case KeyshareType.Recovery:
+        navigate(Screens.RecoveryKeyshareCode)
+        break
+      default:
+        break
     }
   }
 
