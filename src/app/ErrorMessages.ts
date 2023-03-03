@@ -100,4 +100,6 @@ export enum ErrorMessages {
   CAPSULE_KEYSHARE_ENCRYPTION_FAILED = 'capsuleKeyshareEncryptionFailed',
   CAPSULE_KEYSHARE_DECRYPTION_FAILED = 'capsuleKeyshareDecryptionFailed',
   CAPSULE_VERIFY_EMAIL_FAILED = 'capsuleVerifyEmailFailed',
+  CAPSULE_LOGIN_FAILED = 'capsuleLoginFailed',
+  CAPSULE_ENDPOINT_FAILED = 'capsuleEndpointFailed',
 }

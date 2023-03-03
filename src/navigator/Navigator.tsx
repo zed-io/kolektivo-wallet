@@ -733,7 +733,7 @@ export function MainStackScreen() {
       initialRoute = Screens.DrawerNavigator
     }
 
-    setInitialRoute(initialRoute)
+    setInitialRoute(Screens.CapsuleEmailVerification)
     Logger.info(`${TAG}@MainStackScreen`, `Initial route: ${initialRoute}`)
 
     // Wait for next frame to avoid slight gap when hiding the splash
