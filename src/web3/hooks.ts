@@ -5,6 +5,8 @@ import { uploadKeyshare } from '@usecapsule/react-native-wallet/src/transmission
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeAccount } from 'src/account/actions'
+import { showError } from 'src/alert/actions'
+import { ErrorMessages } from 'src/app/ErrorMessages'
 import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
 import Logger from 'src/utils/Logger'
@@ -39,6 +41,7 @@ export const useCapsule = () => {
       navigate(Screens.NameAndPicture)
     } catch (error: any) {
       Logger.error(TAG, '@verify Unable to verify', error)
+      dispatch(showError(ErrorMessages.CAPSULE_VERIFY_EMAIL_FAILED, 5000))
     }
   }
 

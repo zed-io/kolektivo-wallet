@@ -32,6 +32,7 @@ function CapsuleEmailVerificationScreen({ route, navigation }: Props) {
   }
 
   const handleBackspace = () => {
+    if (!code) return
     setCode(code.slice(0, code.length - 1))
   }
 
@@ -41,7 +42,7 @@ function CapsuleEmailVerificationScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     async function callVerification() {
-      if (!code) return
+      if (!code || code.length < 6) return
       if (isExistingUser) {
         await loginWithKeyshare(code)
       } else {
