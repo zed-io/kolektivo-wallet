@@ -69,7 +69,7 @@ export enum Screens {
   RampScreen = 'RampScreen',
   ReceiveAmount = 'ReceiveAmount',
   ReclaimPaymentConfirmationScreen = 'ReclaimPaymentConfirmationScreen',
-  RecoveryKeyshareCode = 'RecoveryKeyshareCodeScreen',
+  RecoveryKeyshare = 'RecoveryKeyshareScreen',
   RegulatoryTerms = 'RegulatoryTerms',
   SelectCountry = 'SelectCountry',
   SelectLocalCurrency = 'SelectLocalCurrency',

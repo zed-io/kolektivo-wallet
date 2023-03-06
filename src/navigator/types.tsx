@@ -245,7 +245,7 @@ export type StackParamList = {
     onCancel?: () => void
   }
   [Screens.ReceiveAmount]: undefined
-  [Screens.RecoveryKeyshareCode]: undefined | {}
+  [Screens.RecoveryKeyshare]: undefined | {}
   [Screens.RegulatoryTerms]:
     | undefined
     | {

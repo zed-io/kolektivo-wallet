@@ -98,7 +98,7 @@ import PaymentRequestUnavailable, {
 import PincodeEnter from 'src/pincode/PincodeEnter'
 import PincodeSet from 'src/pincode/PincodeSet'
 import KeyshareScanner from 'src/qrcode/KeyshareScanner'
-import RecoveryKeyshareDisplay from 'src/qrcode/RecoveryKeyshareCode'
+import RecoveryKeyshareDisplay from 'src/qrcode/RecoveryKeyshare'
 import UserKeyshareDisplay from 'src/qrcode/UserKeyshareCode'
 import ReceiveAmount from 'src/receive'
 import { RootState } from 'src/redux/reducers'
@@ -540,7 +540,7 @@ const backupScreens = (Navigator: typeof Stack) => (
       options={UserKeyshareDisplay.navigationOptions}
     />
     <Navigator.Screen
-      name={Screens.RecoveryKeyshareCode}
+      name={Screens.RecoveryKeyshare}
       component={RecoveryKeyshareDisplay}
       options={RecoveryKeyshareDisplay.navigationOptions}
     />

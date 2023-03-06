@@ -1,29 +1,24 @@
 import { RouteProp } from '@react-navigation/native'
-import React, { useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { shallowEqual, useSelector } from 'react-redux'
 import { KeyshareEvents } from 'src/analytics/Events'
-import { AvatarSelf } from 'src/components/AvatarSelf'
 import BackButton from 'src/components/BackButton'
+import Button, { BtnSizes } from 'src/components/Button'
 import i18n from 'src/i18n'
+import BrokenKey from 'src/icons/BrokenKey'
 import { emptyHeader } from 'src/navigator/Headers'
 import { Screens } from 'src/navigator/Screens'
 import { StackParamList } from 'src/navigator/types'
-import QRCode from 'src/qrcode/QRGen'
-import { UriData, urlFromUriData } from 'src/qrcode/schema'
+import { UriData } from 'src/qrcode/schema'
 import { RootState } from 'src/redux/reducers'
-import { SVG } from 'src/send/actions'
 import colors from 'src/styles/colors'
 import fontStyles from 'src/styles/fonts'
 import variables from 'src/styles/variables'
 import { currentAccountSelector } from 'src/web3/selectors'
 
-interface Props {
-  isForScanToSend?: boolean
-  content?: string
-  qrSvgRef: React.MutableRefObject<SVG>
-}
+interface Props {}
 
 const mapStateToProps = (state: RootState): Partial<UriData> => ({
   address: currentAccountSelector(state)!,
@@ -31,19 +26,24 @@ const mapStateToProps = (state: RootState): Partial<UriData> => ({
   e164PhoneNumber: state.account.e164PhoneNumber || undefined,
 })
 
-export default function RecoveryKeyshareDisplay({ isForScanToSend, content, qrSvgRef }: Props) {
-  const data = useSelector(mapStateToProps, shallowEqual)
-  const qrContent = useMemo(() => urlFromUriData(data), [
-    data.address,
-    data.displayName,
-    data.e164PhoneNumber,
-  ])
+export default function RecoveryKeyshareDisplay(_props: Props) {
+  const { t } = useTranslation()
   return (
     <SafeAreaView style={styles.container}>
-      {!isForScanToSend ? <AvatarSelf iconSize={64} displayNameStyle={fontStyles.h2} /> : undefined}
-      <View style={styles.qrContainer}>
-        <QRCode value={content ?? qrContent} size={variables.width / 2} svgRef={qrSvgRef} />
+      <View style={styles.spread}>
+        <BrokenKey />
+        <View>
+          <Text style={styles.header}>{t('refreshAccount')}</Text>
+          <Text style={styles.body}>{t('exportRecoveryKeyshareInfo')}</Text>
+        </View>
       </View>
+      <Button
+        size={BtnSizes.FULL}
+        onPress={function (): void {
+          throw new Error('Function not implemented.')
+        }}
+        text={t('continue')}
+      />
     </SafeAreaView>
   )
 }
@@ -51,7 +51,7 @@ export default function RecoveryKeyshareDisplay({ isForScanToSend, content, qrSv
 RecoveryKeyshareDisplay.navigationOptions = ({
   route,
 }: {
-  route: RouteProp<StackParamList, Screens.UserKeyshareCode>
+  route: RouteProp<StackParamList, Screens.RecoveryKeyshare>
 }) => {
   return {
     ...emptyHeader,
@@ -63,11 +63,23 @@ RecoveryKeyshareDisplay.navigationOptions = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: colors.light,
+    paddingHorizontal: variables.contentPadding * 2,
   },
-  qrContainer: {
-    paddingTop: 16,
+  spread: {
+    flexGrow: 1,
+    alignContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+  },
+  header: {
+    ...fontStyles.h1,
+    paddingBottom: variables.contentPadding,
+    textAlign: 'center',
+  },
+  body: {
+    ...fontStyles.small,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 })

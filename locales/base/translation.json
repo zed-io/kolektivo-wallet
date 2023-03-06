@@ -1426,5 +1426,7 @@
   "capsuleKeyshareDecryptionFailed": "Something went wrong when scanning your keyshare, please generate a new code, and try again.",
   "capsuleVerifyEmailFailed": "Invalid code, please check your email and try again.",
   "hasNotReceivedEmail": "Your code is on its way! If you don't see it, please check your email address and spam folder.",
-  "capsuleEndpointFailed": "Oops! Something went wrong, please contact support."
+  "capsuleEndpointFailed": "Oops! Something went wrong, please contact support.",
+  "refreshAccount": "Refresh Your Account",
+  "exportRecoveryKeyshareInfo": "If you want, we can tighten the security on your wallet and funds. Don't worry, we'll send a new key to the email you signed up with."
 }
