@@ -18,7 +18,7 @@ import fontStyles from 'src/styles/fonts'
 import variables from 'src/styles/variables'
 import { currentAccountSelector } from 'src/web3/selectors'
 
-interface Props {}
+type Props = {}
 
 const mapStateToProps = (state: RootState): Partial<UriData> => ({
   address: currentAccountSelector(state)!,
@@ -26,24 +26,22 @@ const mapStateToProps = (state: RootState): Partial<UriData> => ({
   e164PhoneNumber: state.account.e164PhoneNumber || undefined,
 })
 
+const handleResetRecovery = () => {}
+
 export default function RecoveryKeyshareDisplay(_props: Props) {
   const { t } = useTranslation()
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.spread}>
-        <BrokenKey />
+        <View style={styles.keyRow}>
+          <BrokenKey />
+        </View>
         <View>
           <Text style={styles.header}>{t('refreshAccount')}</Text>
           <Text style={styles.body}>{t('exportRecoveryKeyshareInfo')}</Text>
         </View>
       </View>
-      <Button
-        size={BtnSizes.FULL}
-        onPress={function (): void {
-          throw new Error('Function not implemented.')
-        }}
-        text={t('continue')}
-      />
+      <Button size={BtnSizes.FULL} onPress={handleResetRecovery} text={t('continue')} />
     </SafeAreaView>
   )
 }
@@ -67,10 +65,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: variables.contentPadding * 2,
   },
   spread: {
-    flexGrow: 1,
+    height: '60%',
     alignContent: 'center',
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
+  },
+  keyRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   header: {
     ...fontStyles.h1,
@@ -79,7 +81,6 @@ const styles = StyleSheet.create({
   },
   body: {
     ...fontStyles.small,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
 })
