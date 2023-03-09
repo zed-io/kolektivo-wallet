@@ -29,6 +29,7 @@ import BackupForceScreen from 'src/backup/BackupForceScreen'
 import BackupPhrase, { navOptionsForBackupPhrase } from 'src/backup/BackupPhrase'
 import BackupQuiz, { navOptionsForQuiz } from 'src/backup/BackupQuiz'
 import KeyshareEducation from 'src/backup/mpc/KeyshareEducation'
+import ManageKeyshares from 'src/backup/mpc/ManageKeyshares'
 import RecoveryKeyshareDisplay from 'src/backup/RecoveryKeyshare'
 import RecoveryVerificationScreen from 'src/backup/RecoveryVerificationScreen'
 import BackButton from 'src/components/BackButton'
@@ -317,6 +318,7 @@ const nuxScreens = (Navigator: typeof Stack) => (
     <Navigator.Screen
       name={Screens.KeyshareProvisioningScreen}
       component={KeyshareProvisioningScreen}
+      options={KeyshareProvisioningScreen.navigationOptions}
     />
   </>
 )
@@ -661,6 +663,11 @@ const settingsScreens = (Navigator: typeof Stack) => (
       name={Screens.TransactionSent}
       component={TransactionSent}
       options={TransactionSent.navigationOptions}
+    />
+    <Navigator.Screen
+      name={Screens.ManageKeyshareScreen}
+      component={ManageKeyshares}
+      options={ManageKeyshares.navigationOptions}
     />
   </>
 )
