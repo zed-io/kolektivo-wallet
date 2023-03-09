@@ -246,6 +246,7 @@ export type StackParamList = {
   }
   [Screens.ReceiveAmount]: undefined
   [Screens.RecoveryKeyshare]: undefined | {}
+  [Screens.RecoveryVerificationScreen]: undefined
   [Screens.RegulatoryTerms]:
     | undefined
     | {

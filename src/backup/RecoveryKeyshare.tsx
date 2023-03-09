@@ -9,24 +9,18 @@ import Button, { BtnSizes } from 'src/components/Button'
 import i18n from 'src/i18n'
 import BrokenKey from 'src/icons/BrokenKey'
 import { emptyHeader } from 'src/navigator/Headers'
+import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
 import { StackParamList } from 'src/navigator/types'
-import { UriData } from 'src/qrcode/schema'
-import { RootState } from 'src/redux/reducers'
 import colors from 'src/styles/colors'
 import fontStyles from 'src/styles/fonts'
 import variables from 'src/styles/variables'
-import { currentAccountSelector } from 'src/web3/selectors'
 
 type Props = {}
 
-const mapStateToProps = (state: RootState): Partial<UriData> => ({
-  address: currentAccountSelector(state)!,
-  displayName: state.account.name || undefined,
-  e164PhoneNumber: state.account.e164PhoneNumber || undefined,
-})
-
-const handleResetRecovery = () => {}
+const goToRecoveryVerification = () => {
+  navigate(Screens.RecoveryVerificationScreen)
+}
 
 export default function RecoveryKeyshareDisplay(_props: Props) {
   const { t } = useTranslation()
@@ -41,7 +35,7 @@ export default function RecoveryKeyshareDisplay(_props: Props) {
           <Text style={styles.body}>{t('exportRecoveryKeyshareInfo')}</Text>
         </View>
       </View>
-      <Button size={BtnSizes.FULL} onPress={handleResetRecovery} text={t('continue')} />
+      <Button size={BtnSizes.FULL} onPress={goToRecoveryVerification} text={t('continue')} />
     </SafeAreaView>
   )
 }
