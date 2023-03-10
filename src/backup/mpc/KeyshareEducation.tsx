@@ -37,7 +37,6 @@ const KeyshareEducation = ({ route }: Props) => {
       embeddedNavBar={EmbeddedNavBar.Close}
       stepInfo={steps}
       onFinish={onComplete}
-      experimentalSwiper={true}
       finalButtonText={t('continue')}
       finalButtonType={BtnTypes.PRIMARY}
       buttonText={t('next')}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { EducationTopic } from 'src/account/Education'
+import { animatedQrScan } from 'src/images/Images'
 
 export enum KeyshareType {
   User = 'User',
@@ -12,7 +13,7 @@ export const useKeyshareEducation = (type: KeyshareType) => {
 
   return React.useMemo(() => {
     return [
-      { image: null, topic: EducationTopic.multiparty },
+      { image: animatedQrScan, topic: EducationTopic.multiparty },
       { image: null, topic: EducationTopic.multiparty },
       { image: null, topic: EducationTopic.multiparty },
     ].map((step, index) => {
