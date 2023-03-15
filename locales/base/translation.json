@@ -1381,8 +1381,8 @@
   "recoveryKeyshare": "Recovery Keyshare",
   "migrateUserKey": "Migrate your account",
   "refreshRecoveryKey": "Refresh your backup key",
-  "manageKeyshare": "Manage your Wallet Keys",
-  "manageKeyshareInfo": "Your wallet contains two private keys, one for moving your funds between devices, and another to recover your account if you've lost it.",
+  "manageKeyshare": "Manage your Account",
+  "manageKeyshareInfo": "Your wallet contains two private keys, one for moving your funds between devices, and another to refresh your account security.",
   "mpcAbout": [
     {
       "title": "What is MPC?",
