@@ -31,11 +31,21 @@ const ManageKeyshares = () => {
     // @todo nav to restore education
   }
 
+  const goToMultiParty = () => {
+    navigate(Screens.MultiPartyEducationScreen)
+  }
+
   return (
     <SafeAreaView>
       <View style={styles.innerContainer}>
         <Text style={styles.body}>{t('manageKeyshareInfo')}</Text>
       </View>
+      <SettingsItemTextValue
+        testID="LearnMultiPartyComputation"
+        title={'How is this wallet secure?'}
+        onPress={goToMultiParty}
+        showChevron
+      />
       <SettingsItemTextValue
         testID="MigrateUserKeyshare"
         title={'Migrate User Keyshare'}

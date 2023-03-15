@@ -1383,6 +1383,16 @@
   "refreshRecoveryKey": "Refresh your backup key",
   "manageKeyshare": "Manage your Wallet Keys",
   "manageKeyshareInfo": "Your wallet contains two private keys, one for moving your funds between devices, and another to recover your account if you've lost it.",
+  "mpcAbout": [
+    {
+      "title": "What is MPC?",
+      "text": "Multi-Party Computation is a technology that allows multiple parties to jointly compute a function while keeping their inputs private. This means that sensitive information can be processed without being revealed to anyone."
+    },
+    {
+      "title": "How MPC Works",
+      "text": "MPC allows the private address to be divided into unique keyshares and distributed among different parties. This provides strong security guarantees for individuals and institutions managing digital assets."
+    }
+  ],
   "mpcGuide": {
     "User": [
       {
