@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   manageItem: {
     minWidth: '50%',
     maxWidth: '50%',
-    paddingBottom: Spacing.Regular16,
+    paddingBottom: Spacing.Thick24,
   },
   bodyImage: {
     maxWidth: '100%',
