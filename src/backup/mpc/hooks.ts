@@ -16,19 +16,34 @@ export enum KeyshareType {
 
 export const useKeyshareEducation = (type: KeyshareType) => {
   const { t } = useTranslation()
-
   return React.useMemo(() => {
-    return [
-      { image: migrateAbout, topic: EducationTopic.multiparty },
-      { image: migrateExport, topic: EducationTopic.multiparty },
-      { image: migrateImport, topic: EducationTopic.multiparty },
-    ].map((step, index) => {
-      return {
-        ...step,
-        title: t(`mpcGuide.${type}.${index}.title`),
-        text: t(`mpcGuide.${type}.${index}.text`),
+    switch (type) {
+      case KeyshareType.User: {
+        return [
+          { image: migrateAbout, topic: EducationTopic.multiparty },
+          { image: migrateExport, topic: EducationTopic.multiparty },
+          { image: migrateImport, topic: EducationTopic.multiparty },
+        ].map((step, index) => {
+          return {
+            ...step,
+            title: t(`mpcGuide.${type}.${index}.title`),
+            text: t(`mpcGuide.${type}.${index}.text`),
+          }
+        })
       }
-    })
+      case KeyshareType.Recovery: {
+        return [
+          { image: migrateAbout, topic: EducationTopic.multiparty },
+          { image: migrateExport, topic: EducationTopic.multiparty },
+        ].map((step, index) => {
+          return {
+            ...step,
+            title: t(`mpcGuide.${type}.${index}.title`),
+            text: t(`mpcGuide.${type}.${index}.text`),
+          }
+        })
+      }
+    }
   }, [])
 }
 

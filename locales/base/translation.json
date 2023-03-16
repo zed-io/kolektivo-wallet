@@ -1382,7 +1382,7 @@
   "migrateUserKey": "Migrate your account",
   "refreshRecoveryKey": "Refresh your backup key",
   "manageKeyshare": "Manage your Account",
-  "manageKeyshareInfo": "Your wallet contains two private keys, one for moving your funds between devices, and another to refresh your account security.",
+  "manageKeyshareInfo": "Your {{appName}} contains two private keys, one for moving your funds between devices, and another to refresh your account security.",
   "mpcAbout": [
     {
       "title": "What is MPC?",
@@ -1397,15 +1397,11 @@
     "User": [
       {
         "title": "Migrating your Account",
-        "text": "The User Keyshare allows you to easily move your blockchain wallet account from one device to another. This can be done by scanning the User Keyshare as a QR code."
+        "text": "The User Keyshare allows you to easily move your {{appName}} account from one device to another. This can be done by scanning the User Keyshare as a QR code."
       },
       {
         "title": "Exporting the Keyshare",
         "text": "Your keyshare will be shown as a QR code that is valid during a five minute window, if you miss the opportunity, your wallet will try again for you to continue."
-      },
-      {
-        "title": "Exporting the User Keyshare",
-        "text": "The user keyshare is part of this device now. When you created an account, we put one of those secure keyshares in your device's secure enclave. To move to a new device, you'll need to export it from this one."
       },
       {
         "title": "Importing the User Keyshare",
@@ -1414,20 +1410,12 @@
     ],
     "Recovery": [
       {
-        "title": "What is Multi-Party Computation?",
-        "text": "This process splits your private key into three keyshares. These keyshares keep your account secure, so that if one is lost or stolen, your funds are still safe."
+        "title": "Where To Find My Recovery Key?",
+        "text": "When you signed up for the {{appName}}, we sent you a private key that you should only use in emergencies; like if you lost your phone, or deleted your app."
       },
       {
-        "title": "3X Trustless",
-        "text": "Each of these three keys are securely stored in a different location, making it very difficult for your account to be stolen.\n\n Once there are two keyshares that are not compromised, your funds will remain secure."
-      },
-      {
-        "title": "Exporting the User Keyshare",
-        "text": "The user keyshare is part of this device now. When you created an account, we put one of those secure keyshares in your device's secure enclave. To move to a new device, you'll need to export it from this one."
-      },
-      {
-        "title": "Importing the User Keyshare",
-        "text": "On your new device or crypto wallet, you can import your user keyshare and gain access to your funds.\n\nRememebr that the user keyshare is one piece of the private key that provides access to your funds, so make sure to keep it safe."
+        "title": "Did You Lose It?",
+        "text": "If you lost that key, or worse, maybe you think your account may no longer be secure, we can refresh your wallet security. We'll create new codes to secure your funds, and you'll receive an email with instructions."
       }
     ]
   },
