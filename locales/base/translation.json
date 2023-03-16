@@ -1396,12 +1396,12 @@
   "mpcGuide": {
     "User": [
       {
-        "title": "What is Multi-Party Computation?",
-        "text": "This process splits your private key into three keyshares. These keyshares keep your account secure, so that if one is lost or stolen, your funds are still safe."
+        "title": "Migrating your Account",
+        "text": "The User Keyshare allows you to easily move your blockchain wallet account from one device to another. This can be done by scanning the User Keyshare as a QR code."
       },
       {
-        "title": "3X Trustless",
-        "text": "Each of these three keys are securely stored in a different location, making it very difficult for your account to be stolen.\n\n Once there are two keyshares that are not compromised, your funds will remain secure."
+        "title": "Exporting the Keyshare",
+        "text": "Your keyshare will be shown as a QR code that is valid during a five minute window, if you miss the opportunity, your wallet will try again for you to continue."
       },
       {
         "title": "Exporting the User Keyshare",
@@ -1409,7 +1409,7 @@
       },
       {
         "title": "Importing the User Keyshare",
-        "text": "On your new device or crypto wallet, you can import your user keyshare and gain access to your funds.\n\nRememebr that the user keyshare is one piece of the private key that provides access to your funds, so make sure to keep it safe."
+        "text": "To import your User Keyshare using a QR code, follow the on-screen instructions to scan the QR code containing your keyshare."
       }
     ],
     "Recovery": [

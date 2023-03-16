@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   bodyImage: {
     alignSelf: 'center',
     marginBottom: 24,
-    height: '60%',
+    maxHeight: '60%',
   },
   swipedContent: {
     marginBottom: 24,

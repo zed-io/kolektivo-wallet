@@ -1,7 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { EducationStep, EducationTopic } from 'src/account/Education'
-import { animatedQrScan, educationMpc1, educationMpc2 } from 'src/images/Images'
+import {
+  educationMpc1,
+  educationMpc2,
+  migrateAbout,
+  migrateExport,
+  migrateImport,
+} from 'src/images/Images'
 
 export enum KeyshareType {
   User = 'User',
@@ -13,9 +19,9 @@ export const useKeyshareEducation = (type: KeyshareType) => {
 
   return React.useMemo(() => {
     return [
-      { image: animatedQrScan, topic: EducationTopic.multiparty },
-      { image: null, topic: EducationTopic.multiparty },
-      { image: null, topic: EducationTopic.multiparty },
+      { image: migrateAbout, topic: EducationTopic.multiparty },
+      { image: migrateExport, topic: EducationTopic.multiparty },
+      { image: migrateImport, topic: EducationTopic.multiparty },
     ].map((step, index) => {
       return {
         ...step,
