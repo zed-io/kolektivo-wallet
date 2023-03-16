@@ -2,11 +2,13 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { EducationStep, EducationTopic } from 'src/account/Education'
 import {
+  compromisedAccount,
   educationMpc1,
   educationMpc2,
   migrateAbout,
   migrateExport,
   migrateImport,
+  recoveryEmail,
 } from 'src/images/Images'
 
 export enum KeyshareType {
@@ -33,8 +35,8 @@ export const useKeyshareEducation = (type: KeyshareType) => {
       }
       case KeyshareType.Recovery: {
         return [
-          { image: migrateAbout, topic: EducationTopic.multiparty },
-          { image: migrateExport, topic: EducationTopic.multiparty },
+          { image: recoveryEmail, topic: EducationTopic.multiparty },
+          { image: compromisedAccount, topic: EducationTopic.multiparty },
         ].map((step, index) => {
           return {
             ...step,
