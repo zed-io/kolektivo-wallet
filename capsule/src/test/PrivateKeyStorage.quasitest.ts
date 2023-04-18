@@ -13,4 +13,4 @@ export const privateKeyStoringFlow = async () => {
   }
 };
 
-void privateKeyStoringFlow();
+// void privateKeyStoringFlow();

@@ -40,4 +40,4 @@ export const recoverRecoveryShare = async () => {
   }
 };
 
-void recoverRecoveryShare();
+// void recoverRecoveryShare();

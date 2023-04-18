@@ -2,13 +2,13 @@ import {
   completeFlowWithServer,
   completeFlowOffline,
 } from './ChallengeStorage.quasitest';
-import {completeFlowWithServerTwoKeys} from './ChallengeStorageDifferentKeys.quasitest';
-import {keyRecoveryFlow} from './KeyRecovery.quasitest';
-import {keyRefreshFlow} from './KeyRefresh.quasitest';
-import {loginFlow} from './LoginFlow.quasitest';
-import {privateKeyStoringFlow} from './PrivateKeyStorage.quasitest';
-import {recoverRecoveryShare} from './RecoverRecovery.quasitest';
-import {transmissionFlow} from './Transimission.quasitest';
+import { completeFlowWithServerTwoKeys } from './ChallengeStorageDifferentKeys.quasitest';
+import { keyRecoveryFlow } from './KeyRecovery.quasitest';
+import { keyRefreshFlow } from './KeyRefresh.quasitest';
+import { loginFlow } from './LoginFlow.quasitest';
+import { privateKeyStoringFlow } from './PrivateKeyStorage.quasitest';
+import { recoverRecoveryShare } from './RecoverRecovery.quasitest';
+import { transmissionFlow } from './Transimission.quasitest';
 
 async function runTests() {
   try {

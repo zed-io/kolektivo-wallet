@@ -52,5 +52,5 @@ export const completeFlowOffline = async () => {
   }
 };
 
-void completeFlowOffline();
-void completeFlowWithServer();
+// void completeFlowOffline();
+// void completeFlowWithServer();
