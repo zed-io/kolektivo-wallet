@@ -17,7 +17,6 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2A483C946F88B60DF4514FA1 /* Pods_NotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78F60F7EFD557A4AAA54C5D3 /* Pods_NotificationService.framework */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -31,7 +30,6 @@
 		8D7A84CEEAAC2FE8B3FCC6FA /* Pods_celo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E6F87D69C6D31413F4048D4 /* Pods_celo.framework */; };
 		9E39FE78D56C4F2B99E00792 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0216E41671914A26A2088F7B /* Lato-Regular.ttf */; };
 		C54FA6468F0E45FDA5245761 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92F204296088488EAD451C5E /* Lato-Bold.ttf */; };
-		DCB10D5BA07299BFF0BB34B8 /* Pods_celoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C199BB444D393AA3403B910D /* Pods_celoTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,14 +101,12 @@
 		27A21C992796DA560008F219 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		27A21C9A2796DA620008F219 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		27A21C9D2796DA920008F219 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		2BF87C373D62B4874DE76808 /* Pods-celoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-celoTests.debug.xcconfig"; path = "Target Support Files/Pods-celoTests/Pods-celoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* celo-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "celo-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* celo-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "celo-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6F87D69C6D31413F4048D4 /* Pods_celo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_celo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50C1098B559C37187FC399F4 /* Pods_celoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_celoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52986FC436824EF4ACA173A6 /* Kaleko105HeavyOblique.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kaleko105HeavyOblique.ttf; path = ../fonts/Kaleko105HeavyOblique.ttf; sourceTree = "<group>"; };
 		552D44B34D6F40AC8FCE6DD7 /* Kaleko105LightOblique.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kaleko105LightOblique.ttf; path = ../fonts/Kaleko105LightOblique.ttf; sourceTree = "<group>"; };
-		58338D42D4D60C0733C69D1B /* Pods-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.release.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
 		6844FCD42570513C0057A74F /* QBImagePicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = QBImagePicker.storyboard; path = "../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePicker/QBImagePicker.storyboard"; sourceTree = "<group>"; };
 		68B737FF27D7B55B0044A85E /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		78F79FDFADDAA15D5674646A /* Pods-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,15 +118,11 @@
 		A991E758C0E84A55A95FA5CE /* Kaleko105Book.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kaleko105Book.ttf; path = ../fonts/Kaleko105Book.ttf; sourceTree = "<group>"; };
 		BA5147785CCC84ED1A7AF66F /* Pods-celo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-celo.debug.xcconfig"; path = "Target Support Files/Pods-celo/Pods-celo.debug.xcconfig"; sourceTree = "<group>"; };
 		C10E385702D44FACA020F3A9 /* Kaleko105ThinOblique.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kaleko105ThinOblique.ttf; path = ../fonts/Kaleko105ThinOblique.ttf; sourceTree = "<group>"; };
-		C199BB444D393AA3403B910D /* Pods_celoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_celoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88C5BFD26FA424100B9C0CE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CDB187786EC0EDD03F9685E6 /* Pods-celoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-celoTests.release.xcconfig"; path = "Target Support Files/Pods-celoTests/Pods-celoTests.release.xcconfig"; sourceTree = "<group>"; };
 		D6A2CA3F12FD4BCD881B914B /* Kaleko105Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kaleko105Thin.ttf; path = ../fonts/Kaleko105Thin.ttf; sourceTree = "<group>"; };
-		D7B1355455AABBF9E76A7B79 /* Pods-celo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-celo.release.xcconfig"; path = "Target Support Files/Pods-celo/Pods-celo.release.xcconfig"; sourceTree = "<group>"; };
 		E941FD293B014328B8BF7CD6 /* Kaleko105Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Kaleko105Light.ttf; path = ../fonts/Kaleko105Light.ttf; sourceTree = "<group>"; };
 		F3F5FA21E7EC46BBB744FE54 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		F77B5D97B9CD17A69FE699F6 /* Pods-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
-		FAB35A16CE7F3EAE4056B685 /* Pods-celoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-celoTests.release.xcconfig"; path = "Target Support Files/Pods-celoTests/Pods-celoTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -530,28 +522,6 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# First set the path to sentry.properties\nexport SENTRY_PROPERTIES=sentry.properties\n\n# Setup nvm and set node\n[ -z \"$NVM_DIR\" ] && export NVM_DIR=\"$HOME/.nvm\"\n\nif [[ -s \"$HOME/.nvm/nvm.sh\" ]]; then\n. \"$HOME/.nvm/nvm.sh\"\nelif [[ -x \"$(command -v brew)\" && -s \"$(brew --prefix nvm)/nvm.sh\" ]]; then\n. \"$(brew --prefix nvm)/nvm.sh\"\nfi\n\n# Set up the nodenv node version manager if present\nif [[ -x \"$HOME/.nodenv/bin/nodenv\" ]]; then\neval \"$(\"$HOME/.nodenv/bin/nodenv\" init -)\"\nfi\n\n# Set up asdf version manager if present\nif [[ -s \"$HOME/.asdf/asdf.sh\" ]]; then\n. \"$HOME/.asdf/asdf.sh\"\nfi\n\n[ -z \"$NODE_BINARY\" ] && export NODE_BINARY=\"node\"\n\n# Fixes bundling failing with our monorepo setup\nexport PROJECT_ROOT=\"$PROJECT_DIR/..\"\n\nif [[ \"$APP_BUNDLE_ID\" = \"org.celo.mobile.test\" ]]; then\n    ../node_modules/react-native/scripts/react-native-xcode.sh\nelse\n    $NODE_BINARY ../node_modules/@sentry/cli/bin/sentry-cli react-native xcode \\\n        ../node_modules/react-native/scripts/react-native-xcode.sh\nfi\n";
-		};
-		0198B6EDFCC5EC1D9E8BE47D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NotificationService-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		0FA148AE242137AC009239C6 /* Copy GoogleService-Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
