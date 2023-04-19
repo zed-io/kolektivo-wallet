@@ -1,16 +1,16 @@
 // @ts-ignore
 import userManagementClient from '../UserManagementClient';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ReactNativeCapsuleWallet,
   USER_ID_TAG,
 } from '../react-native/ReactNativeCapsuleWallet';
-import { recoveryVerification } from '../helpers';
+import {recoveryVerification} from '../helpers';
 
 export const recoverRecoveryShare = async () => {
   const email = `test-${uuidv4()}@test.usecapsule.com`;
-  const { userId } = await userManagementClient.createUser({
+  const {userId} = await userManagementClient.createUser({
     email,
   });
   await userManagementClient.verifyEmail(userId, {
@@ -26,6 +26,10 @@ export const recoverRecoveryShare = async () => {
   const address = await wallet.createAccount((share) => {
     recoveryShare = share;
   });
+
+  if (address.length < 10 || recoveryShare.length < 1000) {
+    throw new Error('addresses or recoveryShare are suspiciously short!');
+  }
 
   await recoveryVerification(email, '123456');
 
