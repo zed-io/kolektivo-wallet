@@ -1,6 +1,6 @@
 {
   "name": "@usecapsule/react-native-wallet",
-  "version": "0.1.12",
+  "version": "0.1.12-temporary",
   "description": "Capsule wallet!",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
