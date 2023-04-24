@@ -1,16 +1,16 @@
-import { CeloTx, EncodedTransaction } from '@celo/connect';
-import { EIP712TypedData } from '@celo/utils/lib/sign-typed-data-utils';
+import {CeloTx, EncodedTransaction} from '@celo/connect';
+import {EIP712TypedData} from '@celo/utils/lib/sign-typed-data-utils';
 import * as ethUtil from 'ethereumjs-util';
-import { ErrorMessages } from './ErrorMessages';
-import { CapsuleBaseSigner } from './CapsuleSigner';
-import { SignersStorage } from './SignersStorage';
-import { SessionStorage } from './SessionStorage';
+import {ErrorMessages} from './ErrorMessages';
+import {CapsuleBaseSigner} from './CapsuleSigner';
+import {SignersStorage} from './SignersStorage';
+import {SessionStorage} from './SessionStorage';
 import SessionManager from './SessionManager';
-import { logger } from './Logger';
+import {logger} from './Logger';
 import userManagementClient from './UserManagementClient';
-import { KeyType } from './SignerModule';
-import { KeyContainer } from './KeyContainer';
-import { requestAndReauthenticate } from './helpers';
+import {KeyType} from './SignerModule';
+import {KeyContainer} from './KeyContainer';
+import {requestAndReauthenticate} from './helpers';
 
 const TAG = 'geth/CapsuleWallet';
 
@@ -149,7 +149,7 @@ export abstract class CapsuleBaseWallet {
     const address = await signer.generateKeyshare(onRecoveryKeyshare);
 
     logger.info(`${TAG}@addAccount`, `Keyshare succesfully created`);
-    await this.signersStorage.addAccount(address);
+    await this.signersStorage.addAccountInternal(address);
     return address;
   }
 
@@ -194,7 +194,7 @@ export abstract class CapsuleBaseWallet {
     const address = await signer.importKeyshare(keyshare);
 
     logger.info(`${TAG}@importAccount`, `Keyshare succesfully imported`);
-    await this.signersStorage.addAccount(address);
+    await this.signersStorage.addAccountInternal(address);
     return address;
   }
 
@@ -215,7 +215,7 @@ export abstract class CapsuleBaseWallet {
     onNewRecoveryKeyshare: (keyshare: string) => void
   ): Promise<string> {
     const recoveryKeyshare = KeyContainer.import(rawRecoveryKeyshare);
-    const { walletId } = recoveryKeyshare;
+    const {walletId} = recoveryKeyshare;
 
     const userId = await this.getUserId();
     const result = await requestAndReauthenticate(
@@ -283,11 +283,11 @@ export abstract class CapsuleBaseWallet {
   ): Promise<string> {
     logger.info(
       `${TAG}@signTypedData`,
-      `Signing typed DATA: ${JSON.stringify({ address, typedData })}`
+      `Signing typed DATA: ${JSON.stringify({address, typedData})}`
     );
     const signer = await this.getSigner();
-    const { v, r, s } = await signer.signTypedData(address, typedData);
-    logger.info(`${TAG}@signTypedData - result`, { v, r, s });
+    const {v, r, s} = await signer.signTypedData(address, typedData);
+    logger.info(`${TAG}@signTypedData - result`, {v, r, s});
     return ethUtil.toRpcSig(v, r, s);
   }
 
@@ -347,5 +347,12 @@ export abstract class CapsuleBaseWallet {
   private async ensureSessionActive() {
     await this.initSessionManagerIfNeeded();
     await this.sessionManager!.refreshSessionIfNeeded();
+  }
+
+  // TEMPORARY
+  public hasAccount(address: string) {
+    !!this.signersStorage
+      .getAccountsSync()
+      .find((add) => add.toLowerCase() === address.toLowerCase());
   }
 }
