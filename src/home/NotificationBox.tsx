@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NativeScrollEvent, ScrollView, StyleSheet, View } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { HomeEvents } from 'src/analytics/Events'
 import { ScrollDirection } from 'src/analytics/types'
 import ValoraAnalytics from 'src/analytics/ValoraAnalytics'
@@ -9,6 +10,7 @@ import Pagination from 'src/components/Pagination'
 import SimpleMessagingCard, {
   Props as SimpleMessagingCardProps,
 } from 'src/components/SimpleMessagingCard'
+import { setCicoCompleted } from 'src/goldToken/actions'
 import { boostRewards } from 'src/images/Images'
 import { navigate } from 'src/navigator/NavigationService'
 import { Screens } from 'src/navigator/Screens'
@@ -62,6 +64,7 @@ interface Notification {
  */
 function useSimpleActions() {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   const kolektivoNotifications = useSelector(
     (state: RootState) => state.goldToken.kolektivoNotifications
   )
@@ -76,13 +79,24 @@ function useSimpleActions() {
       priority: KOLEKTIVO_NOTIFICATTION_PRIORITY,
       callToActions: [
         {
-          text: 'Read More',
+          text: t('moreInfo'),
           onPress: () => {
             ValoraAnalytics.track(HomeEvents.notification_select, {
               notificationType: NotificationBannerTypes.kolektivo_cico,
               selectedAction: NotificationBannerCTATypes.read_more,
             })
             navigate(Screens.GuilderEducation)
+          },
+        },
+        {
+          text: t('close'),
+          isSecondary: true,
+          onPress: () => {
+            ValoraAnalytics.track(HomeEvents.notification_select, {
+              notificationType: NotificationBannerTypes.kolektivo_cico,
+              selectedAction: NotificationBannerCTATypes.decline,
+            })
+            dispatch(setCicoCompleted())
           },
         },
       ],
