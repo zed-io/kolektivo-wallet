@@ -1,17 +1,17 @@
-# @capsule/react-native-wallet
+# @usecapsule/react-native-wallet
 
 React Native Capsule Wallet (Beta!)
 
 ## Installation
 
 ```sh
-npm install @capsule/react-native-wallet
+npm install @usecapsule/react-native-wallet
 ```
 
 ## Usage
 
 ```js
-import { multiply } from '@capsule/react-native-wallet';
+import { multiply } from '@usecapsule/react-native-wallet';
 
 // ...
 
