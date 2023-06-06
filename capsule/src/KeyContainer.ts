@@ -2,7 +2,7 @@ import {
   Decrypt as ECIESDecrypt,
   Encrypt as ECIESEncrypt,
 } from '@celo/utils/lib/ecies';
-import { randomBytes } from 'crypto';
+import {randomBytes} from 'crypto';
 
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
@@ -46,7 +46,7 @@ export class KeyContainer {
     return Buffer.from(
       ec.keyFromPublic(publicKey).getPublic(false, 'hex'),
       'hex'
-    ).subarray(1);
+    ).slice(1);
   }
 
   encryptForSelf(backup: string): string {
