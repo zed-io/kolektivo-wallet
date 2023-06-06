@@ -1,5 +1,5 @@
-import { normalizeAddressWith0x } from '@celo/base/lib/address';
-import { CeloTx, EncodedTransaction, RLPEncodedTx } from '@celo/connect';
+import {normalizeAddressWith0x} from '@celo/base/lib/address';
+import {CeloTx, EncodedTransaction, RLPEncodedTx} from '@celo/connect';
 import {
   EIP712TypedData,
   generateTypedDataHash,
@@ -10,13 +10,13 @@ import {
   rlpEncodedTx,
 } from '@celo/wallet-base';
 import * as ethUtil from 'ethereumjs-util';
-import { fromRpcSig } from 'ethereumjs-util';
-import { KeyContainer } from './KeyContainer';
-import { logger } from './Logger';
-import { base64ToHex, hexToBase64, requestAndReauthenticate } from './helpers';
-import { PrivateKeyStorage } from './PrivateKeyStorage';
+import {fromRpcSig} from 'ethereumjs-util';
+import {KeyContainer} from './KeyContainer';
+import {logger} from './Logger';
+import {base64ToHex, hexToBase64, requestAndReauthenticate} from './helpers';
+import {PrivateKeyStorage} from './PrivateKeyStorage';
 import userManagementClient from './UserManagementClient';
-import { KeyType, SignerModule } from './SignerModule';
+import {KeyType, SignerModule} from './SignerModule';
 
 const TAG = 'Capsule/CapsuleSigner';
 
@@ -237,8 +237,8 @@ export abstract class CapsuleBaseSigner {
     // build it based on its configuration
     _addToV: number,
     encodedTx: RLPEncodedTx
-  ): Promise<{ v: number; r: Buffer; s: Buffer }> {
-    const { gasPrice } = encodedTx.transaction;
+  ): Promise<{v: number; r: Buffer; s: Buffer}> {
+    const {gasPrice} = encodedTx.transaction;
     if (
       gasPrice === '0x0' ||
       gasPrice === '0x' ||
@@ -278,7 +278,7 @@ export abstract class CapsuleBaseSigner {
   public async signPersonalMessage(
     address: string,
     data: string
-  ): Promise<{ v: number; r: Buffer; s: Buffer }> {
+  ): Promise<{v: number; r: Buffer; s: Buffer}> {
     logger.info(`${TAG}@signPersonalMessage`, `Signing ${data}`);
     const hash = ethUtil.hashPersonalMessage(
       Buffer.from(data.replace('0x', ''), 'hex')
@@ -296,7 +296,7 @@ export abstract class CapsuleBaseSigner {
   public async signTypedData(
     address: string,
     typedData: EIP712TypedData
-  ): Promise<{ v: number; r: Buffer; s: Buffer }> {
+  ): Promise<{v: number; r: Buffer; s: Buffer}> {
     if (!address) {
       throw Error('signTypedData invoked with incorrect address');
     }
@@ -356,20 +356,24 @@ export abstract class CapsuleBaseSigner {
     const serializedRecovery = JSON.stringify(recoveryPrivateKeyContainer);
     const serializedUser = JSON.stringify(userKeyContainer);
     // Create a user backup that can be decrypted by recovery
-    const encryptedUserBackup =
-      recoveryPrivateKeyContainer.encryptForSelf(serializedUser);
+    const encryptedUserBackup = recoveryPrivateKeyContainer.encryptForSelf(
+      serializedUser
+    );
     // Create a recovery backup that can be decrypted by user
-    const encryptedRecoveryBackup =
-      userKeyContainer.encryptForSelf(serializedRecovery);
+    const encryptedRecoveryBackup = userKeyContainer.encryptForSelf(
+      serializedRecovery
+    );
 
     // Upload the encrypted keyshares to Capsule server
     await requestAndReauthenticate(
       () =>
         userManagementClient.uploadKeyshares(this.userId, walletId, [
+          // @ts-ignore
           {
             encryptedShare: encryptedUserBackup,
             type: KeyType.USER,
           },
+          // @ts-ignore
           {
             encryptedShare: encryptedRecoveryBackup,
             type: KeyType.RECOVERY,
@@ -484,7 +488,7 @@ export abstract class CapsuleBaseSigner {
   private async signHash(
     hash: string,
     address: string
-  ): Promise<{ v: number; r: Buffer; s: Buffer }> {
+  ): Promise<{v: number; r: Buffer; s: Buffer}> {
     const walletId = await this.getWallet(this.userId, address);
     logger.info(`${TAG}@signHash`, 'walletId ' + walletId);
 
@@ -506,6 +510,6 @@ export abstract class CapsuleBaseSigner {
       JSON.stringify(fromRpcSig(signatureHex))
     );
     const signature = fromRpcSig(signatureHex);
-    return { v: signature.v, r: signature.r, s: signature.s };
+    return {v: signature.v, r: signature.r, s: signature.s};
   }
 }
