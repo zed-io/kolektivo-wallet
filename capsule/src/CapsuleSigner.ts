@@ -82,6 +82,48 @@ export abstract class CapsuleBaseSigner {
     return data;
   }
 
+  public async signMessageRequest(
+    userId: string,
+    walletId: string,
+    protocolId: string,
+    message: string,
+    signer: string,
+  ): Promise<{ signature: string }> {
+    const mpcComputationClient = this.initClient(
+      this.params.offloadMPCComputationURL,
+      true,
+    );
+    const { data } = await mpcComputationClient.post(`/wallets/${walletId}/messages/sign`, {
+      userId,
+      protocolId,
+      message,
+      signer,
+    });
+    return data;
+  }
+
+  public async sendTransactionRequest(
+    userId: string,
+    walletId: string,
+    protocolId: string,
+    transaction: string,
+    signer: string,
+    chainId: string,
+  ): Promise<{ signature: string }> {
+    const mpcComputationClient = this.initClient(
+      this.params.offloadMPCComputationURL,
+      true,
+    );
+    const { data } = await mpcComputationClient.post(`/wallets/${walletId}/transactions/send`, {
+      userId,
+      protocolId,
+      transaction,
+      signer,
+      chainId,
+    });
+    return data;
+  }
+
   public initClient(baseURL: string, useAdapter: boolean): AxiosInstance {
     const client = axios.create({ baseURL });
     if (useAdapter) {
@@ -320,7 +362,18 @@ export abstract class CapsuleBaseSigner {
     logger.debug(TAG, 'signTransaction Capsule protocolId', res.protocolId);
     logger.debug(TAG, 'signTransaction Capsule tx', tx);
     const key: KeyContainer = await this.getKeyContainer(address);
-    const signedTxBase64 = await this.getSignerModule().sendTransaction(
+    if (this.params.offloadMPCComputationURL) {
+      const signature = (await this.signMessageRequest(
+        this.userId,
+        walletId,
+        res.protocolId,
+        tx,
+        key.keyshare,
+      )).signature
+      return extractSignature(base64ToHex(signature));
+    }
+
+  const signedTxBase64 = await this.getSignerModule().sendTransaction(
       key.keyshare,
       res.protocolId,
       tx,
@@ -557,6 +610,17 @@ export abstract class CapsuleBaseSigner {
     logger.info(`${TAG}@signHash`, 'protocolId ' + res.protocolId);
     logger.info(`${TAG}@signHash`, `hash ` + hash);
     const keyContainer = await this.getKeyContainer(address);
+    if (this.params.offloadMPCComputationURL) {
+      const signature = (await this.signMessageRequest(
+        this.userId,
+        walletId,
+        res.protocolId,
+        hash,
+        keyContainer.keyshare,
+      )).signature
+      const rpcSignature = fromRpcSig(signature);
+      return {v: rpcSignature.v, r: rpcSignature.r, s: rpcSignature.s};
+    }
     const signatureHex = await this.getSignerModule().sendTransaction(
       res.protocolId,
       keyContainer.keyshare,
