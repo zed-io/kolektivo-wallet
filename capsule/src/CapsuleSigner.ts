@@ -17,8 +17,13 @@ import {base64ToHex, hexToBase64, requestAndReauthenticate} from './helpers';
 import {PrivateKeyStorage} from './PrivateKeyStorage';
 import userManagementClient from './UserManagementClient';
 import {KeyType, SignerModule} from './SignerModule';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 const TAG = 'Capsule/CapsuleSigner';
+
+interface CapsuleBaseSignerParams {
+  offloadMPCComputationURL: string; // URL of the MPC computation server
+}
 
 /**
  * CapsuleBaseSigner is the abstract class for managing Capsule accounts.
@@ -29,15 +34,18 @@ const TAG = 'Capsule/CapsuleSigner';
 export abstract class CapsuleBaseSigner {
   private readonly userId: string;
   private ensureSessionActive: () => Promise<void>;
+  private params: CapsuleBaseSignerParams;
 
   /**
    * Constructs a new CapsuleBaseSigner object
    * @param userId UserId registered with the Capsule Server
    * @param ensureSessionActive A function that ensures an active Capsule session
    */
-  constructor(userId: string, ensureSessionActive: () => Promise<void>) {
+  constructor(userId: string, ensureSessionActive: () => Promise<void>,
+  params: CapsuleBaseSignerParams) {
     this.userId = userId;
     this.ensureSessionActive = ensureSessionActive;
+    this.params = params;
   }
 
   // ------------- Platform-specific functionalities -------------
@@ -57,6 +65,50 @@ export abstract class CapsuleBaseSigner {
 
   // ------------- Public methods -------------
 
+  public async keygenRequest(
+    userId: string,
+    walletId: string,
+    protocolId: string,
+  ): Promise<{ signer: string }> {
+    const mpcComputationClient = this.initClient(
+      this.params.offloadMPCComputationURL,
+      true,
+    );
+    const { data } = await mpcComputationClient.post('/wallets', {
+      userId,
+      walletId,
+      protocolId,
+    });
+    return data;
+  }
+
+  public initClient(baseURL: string, useAdapter: boolean): AxiosInstance {
+    const client = axios.create({ baseURL });
+    if (useAdapter) {
+      client.defaults.adapter = function(config: AxiosRequestConfig) {
+        return fetch(config.baseURL! + config.url, {
+          method: config.method,
+          headers: config.headers as any,
+          body: config.data,
+          credentials: config.withCredentials ? 'include' : undefined
+        }).then(response =>
+          response.text().then(text => ({
+            data: text,
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers,
+            config: config,
+            request: fetch
+          }))
+        ).catch(function(reason) {
+          throw reason;
+        });
+      } as any;
+    }
+
+    return client;
+  }
+
   /**
    * Creates a new 2/3 Capsule account. Uploads encrypted backups to Capsule
    * server. This will result in the new keyshare persisted
@@ -75,6 +127,15 @@ export abstract class CapsuleBaseSigner {
       () => userManagementClient.createWallet(this.userId),
       this.ensureSessionActive
     );
+    if (this.params.offloadMPCComputationURL) {
+      const signer = (await this.keygenRequest(this.userId, walletInfo.walletId, walletInfo.protocolId)).signer;
+      return this.encryptAndUploadKeys(
+        signer,
+        '',
+        walletInfo.walletId,
+        onRecoveryKeyshare
+      );
+    }
     const keyshares = await Promise.all([
       this.getSignerModule().createAccount(
         walletInfo.walletId,
