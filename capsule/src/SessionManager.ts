@@ -37,6 +37,8 @@ export default class SessionManager {
       `${this.userId}@usecapsule.com`,
       res.data.partnerId
     );
+    console.log(link);
+
     InAppBrowser.open(link);
     while (true) {
       if (await isSessionActive()) {
@@ -83,6 +85,7 @@ export default class SessionManager {
       'dummy',
       `${this.userId}@usecapsule.com`
     );
+    console.log(link);
 
     InAppBrowser.open(link);
     while (true) {
