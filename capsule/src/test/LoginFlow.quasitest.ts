@@ -7,7 +7,10 @@ import {v4 as uuidv4} from 'uuid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {USER_ID_TAG} from '../react-native/ReactNativeCapsuleWallet';
 import {ReactNativeSessionStorage} from '../react-native/ReactNativeSessionStorage';
-import {PublicKeyStatus, PublicKeyType} from '@capsule/client/client';
+import {
+  PublicKeyStatus,
+  PublicKeyType,
+} from '@usecapsule/user-management-client';
 // @ts-ignore
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 
