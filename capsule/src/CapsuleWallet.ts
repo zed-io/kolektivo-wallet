@@ -78,8 +78,8 @@ export abstract class CapsuleBaseWallet {
    * Requires userId to be initialized.
    * @category Public
    */
-  public async initSessionManagement() {
-    await this.initSessionManagerIfNeeded();
+  public async initSessionManagement(webauth = false) {
+    await this.initSessionManagerIfNeeded(webauth);
     await this.sessionManager!.setSessionKey();
   }
 
@@ -352,7 +352,7 @@ export abstract class CapsuleBaseWallet {
    * We initialize the manager late to ensure the userID is available.
    * @category Private
    */
-  private async initSessionManagerIfNeeded() {
+  private async initSessionManagerIfNeeded(webauth = false) {
     if (!this.sessionManager) {
       const userId = await this.getUserId();
       if (!userId) {
@@ -360,7 +360,8 @@ export abstract class CapsuleBaseWallet {
       }
       this.sessionManager = new SessionManager(
         userId,
-        this.getChallengeStorage(userId)
+        this.getChallengeStorage(userId),
+        webauth
       );
     }
   }
