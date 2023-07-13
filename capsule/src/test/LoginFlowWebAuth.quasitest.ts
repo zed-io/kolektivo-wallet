@@ -66,7 +66,7 @@ export const loginFlow = async () => {
   await userManagementClient.verifyEmail(userId, {
     verificationCode: '123456',
   });
-  await AsyncStorage.setItem(USER_ID_TAG, userId);
+  await AsyncStorage.setItem(USER_ID_TAG, userId + '|' + email);
 
   const res = await userManagementClient.addSessionPublicKey(userId, {
     status: PublicKeyStatus.PENDING,

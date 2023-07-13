@@ -13,6 +13,7 @@ import {
 
 export default class SessionManager {
   private userId: string;
+  private email: string;
   private sessionStorage: SessionStorage;
   private webauth: boolean;
   public async setSessionKey() {
@@ -34,7 +35,7 @@ export default class SessionManager {
     const link = getWebAuthURLForCreate(
       res.data.id,
       this.userId,
-      `${this.userId}@usecapsule.com`,
+      this.email,
       res.data.partnerId
     );
     console.log(link);
@@ -53,9 +54,11 @@ export default class SessionManager {
 
   constructor(
     userId: string,
+    email: string,
     sessionStorage: SessionStorage,
     webauth: boolean
   ) {
+    this.email = email;
     this.userId = userId;
     this.sessionStorage = sessionStorage;
     this.webauth = webauth;
@@ -83,7 +86,7 @@ export default class SessionManager {
     const link = getWebAuthURLForLogin(
       session.data.sessionId,
       'dummy',
-      `${this.userId}@usecapsule.com`
+      this.email
     );
     console.log(link);
 
