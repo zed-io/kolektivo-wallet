@@ -58,7 +58,6 @@ async function isSessionActive(): Promise<boolean> {
   );
 }
 
-// disable by default
 export const loginFlow = async () => {
   const email = `test-${uuidv4()}@test.usecapsule.com`;
   const {userId} = await userManagementClient.createUser({
@@ -102,10 +101,9 @@ export const loginFlow = async () => {
       return;
     }
     await userManagementClient.login(email);
-    const y = await userManagementClient.touchSession();
-    console.log(y);
+    const session = await userManagementClient.touchSession();
     const link = getWebAuthURLForLogin(
-      y.data.sessionId,
+      session.data.sessionId,
       'dummy',
       `${userId}@usecapsule.com`
     );
@@ -126,4 +124,5 @@ export const loginFlow = async () => {
   }
 };
 
+// disabled by default
 // void loginFlow();
