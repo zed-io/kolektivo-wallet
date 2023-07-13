@@ -88,7 +88,6 @@
     "@celo/utils": "1.5.2"
   },
   "dependencies": {
-    "@capsule/client": "git+ssh://github.com/capsule-org/user-management-client.git",
     "@usecapsule/user-management-client": "^0.3.0",
     "@celo/base": "1.2.0",
     "@celo/client": "0.0.355",
